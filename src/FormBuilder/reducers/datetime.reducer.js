@@ -2,8 +2,8 @@
 import { setValidation, deepClone } from '../actions/common.action';
 import moment from 'moment';
 
-var parseDate = function(d){
-    return d.getDate()+'/'+(d.getMonth()+1)+'/'+d.getFullYear();
+var parseDate = function (d) {
+    return d.getDate() + '/' + (d.getMonth() + 1) + '/' + d.getFullYear();
 }
 
 var datetimeState = {}
@@ -14,15 +14,15 @@ var initialState = {
         time: ['General', 'Validation', 'Rules']
     },
     activePanel: 'General',
-    edit : false,
-    data :{
+    edit: false,
+    data: {
         questionId: 0,
         name: '',
         caption: '',
         sectionId: 1,
         valueCheckRule: '',
-        timeRange: moment().fromNow()+'-'+moment().fromNow(),
-        dateRange: parseDate(new Date())+'-'+parseDate(new Date()),
+        timeRange: moment().fromNow() + '-' + moment().fromNow(),
+        dateRange: parseDate(new Date()) + '-' + parseDate(new Date()),
         fieldType: {
             fieldTypeId: 1,
             fieldId: 0,
@@ -42,7 +42,7 @@ export default function textField(state = initialState, action) {
     state = deepClone(state);
     datetimeState = state;
 
-    switch(action.type){
+    switch (action.type) {
 
         case 'DATETIME_CONFIGURE_PANEL_CHANGE':
             state = deepClone(state);
@@ -64,13 +64,13 @@ export default function textField(state = initialState, action) {
     return state;
 }
 
-var datetimeChange = function(e){
+var datetimeChange = function (e) {
 
-    var ob = (e.target.attributes.data.nodeValue === 'fieldType')?datetimeState.data.fieldType : datetimeState.data;
-    if(e.target.type === 'checkbox'){
+    var ob = (e.target.attributes.data.nodeValue === 'fieldType') ? datetimeState.data.fieldType : datetimeState.data;
+    if (e.target.type === 'checkbox') {
         ob[e.target.name] = !ob[e.target.name]
     }
-    else if(e.target.type === 'treatValidation'){
+    else if (e.target.type === 'treatValidation') {
         setValidation(e.target.value, datetimeState.data.fieldType);
     }
     else {
@@ -78,10 +78,10 @@ var datetimeChange = function(e){
     }
 }
 
-var setEditMode = function( data ) {
-    if( data.fieldType.fieldTypeName.toLowerCase() === 'time' ||
-        data.fieldType.fieldTypeName.toLowerCase() === 'date' ) {
-            datetimeState.data = data;
-            datetimeState.edit = true;
+var setEditMode = function (data) {
+    if (data.fieldType.fieldTypeName.toLowerCase() === 'time' ||
+        data.fieldType.fieldTypeName.toLowerCase() === 'date') {
+        datetimeState.data = data;
+        datetimeState.edit = true;
     }
 }

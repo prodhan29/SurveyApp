@@ -2,7 +2,7 @@ import { deepClone } from '../actions/common.action';
 
 let ruleState = {};
 let initialState = {
-    nodes:[
+    nodes: [
         {
             condition: '',
             skip: 'Section',
@@ -20,11 +20,11 @@ export default function jumpRule(state = initialState, action) {
 
     state = deepClone(state);
     ruleState = state;
-    switch(action.type){
+    switch (action.type) {
 
         case 'JUMP_RULE_DATA_CHANGE':
-            console.log('nodeIndex --> '+ action.payload.nodeIndex);
-            if(action.payload.data.target.type === 'radio') {
+            console.log('nodeIndex --> ' + action.payload.nodeIndex);
+            if (action.payload.data.target.type === 'radio') {
                 state.nodes[action.payload.nodeIndex].skip = action.payload.data.target.name;
             }
             else {
@@ -65,16 +65,16 @@ export default function jumpRule(state = initialState, action) {
 
 function nodeSectionChange(state, payload) {
 
-    console.log('jump rules'+ JSON.stringify(payload));
+    console.log('jump rules' + JSON.stringify(payload));
     let node = state.nodes[payload.nodeIndex];
-    if(node.skip === 'Section') {
+    if (node.skip === 'Section') {
         node.sectionList[payload.valueIndex] = payload.data;
     }
 }
 
 function addDropdown(state, nodeIndex) {
-    
-    if(state.nodes[nodeIndex].skip === 'Section') {
+
+    if (state.nodes[nodeIndex].skip === 'Section') {
         state.nodes[nodeIndex].sectionList.push({});
     }
     else {
@@ -86,7 +86,7 @@ function addDropdown(state, nodeIndex) {
     }
 }
 
-function addCondition(state){
+function addCondition(state) {
     state.nodes.push({
         condition: '',
         skip: 'Section',

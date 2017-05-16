@@ -1,4 +1,4 @@
-import { setValidation } from '../actions/common.action';
+import { setValidation, deepClone } from '../actions/common.action';
 
 var textState = {};
 var initialState = {
@@ -79,6 +79,3 @@ var setEditMode = function (data) {
     }
 }
 
-var deepClone = function (data) {
-    return JSON.parse(JSON.stringify(data));
-}

@@ -1,6 +1,6 @@
 'use strict'
 
-import {getSectionById, deepClone} from '../actions/common.action';
+import { getSectionById, deepClone } from '../actions/common.action';
 
 const formBuilder = {
 
@@ -16,13 +16,13 @@ const formBuilder = {
             index: null
         }
     },
-    cacheData:[]
+    cacheData: []
 }
 
 export default function project(state = formBuilder, action) {
 
     state = deepClone(state);
-    switch(action.type){
+    switch (action.type) {
 
         case 'FETCH_SECTIONS_FROM_SERVER':
             state.initialServerCall = true;
@@ -30,7 +30,7 @@ export default function project(state = formBuilder, action) {
             break;
 
         case 'FETCH_QUESTIONS_FROM_SERVER':
-            let fetchedQues =  (typeof action.payload.data === 'undefined') ? ([]) : action.payload.data;
+            let fetchedQues = (typeof action.payload.data === 'undefined') ? ([]) : action.payload.data;
             state.cacheData[state.active.section.index]['child'] = fetchedQues;
             break;
 
@@ -86,7 +86,7 @@ export default function project(state = formBuilder, action) {
 
 function sectionUpdate(state, payload) {
     let sec = state.cacheData[payload.index];
-    sec.name = payload.data.name,
+    sec.name = payload.data.name;
     sec.description = payload.data.description;
     sec.repetitive = payload.data.repetitive;
 }

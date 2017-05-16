@@ -1,3 +1,5 @@
+import { deepClone } from '../actions/common.action';
+
 const sec = {
 
     list: []
@@ -31,8 +33,4 @@ function sectionUpdate(state, payload) {
     sec.name = payload.data.name;
     sec.description = payload.data.description;
     sec.repetitive = payload.data.repetitive;
-}
-
-function deepClone(data) {
-    return JSON.parse(JSON.stringify(data));
 }

@@ -1,3 +1,5 @@
+import { deepClone } from '../actions/common.action';
+
 const question = {
     active: {},
     list: []
@@ -38,8 +40,4 @@ export default function questions(state = question, action) {
             break;
     }
     return state;
-}
-
-function deepClone(data) {
-    return JSON.parse(JSON.stringify(data));
 }
