@@ -2,13 +2,13 @@ import React from 'react';
 
 export default class SectionEdit extends React.Component {
 
-    constructor(props){
+    constructor(props) {
         super(props);
         this.state = JSON.parse(JSON.stringify(this.props.data));
     }
 
-    changeData=(e)=>{
-        if(e.target.type == 'checkbox'){
+    changeData = (e) => {
+        if (e.target.type === 'checkbox') {
             this.setState({
                 repetitive: e.target.checked
             })
@@ -20,7 +20,7 @@ export default class SectionEdit extends React.Component {
         }
     }
 
-    updateData=()=>{
+    updateData = () => {
         this.props.updateData(this.state);
         this.props.cancelEdit();
     }
@@ -31,38 +31,38 @@ export default class SectionEdit extends React.Component {
                 <form className="add_section_form">
                     <div className="form_row">
                         <span className="form_label">Section Name</span>
-                    <span className="form_field">
-                        <input type="text"
+                        <span className="form_field">
+                            <input type="text"
                                 name="name"
-                                onChange = {this.changeData}
+                                onChange={this.changeData}
                                 value={this.state.name} />
-                    </span>
+                        </span>
                     </div>
                     <div className="form_row">
                         <span className="form_label">Description</span>
-                    <span className="form_field">
-                        <textarea name="description"
-                                  onChange = {this.changeData}
-                                  value = {this.state.description}>
+                        <span className="form_field">
+                            <textarea name="description"
+                                onChange={this.changeData}
+                                value={this.state.description}>
 
-                            Lorem Ipsum simply dummy text in print industry
+                                Lorem Ipsum simply dummy text in print industry
                         </textarea>
-                    </span>
+                        </span>
                     </div>
                     <div className="form_row checkbox_row">
                         <div className="">
                             <label>
                                 <input type="checkbox"
-                                        checked= {this.state.repetitive}
-                                        onChange = {this.changeData}
-                                        name="repetitive" />Repeatable
+                                    checked={this.state.repetitive}
+                                    onChange={this.changeData}
+                                    name="repetitive" />Repeatable
                             </label>
                         </div>
                     </div>
                 </form>
                 <div className="btn_row flex_btn_row">
-                    <button onClick = {this.updateData}>Update</button>
-                    <button onClick = {this.props.cancelEdit}>Cancel</button>
+                    <button onClick={this.updateData}>Update</button>
+                    <button onClick={this.props.cancelEdit}>Cancel</button>
                 </div>
             </div>
         );

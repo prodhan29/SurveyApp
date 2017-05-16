@@ -1,4 +1,3 @@
-'user strict'
 
 // this container represents 3 types
 // 1)text  2)suggestion 3)Barcode
@@ -15,20 +14,20 @@ import * as TextAction from '../actions/text.action';
 
 class Text extends React.Component {
 
-    handleChange=(e)=> {
+    handleChange = (e) => {
         this.props.changeConfigPanel(e);
     }
 
-    getPanels=()=>{
+    getPanels = () => {
 
         var _this = this;
-        const panels = this.props.txt.configPanels.map(function(value, index){
+        const panels = this.props.txt.configPanels.map(function (value, index) {
 
-            var active = ( _this.props.txt.activePanel == value) ? "tab_nav_item active" : "tab_nav_item ";
-            return(
-                <li className = {active} key = {index}
-                                     name = {value}
-                                     onClick = {()=> _this.props.changeConfigPanel(value) }>
+            var active = (_this.props.txt.activePanel === value) ? "tab_nav_item active" : "tab_nav_item ";
+            return (
+                <li className={active} key={index}
+                    name={value}
+                    onClick={() => _this.props.changeConfigPanel(value)}>
                     {value}
                 </li>
             );
@@ -37,41 +36,41 @@ class Text extends React.Component {
         return panels;
     }
 
-    getActivePanel=()=> {
+    getActivePanel = () => {
 
-        switch(this.props.txt.activePanel){
+        switch (this.props.txt.activePanel) {
 
             case "Values":
-                return <Values data = {this.props.txt.data.allowedValues}
-                               dataChange = {this.props.dataChange}/>
+                return <Values data={this.props.txt.data.allowedValues}
+                    dataChange={this.props.dataChange} />
 
             case "Validation":
-                return <TextValidation project = {this.props.project}
-                                       data = {this.props.txt.data}
-                                       dataChange = {this.props.dataChange}/>
+                return <TextValidation project={this.props.project}
+                    data={this.props.txt.data}
+                    dataChange={this.props.dataChange} />
 
             default:
-                return <General data = {this.props.txt.data}
-                                dataChange = {this.props.dataChange}/>
+                return <General data={this.props.txt.data}
+                    dataChange={this.props.dataChange} />
         }
     }
 
     render() {
 
-        return(
+        return (
             <section className="builder_right field_configuration">
                 <ul className="tab_nav compact_nav">
-                    { this.getPanels() }
+                    {this.getPanels()}
                 </ul>
                 <div className="tab_content">
-                    { this.getActivePanel() }
+                    {this.getActivePanel()}
                 </div>
             </section>
         );
     }
 }
 
-function mapStateToProps( state ){
+function mapStateToProps(state) {
 
     return {
         txt: state.Text,
@@ -79,13 +78,13 @@ function mapStateToProps( state ){
     };
 }
 
-function mapDispatchToProps( dispatch ) {
+function mapDispatchToProps(dispatch) {
 
     return bindActionCreators({
-        dataChange       :  TextAction.dataChange,
+        dataChange: TextAction.dataChange,
         changeConfigPanel: TextAction.textConfigurePanelChange
 
-    }, dispatch );
+    }, dispatch);
 
 }
 

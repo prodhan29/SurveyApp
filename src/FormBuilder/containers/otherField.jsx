@@ -6,17 +6,17 @@ import * as OtherFieldAction from '../actions/otherField.action';
 
 class OtherField extends React.Component {
 
-    render(){
-        return(
+    render() {
+        return (
             <section className="builder_right field_configuration">
                 <ul className="tab_nav compact_nav">
-                    <li className = "tab_nav_item active" >
+                    <li className="tab_nav_item active" >
                         General
                     </li>
                 </ul>
                 <div className="tab_content">
-                    <General data = {this.props.otherField.data}
-                             dataChange = {this.props.dataChange}/>
+                    <General data={this.props.otherField.data}
+                        dataChange={this.props.dataChange} />
                 </div>
             </section>
         );
@@ -36,4 +36,4 @@ function mapDispatchToProps(dispatch) {
     }, dispatch);
 }
 
-export default connect (mapStateToProps, mapDispatchToProps)(OtherField);
+export default connect(mapStateToProps, mapDispatchToProps)(OtherField);

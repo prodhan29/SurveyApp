@@ -1,4 +1,3 @@
-'user strict'
 
 import React from 'react';
 import { connect } from 'react-redux';
@@ -13,18 +12,18 @@ import * as GroupDropAction from '../actions/groupDrop.action';
 
 class GroupDropdown extends React.Component {
 
-    getPanels=()=>{
+    getPanels = () => {
 
         var _me = this;
         var panelNames = this.props.groupDrop.configPanels;
-        const panels = panelNames.map(function(value, index){
+        const panels = panelNames.map(function (value, index) {
 
-            var active = ( _me.props.groupDrop.activePanel == value) ? "tab_nav_item active"
-                                                                     : "tab_nav_item ";
-            return(
-                <li className = {active} key = {index}
-                                     name = {value}
-                                     onClick = {()=> _me.props.changeConfigPanel(value) }>
+            var active = (_me.props.groupDrop.activePanel === value) ? "tab_nav_item active"
+                : "tab_nav_item ";
+            return (
+                <li className={active} key={index}
+                    name={value}
+                    onClick={() => _me.props.changeConfigPanel(value)}>
                     {value}
                 </li>
             );
@@ -32,52 +31,58 @@ class GroupDropdown extends React.Component {
         return panels;
     }
 
-    getValidationAns=()=>{
-        if(!this.props.groupDrop.data.fieldType.treatAsError
-            && !this.props.groupDrop.data.fieldType.treatAsWarning){ return 3; }
+    getValidationAns = () => {
+        if (!this.props.groupDrop.data.fieldType.treatAsError
+            && !this.props.groupDrop.data.fieldType.treatAsWarning) { return 3; }
 
-        else if(this.props.groupDrop.data.fieldType.treatAsError){ return 2; }
+        else if (this.props.groupDrop.data.fieldType.treatAsError) { return 2; }
         else { return 1; }
     }
 
-    getActivePanel=()=> {
+    getActivePanel = () => {
 
-        switch(this.props.groupDrop.activePanel){
+        switch (this.props.groupDrop.activePanel) {
 
             case "Validation":
-                return <Validation data = 'treatValidation'
-                                    ans = {this.getValidationAns()}
-                                    onchange = {this.props.dataChange}/>;
+                return <Validation data='treatValidation'
+                    ans={this.getValidationAns()}
+                    onchange={this.props.dataChange} />;
 
             case "Rules":
-                return <Rules rules = '1'/>;
+                return (
+                    <Rules rules='1' />
+                )
 
             case "Values":
-                return <Values data = {this.props.groupDrop.data.optionValues}
-                                dataChange = {this.props.dataChange}/>;
-                return <h2> hello rules</h2>
+                return (
+                    <Values data={this.props.groupDrop.data.optionValues}
+                        dataChange={this.props.dataChange} />
+                );
+
             default:
-                return <General data = {this.props.groupDrop.data}
-                                dataChange = {this.props.dataChange}/>;
+                return (
+                    <General data={this.props.groupDrop.data}
+                        dataChange={this.props.dataChange} />
+                );
         }
     }
 
     render() {
 
-        return(
+        return (
             <section className="builder_right field_configuration">
                 <ul className="tab_nav compact_nav">
-                    { this.getPanels() }
+                    {this.getPanels()}
                 </ul>
                 <div className="tab_content">
-                    { this.getActivePanel() }
+                    {this.getActivePanel()}
                 </div>
             </section>
         )
     }
 }
 
-function mapStateToProps( state ) {
+function mapStateToProps(state) {
 
     return {
         groupDrop: state.GroupDrop,
@@ -85,12 +90,12 @@ function mapStateToProps( state ) {
     };
 }
 
-function mapDispatchToProps( dispatch ) {
+function mapDispatchToProps(dispatch) {
 
-    return bindActionCreators( {
+    return bindActionCreators({
         dataChange: GroupDropAction.dataChange,
         changeConfigPanel: GroupDropAction.configPanelChange
-    }, dispatch );
+    }, dispatch);
 
 }
 

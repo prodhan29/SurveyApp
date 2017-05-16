@@ -1,6 +1,5 @@
-'use strict'
 
-import { setValidation } from '../actions/common.action';
+import { setValidation, deepClone } from '../actions/common.action';
 
 var vcState = {};
 var initialState = {
@@ -19,8 +18,4 @@ export default function textField(state = initialState, action) {
             break;
     }
     return state;
-}
-
-var deepClone = function(data){
-    return JSON.parse(JSON.stringify(data));
 }

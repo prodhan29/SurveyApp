@@ -1,6 +1,4 @@
-'use strict'
-
-import { setValidation } from '../actions/common.action';
+import { setValidation, deepClone } from '../actions/common.action';
 
 var groupDropState = {};
 var initialState = {
@@ -49,11 +47,11 @@ export default function groupDropField(state = initialState, action) {
 
 var groupDropChange = function(e){
 
-    var ob = (e.target.attributes.data.nodeValue == 'fieldType')?groupDropState.data.fieldType : groupDropState.data;
-    if(e.target.type == 'checkbox'){
+    var ob = (e.target.attributes.data.nodeValue === 'fieldType')?groupDropState.data.fieldType : groupDropState.data;
+    if(e.target.type === 'checkbox'){
         ob[e.target.name] = !ob[e.target.name];
     }
-    else if(e.target.type == 'treatValidation'){
+    else if(e.target.type === 'treatValidation'){
         setValidation(e.target.value, groupDropState.data.fieldType);
     }
     else {
@@ -62,12 +60,8 @@ var groupDropChange = function(e){
 }
 
 var setEditMode = function( data ) {
-    if( data.fieldType.fieldTypeName.toLowerCase() == 'dropdown') {
+    if( data.fieldType.fieldTypeName.toLowerCase() === 'dropdown') {
         groupDropState.data = data;
         groupDropState.edit = true;
     }
-}
-
-var deepClone = function(data){
-    return JSON.parse(JSON.stringify(data));
 }

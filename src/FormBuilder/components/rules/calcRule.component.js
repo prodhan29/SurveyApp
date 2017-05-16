@@ -2,17 +2,17 @@ import React from 'react';
 import QuestionBox from '../../components/rules/questionBox.component';
 import Operators from './operator.component';
 
-export default class CalcRule extends React.Component{
+export default class CalcRule extends React.Component {
 
     /*getNodes=()=>{
 
         var ob1_ref = this.props.data;
         let _this = this;
 
-        if(ob1_ref.length == 0)return null;
+        if(ob1_ref.length === 0)return null;
         var items = ob1_ref.map(function(value1, index1){
 
-            if(value1.child.length == 0) {
+            if(value1.child.length === 0) {
                 return (
                     <QuestionBox key ={index1}
                                  data = {value1}
@@ -64,65 +64,65 @@ export default class CalcRule extends React.Component{
         return items;
     }*/
 
-    makeNodes=(questions)=>{
-        if(questions.length === 0) return null;
+    makeNodes = (questions) => {
+        if (questions.length === 0) return null;
 
         let _this = this;
         let ob1_ref = questions;
-        return questions.map(function(value, index) {
+        return questions.map(function (value, index) {
 
-            if(value.child.length === 0) {
-                return(
-                    <QuestionBox key ={index}
-                                 data = {value}
-                                 saveNode = {(info)=>_this.props.saveNode(info ,value)}
-                                 project = {_this.props.project}
-                                 deleteNode = {()=>_this.props.deleteNode(ob1_ref, index)}
-                                 toggleQuesBank = {(e)=> _this.props.toggleQuesBank(ob1_ref, value)}
-                                 onOperatorClick = {(op)=>_this.props.onOperatorClick(op, ob1_ref, value)}
-                                 fetchAndCache = {_this.props.fetchAndCache}/>
+            if (value.child.length === 0) {
+                return (
+                    <QuestionBox key={index}
+                        data={value}
+                        saveNode={(info) => _this.props.saveNode(info, value)}
+                        project={_this.props.project}
+                        deleteNode={() => _this.props.deleteNode(ob1_ref, index)}
+                        toggleQuesBank={(e) => _this.props.toggleQuesBank(ob1_ref, value)}
+                        onOperatorClick={(op) => _this.props.onOperatorClick(op, ob1_ref, value)}
+                        fetchAndCache={_this.props.fetchAndCache} />
                 );
             }
             else {
 
-               let childNodes = _this.makeNodes(value.child);
-               return (
-                   <div key = {index}>
-                        <QuestionBox project = {_this.props.project}
-                                     data = {value}
-                                     saveNode = {(info)=>_this.props.saveNode(info, value)}
-                                     deleteNode = {()=>_this.props.deleteNode(ob1_ref, index)}
-                                     toggleQuesBank = {()=> _this.props.toggleQuesBank(ob1_ref, value)}
-                                     onOperatorClick = {(op)=>_this.props.onOperatorClick(op, ob1_ref, value)}
-                                     fetchAndCache = {_this.props.fetchAndCache} />
+                let childNodes = _this.makeNodes(value.child);
+                return (
+                    <div key={index}>
+                        <QuestionBox project={_this.props.project}
+                            data={value}
+                            saveNode={(info) => _this.props.saveNode(info, value)}
+                            deleteNode={() => _this.props.deleteNode(ob1_ref, index)}
+                            toggleQuesBank={() => _this.props.toggleQuesBank(ob1_ref, value)}
+                            onOperatorClick={(op) => _this.props.onOperatorClick(op, ob1_ref, value)}
+                            fetchAndCache={_this.props.fetchAndCache} />
 
                         <div className="rule_cell group_rules"  >
                             <div className="group_rules_wrapper">
                                 {childNodes}
                             </div>
                         </div>
-                        <Operators items = {['+', '-', '/', 'X', '()']}
-                                   saveOperator = {(op)=>_this.props.onOperatorClick(op, ob1_ref, value)}
-                                   data = {value.relation}/>
+                        <Operators items={['+', '-', '/', 'X', '()']}
+                            saveOperator={(op) => _this.props.onOperatorClick(op, ob1_ref, value)}
+                            data={value.relation} />
                     </div>
-               )
+                )
             }
         });
     }
 
-    getNodes=()=>{
+    getNodes = () => {
         console.log(JSON.stringify(this.props.data));
         let nodes = this.makeNodes(this.props.data);
         return nodes;
     }
 
-    render(){
+    render() {
 
         console.log(this.props.data.length);
-        return(
+        return (
             <div className="rules_block">
                 <div className="segment_title">Calculation Rules
-                    <span className="remove" onClick = {this.props.toggleRule}>+ Remove</span></div>
+                    <span className="remove" onClick={this.props.toggleRule}>+ Remove</span></div>
                 <div className="segment_content no_content">
                     <div className="segment_content">
                         <div className="rules_condition">
@@ -132,9 +132,9 @@ export default class CalcRule extends React.Component{
                         <div className="condition_summary">
                             <div className="form_row">
                                 <span className="form_label">Expression</span>
-                            <span className="form_field condition_summary_field">
-                                {this.props.result}
-                            </span>
+                                <span className="form_field condition_summary_field">
+                                    {this.props.result}
+                                </span>
                             </div>
                         </div>
                     </div>

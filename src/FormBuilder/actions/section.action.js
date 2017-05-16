@@ -1,10 +1,9 @@
 import axios from 'axios'
 
 export function change(data, index) {
-
     return {
         type: 'SECTION_CHANGE',
-        payload:{
+        payload: {
             data,
             index,
         }
@@ -14,7 +13,7 @@ export function change(data, index) {
 export function update(data, index) {
     return {
         type: 'SECTION_UPDATE',
-        payload: {data, index}
+        payload: { data, index }
     }
 }
 
@@ -27,8 +26,7 @@ export function createSection(payload) {
 
 // loading initial sctions and questions
 export function fetchSections() {
-
-    var sections =  axios.get('/server/sections.json');
+    var sections = axios.get('/server/sections.json');
     return {
         type: 'FETCH_SECTIONS_FROM_SERVER',
         payload: sections

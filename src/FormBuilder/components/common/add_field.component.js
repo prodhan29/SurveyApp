@@ -3,17 +3,17 @@ import React from 'react';
 
 export default class AddField extends React.Component {
 
-    constructor(){
+    constructor() {
         super();
         this.state = {
             activePanel: 'general',
-            general: [ "text", "suggestion", "number", "float", "date", "time", "checkbox", "dropdown"],
+            general: ["text", "suggestion", "number", "float", "date", "time", "checkbox", "dropdown"],
             group: ["groupDrop"],
             other: ["image", "barcode", "gprs", "signature"]
         }
     }
 
-    changePanel=(data)=> {
+    changePanel = (data) => {
 
         console.log(data);
         this.setState({
@@ -21,22 +21,22 @@ export default class AddField extends React.Component {
         })
     }
 
-    getclassName=(data)=> {
+    getclassName = (data) => {
 
-        return (data == this.state.activePanel)? "tab_nav_item active" : "tab_nav_item";
+        return (data === this.state.activePanel) ? "tab_nav_item active" : "tab_nav_item";
     }
 
-    selectPanel=(value)=>{
+    selectPanel = (value) => {
         this.props.selectConfigPanel(value);
         this.props.onClick();
     }
     render() {
 
         var _this = this;
-        const fieldItems = this.state[this.state.activePanel].map(function(val, index) {
+        const fieldItems = this.state[this.state.activePanel].map(function (val, index) {
 
-            return(
-                <div className="field_type date" key = {index} onClick = {()=>_this.selectPanel(val)}>
+            return (
+                <div className="field_type date" key={index} onClick={() => _this.selectPanel(val)}>
                     <span className="field_type_icon"></span>
                     <span className="field_type_text"> {val} </span>
                 </div>
@@ -47,17 +47,17 @@ export default class AddField extends React.Component {
         return (
 
             <div className="add_field_row">
-                <button onClick = {this.props.onClick} >Add Field</button>
-                <div id = "fieldbox" className="add_field_dropdown dropdown_panel" >
+                <button onClick={this.props.onClick} >Add Field</button>
+                <div id="fieldbox" className="add_field_dropdown dropdown_panel" >
                     <ul className="tab_nav compact_nav">
-                        <li className= { this.getclassName('general') }
-                            onClick = {()=> this.changePanel('general')}>General Fields</li>
+                        <li className={this.getclassName('general')}
+                            onClick={() => this.changePanel('general')}>General Fields</li>
 
-                        <li className={ this.getclassName('group') }
-                            onClick = {()=> this.changePanel('group')}>Group Fields</li>
+                        <li className={this.getclassName('group')}
+                            onClick={() => this.changePanel('group')}>Group Fields</li>
 
-                        <li className={ this.getclassName('other') }
-                            onClick = {()=> this.changePanel('other')}>Other Fields</li>
+                        <li className={this.getclassName('other')}
+                            onClick={() => this.changePanel('other')}>Other Fields</li>
                     </ul>
                     <div className="tab_content">
                         <div className="field_type_items">

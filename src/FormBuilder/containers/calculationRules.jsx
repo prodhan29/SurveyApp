@@ -1,4 +1,3 @@
-'user strict'
 
 import React from 'react';
 import { connect } from 'react-redux';
@@ -7,8 +6,8 @@ import { bindActionCreators } from 'redux';
 import StartPanel from '../components/rules/startpanel.component';
 import CalcRule from '../components/rules/calcRule.component';
 // Actions
-import {fetchAndCache} from '../actions/project.action';
-import {dataChangeInCalcRule} from '../actions/rules.action';
+import { fetchAndCache } from '../actions/project.action';
+import { dataChangeInCalcRule } from '../actions/rules.action';
 
 var initialNode = {
     info: {
@@ -25,7 +24,7 @@ class CalculationRule extends React.Component {
 
     constructor(props) {
         super(props);
-        console.log('updated calcrule...'+JSON.stringify(this.props.data));
+        console.log('updated calcrule...' + JSON.stringify(this.props.data));
         let _this = this;
         this.state = {
             addRule: false,
@@ -33,14 +32,14 @@ class CalculationRule extends React.Component {
         }
     }
 
-    parse=(ob)=> {
+    parse = (ob) => {
         return JSON.parse(JSON.stringify(ob));
     }
 
-    onOperatorClick=(op, parent, node)=> {
+    onOperatorClick = (op, parent, node) => {
         let _this = this;
 
-        if(op != '()') {
+        if (op != '()') {
             node.relation = op;
             parent.push(this.parse(initialNode));
             this.setState({ nodes: _this.state.nodes });
@@ -50,58 +49,58 @@ class CalculationRule extends React.Component {
             node.childRelation = node.relation;
             node.relation = '...';
             node['child'].push(_this.parse(initialNode));
-            this.setState({node});
+            this.setState({ node });
         }
         this.props.dataChangeInCalcRule(this.state.nodes);
     }
 
-    deleteNode=(parent, index)=> {
-        console.log('deleting node '+ index);
+    deleteNode = (parent, index) => {
+        console.log('deleting node ' + index);
         parent.splice(index, 1);
-        this.setState({parent});
+        this.setState({ parent });
         this.props.dataChangeInCalcRule(this.state.nodes);
     }
 
-    toggleRule=()=>{
+    toggleRule = () => {
         var _this = this;
-        this.setState({addRule: _this.state.addRule ? false : true});
+        this.setState({ addRule: _this.state.addRule ? false : true });
     }
     // showing section accordion for each dropdown
-    toggleQuesBank=(parent, node)=>{
+    toggleQuesBank = (parent, node) => {
         node.showQuestions = !node.showQuestions;
-        this.setState({node});
+        this.setState({ node });
     }
     // info contains the selected section and question information
-    saveNode=(info, node)=>{
+    saveNode = (info, node) => {
         node.info = info;
-        this.setState({node});
+        this.setState({ node });
         this.props.dataChangeInCalcRule(this.state.nodes);
     }
 
-    getCalcRule=()=>{
-        if(!this.state.addRule){
-            return(
-                <StartPanel operators = {['+', '-', '/', 'X', '()']}
-                            toggleRule = {this.toggleRule}/>
+    getCalcRule = () => {
+        if (!this.state.addRule) {
+            return (
+                <StartPanel operators={['+', '-', '/', 'X', '()']}
+                    toggleRule={this.toggleRule} />
             );
         }
         else {
-            return(
-                <CalcRule data = {this.state.nodes}
-                          toggleRule = {this.toggleRule}
-                          onOperatorClick = {this.onOperatorClick}
-                          deleteNode = {this.deleteNode}
-                          project = {this.props.project}
-                          fetchAndCache = {this.props.fetchAndCache}
-                          toggleQuesBank = {this.toggleQuesBank}
-                          saveNode = {this.saveNode}
-                          result = {this.props.data.result} />
+            return (
+                <CalcRule data={this.state.nodes}
+                    toggleRule={this.toggleRule}
+                    onOperatorClick={this.onOperatorClick}
+                    deleteNode={this.deleteNode}
+                    project={this.props.project}
+                    fetchAndCache={this.props.fetchAndCache}
+                    toggleQuesBank={this.toggleQuesBank}
+                    saveNode={this.saveNode}
+                    result={this.props.data.result} />
             );
         }
     }
 
     render() {
-        return(
+        return (
             <div>
                 {this.getCalcRule()}
             </div>
@@ -109,7 +108,7 @@ class CalculationRule extends React.Component {
     }
 }
 
-function mapStateToProps( state ){
+function mapStateToProps(state) {
 
     return {
         data: state.CalcRule,
@@ -117,13 +116,12 @@ function mapStateToProps( state ){
     };
 }
 
-function mapDispatchToProps( dispatch ) {
+function mapDispatchToProps(dispatch) {
 
-    return bindActionCreators( {
+    return bindActionCreators({
         fetchAndCache,
         dataChangeInCalcRule
-    }, dispatch );
-
+    }, dispatch);
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(CalculationRule);

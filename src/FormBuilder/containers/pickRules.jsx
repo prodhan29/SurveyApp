@@ -1,13 +1,12 @@
-'user strict'
 
 import React from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import Dropdown from '../components/rules/dropdown.component';
 // Actions
-import {questionExist, getQuestionsBySectionId} from '../actions/common.action';
-import {fetchAndCache} from '../actions/project.action';
-import {dataChangeInPickRule} from '../actions/rules.action';
+import { questionExist, getQuestionsBySectionId } from '../actions/common.action';
+import { fetchAndCache } from '../actions/project.action';
+import { dataChangeInPickRule } from '../actions/rules.action';
 
 class PickRule extends React.Component {
 
@@ -18,39 +17,39 @@ class PickRule extends React.Component {
         }
     }
 
-    getStyle=(value)=>{
-        if (this.state.show == true && value == 'remove' || this.state.show == false && value == 'add') {
+    getStyle = (value) => {
+        if ((this.state.show === true && value === 'remove' )|| (this.state.show === false && value === 'add')) {
             return { display: 'block' }
         }
         else {
-            return { display: 'none'};
+            return { display: 'none' };
         }
     }
 
-    toggle=(value)=>{
+    toggle = (value) => {
         let _this = this;
-        this.setState({ show: !_this.state.show});
+        this.setState({ show: !_this.state.show });
     }
 
-    getSelectedQuestion=(question)=>{
-        return (typeof question.name == 'undefined')? 'select a question' : question.name;
+    getSelectedQuestion = (question) => {
+        return (typeof question.name === 'undefined') ? 'select a question' : question.name;
     }
 
-    getSelectedSection=(section)=>{
-        return (typeof section.name == 'undefined')? 'select a sectionn' : section.name;
+    getSelectedSection = (section) => {
+        return (typeof section.name === 'undefined') ? 'select a sectionn' : section.name;
     }
 
-    getQuestionList=(section)=>{
+    getQuestionList = (section) => {
         var ar = getQuestionsBySectionId(this.props.project.cacheData, section.sectionId);
-        return (typeof ar == 'undefined') ? ([]) : ar;
+        return (typeof ar === 'undefined') ? ([]) : ar;
     }
 
-    saveQuestion=(question, index, name)=>{
+    saveQuestion = (question, index, name) => {
         this.props.dataChangeInPickRule(question, name);
     }
 
-    getQuestions=(section, index, name)=>{
-        if(!questionExist(section)){
+    getQuestions = (section, index, name) => {
+        if (!questionExist(section)) {
             this.props.fetchAndCache(section, index);
         }
         this.props.dataChangeInPickRule(section, name);
@@ -58,34 +57,34 @@ class PickRule extends React.Component {
 
     render() {
 
-        return(
+        return (
             <section>
-                <div className="rules_block" style = {this.getStyle('add')}>
-                    <div className="segment_title">Value Check Rules<span className="add" onClick = {this.toggle}>+ Add</span></div>
+                <div className="rules_block" style={this.getStyle('add')}>
+                    <div className="segment_title">Value Check Rules<span className="add" onClick={this.toggle}>+ Add</span></div>
                     <div className="segment_content no_content">No Rules Added yet</div>
                 </div>
-                <div className="rules_block" style = {this.getStyle('remove')}>
+                <div className="rules_block" style={this.getStyle('remove')}>
                     <div className="segment_title">Value Check Rules
-                        <span className="remove" onClick = {this.toggle}>Remove</span>
+                        <span className="remove" onClick={this.toggle}>Remove</span>
                     </div>
                     <div className="segment_content">
                         <div className="rules_condition">
                             <div className="rule_cell">
                                 <i className="material-icons close_rule">close</i>
-                                <Dropdown name = 'section'
-                                          items = {this.props.project.cacheData}
-                                          onClick = {this.getQuestions}
-                                          selectedData = {this.getSelectedSection(this.props.data.section)} />
-                             </div>
+                                <Dropdown name='section'
+                                    items={this.props.project.cacheData}
+                                    onClick={this.getQuestions}
+                                    selectedData={this.getSelectedSection(this.props.data.section)} />
+                            </div>
 
-                            <br/>
+                            <br />
                             <div className="rule_cell">
                                 <i className="material-icons close_rule">close</i>
-                                <Dropdown name = 'question'
-                                          items = {this.getQuestionList(this.props.data.section)}
-                                          onClick = {this.saveQuestion}
-                                          selectedData = {this.getSelectedQuestion(this.props.data.question)} />
-                            </div>            
+                                <Dropdown name='question'
+                                    items={this.getQuestionList(this.props.data.section)}
+                                    onClick={this.saveQuestion}
+                                    selectedData={this.getSelectedQuestion(this.props.data.question)} />
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -94,7 +93,7 @@ class PickRule extends React.Component {
     }
 }
 
-function mapStateToProps( state ){
+function mapStateToProps(state) {
 
     return {
         data: state.PickRule,
@@ -102,12 +101,12 @@ function mapStateToProps( state ){
     };
 }
 
-function mapDispatchToProps( dispatch ) {
+function mapDispatchToProps(dispatch) {
 
-    return bindActionCreators( {
+    return bindActionCreators({
         fetchAndCache,
         dataChangeInPickRule
-    }, dispatch );
+    }, dispatch);
 
 }
 

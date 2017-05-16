@@ -1,4 +1,4 @@
-'use strict'
+import { deepClone } from '../actions/common.action';
 
 let ruleState = {};
 let initialState = {
@@ -24,7 +24,7 @@ export default function jumpRule(state = initialState, action) {
 
         case 'JUMP_RULE_DATA_CHANGE':
             console.log('nodeIndex --> '+ action.payload.nodeIndex);
-            if(action.payload.data.target.type == 'radio') {
+            if(action.payload.data.target.type === 'radio') {
                 state.nodes[action.payload.nodeIndex].skip = action.payload.data.target.name;
             }
             else {
@@ -67,14 +67,14 @@ function nodeSectionChange(state, payload) {
 
     console.log('jump rules'+ JSON.stringify(payload));
     let node = state.nodes[payload.nodeIndex];
-    if(node.skip == 'Section') {
+    if(node.skip === 'Section') {
         node.sectionList[payload.valueIndex] = payload.data;
     }
 }
 
 function addDropdown(state, nodeIndex) {
-    console.log('addd')
-    if(state.nodes[nodeIndex].skip == 'Section') {
+    
+    if(state.nodes[nodeIndex].skip === 'Section') {
         state.nodes[nodeIndex].sectionList.push({});
     }
     else {
@@ -117,8 +117,4 @@ function toggleQuesBank(state, payload) {
 
 function deleteCondition(state, nodeIndex) {
     state.nodes.splice(nodeIndex, 1);
-}
-
-var deepClone = function(data){
-    return JSON.parse(JSON.stringify(data));
 }

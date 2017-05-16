@@ -1,7 +1,6 @@
 import axios from 'axios'
 
 export function textConfigurePanelChange(payload) {
-
     return {
         type: 'TEXT_CONFIGURE_PANEL_CHANGE',
         payload,
@@ -9,8 +8,7 @@ export function textConfigurePanelChange(payload) {
 }
 
 export function dataChange(payload) {
-
-    return{
+    return {
         type: 'TEXT_CHANGE',
         payload
     }

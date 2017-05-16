@@ -1,5 +1,3 @@
-'use strict'
-
 const question = {
     active: {},
     list: []
@@ -8,10 +6,10 @@ const question = {
 export default function questions(state = question, action) {
 
     state = deepClone(state);
-    switch(action.type){
+    switch (action.type) {
 
         case 'FETCH_QUESTIONS_FROM_SERVER':
-            if (typeof action.payload.data === 'undefined'){
+            if (typeof action.payload.data === 'undefined') {
                 state.list = [];
             } else {
                 state.list = action.payload.data;
@@ -38,11 +36,10 @@ export default function questions(state = question, action) {
         case 'QUESTION_DELETE':
             state.list.splice(action.payload.index, 1);
             break;
-
     }
     return state;
 }
 
-function deepClone(data){
+function deepClone(data) {
     return JSON.parse(JSON.stringify(data));
 }

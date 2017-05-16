@@ -1,4 +1,4 @@
-'use strict'
+import { deepClone } from '../actions/common.action';
 
 var vcState = {};
 var initialState = {
@@ -26,12 +26,5 @@ export default function textField(state = initialState, action) {
             state.operator = action.payload;
             break;
     }
-
     return state;
-}
-
-
-
-var deepClone = function(data){
-    return JSON.parse(JSON.stringify(data));
 }

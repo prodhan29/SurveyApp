@@ -1,4 +1,3 @@
-'user strict'
 
 import React from 'react';
 import { connect } from 'react-redux';
@@ -14,16 +13,15 @@ import Rules from '../components/common/rules.component';
 
 class Number extends React.Component {
 
-    getPanels=()=>{
+    getPanels = () => {
 
         var _this = this;
-        const panels = this.props.number.configPanels.map(function(value, index){
-            var active = (_this.props.number.activePanel == value) ? "tab_nav_item active"
-                                                                : "tab_nav_item ";
-            return(
-                <li className = {active} key = {index}
-                                     name = {value}
-                                     onClick = {()=> _this.props.changeConfigPanel(value) }>
+        const panels = this.props.number.configPanels.map(function (value, index) {
+            var active = (_this.props.number.activePanel === value) ? "tab_nav_item active" : "tab_nav_item ";
+            return (
+                <li className={active} key={index}
+                    name={value}
+                    onClick={() => _this.props.changeConfigPanel(value)}>
                     {value}
                 </li>
             );
@@ -31,49 +29,57 @@ class Number extends React.Component {
         return panels;
     }
 
-    getActivePanel=()=> {
+    getActivePanel = () => {
 
-        switch(this.props.number.activePanel){
+        switch (this.props.number.activePanel) {
 
             case 'Rules':
-                return <Rules rules = '0 1 2' />;
+                return (
+                    <Rules rules='0 1 2' />
+                );
+
             case 'Validation':
-                return <Validation data = {this.props.number.data}
-                                    dataChange = {this.props.dataChange} />;
+                return (
+                    <Validation data={this.props.number.data}
+                        dataChange={this.props.dataChange} />
+                );
+                
             default:
-                return <General data = {this.props.number.data}
-                                dataChange = {this.props.dataChange} />;
+                return (
+                    <General data={this.props.number.data}
+                        dataChange={this.props.dataChange} />
+                );
         }
     }
 
     render() {
 
-        return(
+        return (
             <section className="builder_right field_configuration">
                 <ul className="tab_nav compact_nav">
-                    { this.getPanels() }
+                    {this.getPanels()}
                 </ul>
                 <div className="tab_content">
-                    { this.getActivePanel() }
+                    {this.getActivePanel()}
                 </div>
             </section>
         )
     }
 }
 
-function mapStateToProps( state ){
+function mapStateToProps(state) {
 
     return {
         number: state.Number
     };
 }
 
-function mapDispatchToProps( dispatch ) {
+function mapDispatchToProps(dispatch) {
 
-    return bindActionCreators( {
-        dataChange       : NumberAction.dataChange,
+    return bindActionCreators({
+        dataChange: NumberAction.dataChange,
         changeConfigPanel: NumberAction.configPanelChange
-    }, dispatch );
+    }, dispatch);
 
 }
 

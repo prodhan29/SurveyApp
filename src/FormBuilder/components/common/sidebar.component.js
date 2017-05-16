@@ -1,7 +1,7 @@
 import React from 'react';
 
 
- const Sidebar=()=>(
+const Sidebar = () => (
 
     <section className="nav_bar">
         <ul className="navigation">

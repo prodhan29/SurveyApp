@@ -5,7 +5,7 @@ import { bindActionCreators } from 'redux';
 import { fetchSections } from '../actions/section.action';
 import { createSection } from '../actions/section.action';
 import * as ProjectAction from '../actions/project.action';
-import {updateQuestion} from '../actions/question.action';
+import { updateQuestion } from '../actions/question.action';
 // Containers
 import Sections from './sections';
 import Questions from './questions';
@@ -20,116 +20,115 @@ import AddFieldPanel from '../components/common/add_field.component';
 import Sidebar from '../components/common/sidebar.component';
 import SectionAdd from '../components/section/sectionAdd.component';
 
-const AddFieldRow=( props )=>(
+const AddFieldRow = (props) => (
     <div className="add_field_row">
-        <button onClick = { props.onClick } >Add Field</button>
+        <button onClick={props.onClick} >Add Field</button>
     </div>
 );
 
-const SectionAddButton=( props )=>(
-    <div className="action_item" onClick = {props.toggle}>
+const SectionAddButton = (props) => (
+    <div className="action_item" onClick={props.toggle}>
         Add Section
     </div>
 )
 
 class FormBuilderApp extends React.Component {
 
-    constructor( props ) {
+    constructor(props) {
 
-        super( props );
+        super(props);
         this.state = {
             showAddFieldPanel: false,
             showAddSection: false
         }
-        if(!this.props.project.initialServerCall){
+        if (!this.props.project.initialServerCall) {
             this.props.fetchSections();
         }
     }
 
-    toggleAddFieldButton=( event )=> {
+    toggleAddFieldButton = (event) => {
         let _this = this;
         this.setState({
             showAddFieldPanel: !_this.state.showAddFieldPanel
         });
     }
 
-    toggleSectionAdd=( event )=>{
+    toggleSectionAdd = (event) => {
         let _this = this;
         this.setState({
             showAddSection: !_this.state.showAddSection
         })
     }
 
-    sectionSubmit=( data )=>{
+    sectionSubmit = (data) => {
         this.props.createSection(data);
         this.toggleSectionAdd();
     }
 
-    getSectionAddElement=( event )=>{
+    getSectionAddElement = (event) => {
         return (
             this.state.showAddSection ?
-            <SectionAdd close = {this.toggleSectionAdd}
-                        submit = {this.sectionSubmit}/>
-            : <SectionAddButton toggle = {this.toggleSectionAdd}/>
+                <SectionAdd close={this.toggleSectionAdd}
+                    submit={this.sectionSubmit} />
+                : <SectionAddButton toggle={this.toggleSectionAdd} />
         )
     }
 
-    getAddFieldElement=()=>{
-        return this.state.showAddFieldPanel ? <AddFieldPanel onClick = {this.toggleAddFieldButton}
-                                                             selectConfigPanel = {this.props.selectConfigPanel}/>
-                                            : <AddFieldRow onClick = {this.toggleAddFieldButton}/> ;
+    getAddFieldElement = () => {
+        return this.state.showAddFieldPanel ? <AddFieldPanel onClick={this.toggleAddFieldButton}
+            selectConfigPanel={this.props.selectConfigPanel} />
+            : <AddFieldRow onClick={this.toggleAddFieldButton} />;
     }
 
-    fieldConfigPanel=(ans)=>{
+    fieldConfigPanel = (ans) => {
         var panel = this.props.project.active.panel;
-        if (panel == 'text' || panel == 'suggestion' || panel == 'barcode') {
-            return (ans == 'element') ? <Text /> : this.props.text;
+        if (panel === 'text' || panel === 'suggestion' || panel === 'barcode') {
+            return (ans === 'element') ? <Text /> : this.props.text;
         }
 
-        else if (panel == 'image' || panel == 'signature' || panel == 'gprs') {
-            return (ans == 'element') ? <OtherField /> : this.props.otherField;
+        else if (panel === 'image' || panel === 'signature' || panel === 'gprs') {
+            return (ans === 'element') ? <OtherField /> : this.props.otherField;
         }
 
-        else if (panel == 'number' || panel == 'float') {
-            return (ans == 'element') ? <Number /> : this.props.number;
+        else if (panel === 'number' || panel === 'float') {
+            return (ans === 'element') ? <Number /> : this.props.number;
         }
 
-        else if (panel == 'dropdown' || panel == 'checkbox') {
-            return (ans == 'element') ? <DropCheck /> : this.props.dropCheck;
+        else if (panel === 'dropdown' || panel === 'checkbox') {
+            return (ans === 'element') ? <DropCheck /> : this.props.dropCheck;
         }
 
-        else if (panel == 'time' || panel == 'date') {
-            return (ans == 'element') ? <DateTime /> : this.props.dateTime;
+        else if (panel === 'time' || panel === 'date') {
+            return (ans === 'element') ? <DateTime /> : this.props.dateTime;
         }
-        else if(panel == 'groupDrop') {
-            return (ans == 'element') ? <GroupDrop /> : this.props.groupDrop;
+        else if (panel === 'groupDrop') {
+            return (ans === 'element') ? <GroupDrop /> : this.props.groupDrop;
         }
         return null;
     }
 
-    saveQuestion=()=>{
-        if(this.props.project.active.panel != '') {
+    saveQuestion = () => {
+        if (this.props.project.active.panel !== '') {
             var field = this.fieldConfigPanel('object');
             field.data.fieldType.fieldTypeName = this.props.project.active.panel;
-            if( field.edit ) {
+            if (field.edit) {
                 this.props.updateQuestion(field.data, this.props.project.active.question.index);
             }
             else {
                 this.props.createQuestion(field.data);
             }
-
         }
     }
 
     render() {
 
-        return(
+        return (
             <div className="main_container">
                 <section className="header">
-                    <div className="logo"><img src="assets/img/logo.png"/></div>
+                    <div className="logo"><img src="assets/img/logo.png" /></div>
                     <div className="header_main">
                         <h2 className="header_title">Proin Gravida Nibh Vel</h2>
-                        <div className="user"><img src="assets/img/user.png"/></div>
+                        <div className="user"><img src="assets/img/user.png" /></div>
                     </div>
                 </section>
                 <section className="content_body">
@@ -141,18 +140,18 @@ class FormBuilderApp extends React.Component {
                             <section className="builder_middle">
                                 <div className="builder_form_title"><h3>Fields</h3></div>
                                 <Questions />
-                                { this.getAddFieldElement() }
+                                {this.getAddFieldElement()}
                             </section>
-                            { this.fieldConfigPanel('element') }
+                            {this.fieldConfigPanel('element')}
                         </section>
                         <section className="builder_content_action_bar">
                             <div className="b_c_action_left section_action">
-                                { this.getSectionAddElement() }
+                                {this.getSectionAddElement()}
                                 <div className="action_item">Import Section</div>
                             </div>
                             <div className="b_c_action_right grand_action">
                                 <button className="button cancel_btn">Cancel</button>
-                                <button className="button black_btn" onClick = {this.saveQuestion}>Save Form</button>
+                                <button className="button black_btn" onClick={this.saveQuestion}>Save Form</button>
                             </div>
                         </section>
                     </section>
@@ -165,12 +164,12 @@ class FormBuilderApp extends React.Component {
 function mapStateToProps(state) {
     return {
         project: state.Project,
-        text   : state.Text,
-        number : state.Number,
+        text: state.Text,
+        number: state.Number,
         dateTime: state.DateTime,
         dropCheck: state.DropCheck,
         otherField: state.OtherField,
-        groupDrop : state.GroupDrop
+        groupDrop: state.GroupDrop
     };
 }
 
@@ -187,4 +186,4 @@ function mapDispatchToProps(dispatch) {
     }, dispatch);
 }
 
-export default connect (mapStateToProps, mapDispatchToProps)(FormBuilderApp);
+export default connect(mapStateToProps, mapDispatchToProps)(FormBuilderApp);

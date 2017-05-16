@@ -1,4 +1,3 @@
-'user strict'
 
 import React from 'react';
 import { connect } from 'react-redux';
@@ -7,88 +6,88 @@ import { bindActionCreators } from 'redux';
 import Operator from '../components/rules/operator.component';
 import Dropdown from '../components/rules/dropdown.component';
 // Actions
-import {questionExist, getQuestionsBySectionId} from '../actions/common.action';
-import {fetchAndCache} from '../actions/project.action';
-import {dataChangeInValueCheck, saveValueCheckOp} from '../actions/rules.action';
+import { questionExist, getQuestionsBySectionId } from '../actions/common.action';
+import { fetchAndCache } from '../actions/project.action';
+import { dataChangeInValueCheck, saveValueCheckOp } from '../actions/rules.action';
 
-const NoRules = (props)=>(
+const NoRules = (props) => (
     <div className="rules_block">
-        <div className="segment_title">Value Check Rules<span className="add" onClick = {props.toggle}>+ Add</span></div>
+        <div className="segment_title">Value Check Rules<span className="add" onClick={props.toggle}>+ Add</span></div>
         <div className="segment_content no_content">No Rules Added yet</div>
     </div>
 );
 
 class Rules extends React.Component {
 
-    constructor(){
+    constructor() {
         super();
         this.state = {
             operators: ['==', '<', '>', '!=']
         }
     }
 
-    getSelectedSection=(section)=>{
-        return (typeof section.name == 'undefined')? 'select a sectionn' : section.name;
+    getSelectedSection = (section) => {
+        return (typeof section.name === 'undefined') ? 'select a sectionn' : section.name;
     }
 
-    getSelectedQuestion=(question)=>{
+    getSelectedQuestion = (question) => {
         console.log(question);
-        return (typeof question.name == 'undefined')? 'select a question' : question.name;
+        return (typeof question.name === 'undefined') ? 'select a question' : question.name;
     }
 
-    getSectionId=(section)=>{
-        return (typeof section.sectionId == 'undefined')? 0 : section.sectionId;
+    getSectionId = (section) => {
+        return (typeof section.sectionId === 'undefined') ? 0 : section.sectionId;
     }
 
-    getQuestionList=(section)=>{
+    getQuestionList = (section) => {
         var ar = getQuestionsBySectionId(this.props.project.cacheData, section.sectionId);
         console.log(ar);
-        return (typeof ar == 'undefined') ? ([]) :ar;
+        return (typeof ar === 'undefined') ? ([]) : ar;
     }
 
-    render(){
-        return(
+    render() {
+        return (
             <div className="rules_block">
                 <div className="segment_title">Value Check Rules
-                    <span className="remove" onClick = {this.props.toggle}>Remove</span>
+                    <span className="remove" onClick={this.props.toggle}>Remove</span>
                 </div>
                 <div className="segment_content">
                     <div className="rules_condition">
                         <div className="rule_cell">
                             <i className="material-icons close_rule">close</i>
-                            <Dropdown name = 'first_section'
-                                      items = {this.props.project.cacheData}
-                                      onClick = {this.props.getQuestions}
-                                      selectedData = {this.getSelectedSection(this.props.data.argument.first_section)} />
+                            <Dropdown name='first_section'
+                                items={this.props.project.cacheData}
+                                onClick={this.props.getQuestions}
+                                selectedData={this.getSelectedSection(this.props.data.argument.first_section)} />
                         </div>
 
                         <div className="rule_cell">
                             <i className="material-icons close_rule">close</i>
-                            <Dropdown name = 'first_question'
-                                      items = {this.getQuestionList(this.props.data.argument.first_section)}
-                                      onClick = {this.props.saveQuestion}
-                                      selectedData = {this.getSelectedQuestion(this.props.data.argument.first_question)} />
+                            <Dropdown name='first_question'
+                                items={this.getQuestionList(this.props.data.argument.first_section)}
+                                onClick={this.props.saveQuestion}
+                                selectedData={this.getSelectedQuestion(this.props.data.argument.first_question)} />
                         </div>
 
-                        <Operator name = 'operator'
-                                  items = {this.state.operators}
-                                  saveOperator = {this.props.saveOperator}
-                                  data = {this.props.data.operator} />
+                        <Operator name='operator'
+                            items={this.state.operators}
+                            saveOperator={this.props.saveOperator}
+                            data={this.props.data.operator} />
                         <div className="rule_cell">
                             <i className="material-icons close_rule">close</i>
-                            <Dropdown name = 'second_section'
-                                      items = {this.props.project.cacheData}
-                                      onClick = {this.props.getQuestions}
-                                      selectedData = {this.getSelectedSection(this.props.data.argument.second_section)} />
+                            <Dropdown name='second_section'
+                                items={this.props.project.cacheData}
+                                onClick={this.props.getQuestions}
+                                selectedData={this.getSelectedSection(this.props.data.argument.second_section)} />
                         </div>
 
                         <div className="rule_cell">
                             <i className="material-icons close_rule">close</i>
-                            <Dropdown name = 'second_question'
-                                      items = {this.getQuestionList(this.props.data.argument.second_section)}
-                                      onClick = {this.props.saveQuestion}
-                                      selectedData = {this.getSelectedQuestion(this.props.data.argument.second_question)} />
-                          </div>
+                            <Dropdown name='second_question'
+                                items={this.getQuestionList(this.props.data.argument.second_section)}
+                                onClick={this.props.saveQuestion}
+                                selectedData={this.getSelectedQuestion(this.props.data.argument.second_question)} />
+                        </div>
                     </div>
                 </div>
             </div>
@@ -97,56 +96,56 @@ class Rules extends React.Component {
 }
 class ValueCheckRule extends React.Component {
 
-    constructor(){
+    constructor() {
         super();
         this.state = {
             showRule: false
         }
     }
 
-    toggleRuleBox=()=>{
+    toggleRuleBox = () => {
         var _this = this;
         this.setState({
             showRule: !_this.state.showRule
         })
     }
 
-    getQuestions=(section, index, name)=>{
+    getQuestions = (section, index, name) => {
         console.log('baal');
-        if(!questionExist(section)){
+        if (!questionExist(section)) {
             this.props.fetchAndCache(section, index);
         }
         this.props.dataChangeInValueCheck(section, name);
     }
 
-    saveQuestion=(question, index, name)=>{
-        console.log('savaing questions '+name)
+    saveQuestion = (question, index, name) => {
+        console.log('savaing questions ' + name)
         this.props.dataChangeInValueCheck(question, name)
     }
 
-    saveOperator=(value)=>{
+    saveOperator = (value) => {
         this.props.saveValueCheckOp(value);
     }
     render() {
         console.log('loading check');
-        return(
+        return (
             <div>
                 {
                     (!this.state.showRule) ?
-                    <NoRules toggle = {this.toggleRuleBox}/> :
-                    <Rules  toggle = {this.toggleRuleBox}
-                            data = {this.props.data}
-                            project = {this.props.project}
-                            getQuestions = {this.getQuestions}
-                            saveQuestion = {this.saveQuestion}
-                            saveOperator = {this.saveOperator} />
+                        <NoRules toggle={this.toggleRuleBox} /> :
+                        <Rules toggle={this.toggleRuleBox}
+                            data={this.props.data}
+                            project={this.props.project}
+                            getQuestions={this.getQuestions}
+                            saveQuestion={this.saveQuestion}
+                            saveOperator={this.saveOperator} />
                 }
             </div>
         )
     }
 }
 
-function mapStateToProps( state ) {
+function mapStateToProps(state) {
 
     return {
         data: state.ValueCheck,
@@ -154,13 +153,13 @@ function mapStateToProps( state ) {
     };
 }
 
-function mapDispatchToProps( dispatch ) {
+function mapDispatchToProps(dispatch) {
 
-    return bindActionCreators( {
+    return bindActionCreators({
         fetchAndCache,
         dataChangeInValueCheck,
         saveValueCheckOp
-    }, dispatch );
+    }, dispatch);
 
 }
 

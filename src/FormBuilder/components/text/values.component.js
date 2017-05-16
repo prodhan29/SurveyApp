@@ -4,38 +4,38 @@ import React from 'react';
 
 export default class AllowedValues extends React.Component {
 
-    constructor(){
+    constructor() {
         super();
         this.state = {
             name: '',
-            ob :{
-                target:{
+            ob: {
+                target: {
                     name: 'allowedValues',
                     value: '',
-                    attributes:{
-                        data:''
+                    attributes: {
+                        data: ''
                     }
                 }
             }
         }
     }
 
-    nameChange=(e)=>{
+    nameChange = (e) => {
         this.setState({
             name: e.target.value
         });
     }
 
-    submit=(e)=>{
-        if(e.charCode == 13){
+    submit = (e) => {
+        if (e.charCode === 13) {
             this.props.data.push(e.target.value);
             this.state.ob.target.value = this.props.data;
             this.props.dataChange(this.state.ob);
-            this.setState({name:''})
+            this.setState({ name: '' })
         }
     }
 
-    deleteOption=(index)=>{
+    deleteOption = (index) => {
         this.props.data.splice(index, 1);
         this.state.ob.target.value = this.props.data;
         this.props.dataChange(this.state.ob);
@@ -43,27 +43,27 @@ export default class AllowedValues extends React.Component {
 
     render() {
         var _this = this;
-        const optionELements = this.props.data.map(function(value, index){
-            return(
-                <tr key = {index}>
+        const optionELements = this.props.data.map(function (value, index) {
+            return (
+                <tr key={index}>
                     <td>{value}</td>
-                    <td className="value_action" onClick = {()=>_this.deleteOption(index)}>
+                    <td className="value_action" onClick={() => _this.deleteOption(index)}>
                         <span className="delete_row"><i className="material-icons">close</i></span>
                     </td>
                 </tr>
             );
         })
 
-        return(
+        return (
             <div>
                 <div className="segment_title">Set Allowed Values</div>
                 <div className="form_row">
                     <span className="form_label">Name:</span>
                     <span className="form_field">
                         <input type="text"
-                                value = {this.state.name}
-                                onChange = {this.nameChange}
-                                onKeyPress = {this.submit} />
+                            value={this.state.name}
+                            onChange={this.nameChange}
+                            onKeyPress={this.submit} />
                     </span>
                 </div>
                 <div className="values_block">
@@ -75,7 +75,7 @@ export default class AllowedValues extends React.Component {
                             </tr>
                         </thead>
                         <tbody>
-                        {optionELements}
+                            {optionELements}
                         </tbody>
                     </table>
                 </div>

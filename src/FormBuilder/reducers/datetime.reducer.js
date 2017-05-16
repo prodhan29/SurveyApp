@@ -1,6 +1,5 @@
-'use strict'
 
-import { setValidation } from '../actions/common.action';
+import { setValidation, deepClone } from '../actions/common.action';
 import moment from 'moment';
 
 var parseDate = function(d){
@@ -61,37 +60,28 @@ export default function textField(state = initialState, action) {
         case 'FIELD_CONFIG_PANEL_SELECT':
             state = initialState;
             break;
-
     }
     return state;
 }
 
 var datetimeChange = function(e){
 
-    var ob = (e.target.attributes.data.nodeValue == 'fieldType')?datetimeState.data.fieldType : datetimeState.data;
-    if(e.target.type == 'checkbox'){
+    var ob = (e.target.attributes.data.nodeValue === 'fieldType')?datetimeState.data.fieldType : datetimeState.data;
+    if(e.target.type === 'checkbox'){
         ob[e.target.name] = !ob[e.target.name]
     }
-    else if(e.target.type == 'treatValidation'){
+    else if(e.target.type === 'treatValidation'){
         setValidation(e.target.value, datetimeState.data.fieldType);
     }
     else {
         ob[e.target.name] = e.target.value;
     }
-    console.log(e.target.attributes.data.nodeValue);
-    console.log(e.target.value + '-- '+e.target.name);
-    console.log(JSON.stringify(datetimeState.data));
 }
 
 var setEditMode = function( data ) {
-    if( data.fieldType.fieldTypeName.toLowerCase() == 'time' ||
-        data.fieldType.fieldTypeName.toLowerCase() == 'date' ) {
+    if( data.fieldType.fieldTypeName.toLowerCase() === 'time' ||
+        data.fieldType.fieldTypeName.toLowerCase() === 'date' ) {
             datetimeState.data = data;
             datetimeState.edit = true;
     }
-
-}
-
-var deepClone = function(data){
-    return JSON.parse(JSON.stringify(data));
 }

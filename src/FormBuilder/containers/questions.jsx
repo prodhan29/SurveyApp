@@ -9,11 +9,11 @@ import {
     deleteQues
 } from '../actions/question.action';
 
-import {selectConfigPanel, setActiveQuestion} from '../actions/project.action';
+import { selectConfigPanel, setActiveQuestion } from '../actions/project.action';
 
 class Questions extends React.Component {
 
-    onQuestionClick=(data, index)=> {
+    onQuestionClick = (data, index) => {
 
         this.props.selectConfigPanel(data.fieldType.fieldTypeName.toLowerCase());
         this.props.onQuestionClick(data);
@@ -21,12 +21,12 @@ class Questions extends React.Component {
     }
 
     render() {
-        return(
-            <SortableQuestions question = {this.props.question}
-                               onClick = {this.onQuestionClick}
-                               project = {this.props.project}
-                               sequenceChange = {this.props.quesSequenceChange}
-                               deleteQues = {this.props.deleteQues}/>
+        return (
+            <SortableQuestions question={this.props.question}
+                onClick={this.onQuestionClick}
+                project={this.props.project}
+                sequenceChange={this.props.quesSequenceChange}
+                deleteQues={this.props.deleteQues} />
         );
     }
 }
@@ -49,4 +49,4 @@ function mapDispatchToProps(dispatch) {
     }, dispatch);
 }
 
-export default connect (mapStateToProps, mapDispatchToProps)(Questions);
+export default connect(mapStateToProps, mapDispatchToProps)(Questions);

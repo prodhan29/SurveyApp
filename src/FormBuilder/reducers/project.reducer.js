@@ -1,6 +1,6 @@
 'use strict'
 
-import {getSectionById} from '../actions/common.action';
+import {getSectionById, deepClone} from '../actions/common.action';
 
 const formBuilder = {
 
@@ -89,8 +89,4 @@ function sectionUpdate(state, payload) {
     sec.name = payload.data.name,
     sec.description = payload.data.description;
     sec.repetitive = payload.data.repetitive;
-}
-
-var deepClone = function(data){
-    return JSON.parse(JSON.stringify(data));
 }

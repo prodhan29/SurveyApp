@@ -1,6 +1,5 @@
-'use strict'
 
-import { setValidation } from '../actions/common.action';
+import { setValidation, deepClone } from '../actions/common.action';
 
 var dropCheckState = {};
 var initialState = {
@@ -12,24 +11,24 @@ var initialState = {
     activePanel: 'General',
     edit: false,
     data: {
-      questionId: 0,
-      name: '',
-      caption: '',
-      sectionId: 0,
-      jumpingRule: '',
-      pickAndSuggestRule: '',
-      optionValues: [],
-      fieldType: {
-        fieldTypeId: 0,
-        fieldId: 0,
-        fieldTypeName: '',
-        exportValue: 0,
-        indexField: false,
-        blank: false,
-        readOnly: false,
-        treatAsError: false,
-        treatAsWarning: false
-      }
+        questionId: 0,
+        name: '',
+        caption: '',
+        sectionId: 0,
+        jumpingRule: '',
+        pickAndSuggestRule: '',
+        optionValues: [],
+        fieldType: {
+            fieldTypeId: 0,
+            fieldId: 0,
+            fieldTypeName: '',
+            exportValue: 0,
+            indexField: false,
+            blank: false,
+            readOnly: false,
+            treatAsError: false,
+            treatAsWarning: false
+        }
     }
 }
 
@@ -38,7 +37,7 @@ export default function dropCheckField(state = initialState, action) {
     state = deepClone(state);
     dropCheckState = state;
 
-    switch(action.type){
+    switch (action.type) {
 
         case 'DROPCHECK_CONFIGURE_PANEL_CHANGE':
             state.activePanel = action.payload;
@@ -59,32 +58,24 @@ export default function dropCheckField(state = initialState, action) {
     return state;
 }
 
-var dropCheckChange = function(e){
-
-    var ob = (e.target.attributes.data.nodeValue == 'fieldType')?dropCheckState.data.fieldType : dropCheckState.data;
-    if(e.target.type == 'checkbox'){
+var dropCheckChange = function (e) {
+    
+    var ob = (e.target.attributes.data.nodeValue === 'fieldType') ? dropCheckState.data.fieldType : dropCheckState.data;
+    if (e.target.type === 'checkbox') {
         ob[e.target.name] = !ob[e.target.name];
     }
-    else if(e.target.type == 'treatValidation'){
+    else if (e.target.type === 'treatValidation') {
         setValidation(e.target.value, dropCheckState.data.fieldType);
     }
     else {
         ob[e.target.name] = e.target.value;
     }
-    console.log(e.target.attributes.data.nodeValue);
-    console.log(e.target.value + '-- '+e.target.name);
-    console.log(JSON.stringify(dropCheckState.data.fieldType));
 }
 
-var setEditMode = function( data ) {
-    if( data.fieldType.fieldTypeName.toLowerCase() == 'dropdown' ||
-        data.fieldType.fieldTypeName.toLowerCase() == 'checkbox' ) {
-            dropCheckState.data = data;
-            dropCheckState.edit = true;
+var setEditMode = function (data) {
+    if (data.fieldType.fieldTypeName.toLowerCase() === 'dropdown' ||
+        data.fieldType.fieldTypeName.toLowerCase() === 'checkbox') {
+        dropCheckState.data = data;
+        dropCheckState.edit = true;
     }
-
-}
-
-var deepClone = function(data){
-    return JSON.parse(JSON.stringify(data));
 }

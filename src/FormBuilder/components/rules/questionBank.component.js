@@ -1,7 +1,7 @@
 import React from 'react';
 import Operators from './operator.component';
-import {getQuestionsBySectionId, questionExist} from '../../actions/common.action';
-import {fetchAndCache} from '../../actions/project.action';
+import { getQuestionsBySectionId, questionExist } from '../../actions/common.action';
+import { fetchAndCache } from '../../actions/project.action';
 
 const sectionBox = {
     position: 'absolute',
@@ -30,7 +30,7 @@ export default class QuestionBank extends React.Component {
         // }
     }
 
-    saveInfo=(question)=>{
+    saveInfo = (question) => {
         let _this = this;
         var ob = {
             section: _this.state.activeSection,
@@ -40,16 +40,16 @@ export default class QuestionBank extends React.Component {
         this.props.toggleQuesBank();
     }
 
-    getQuestions=(value)=>{
+    getQuestions = (value) => {
         let _this = this;
-        if(value.sectionId == this.state.activeSection.sectionId){
+        if (value.sectionId === this.state.activeSection.sectionId) {
             var questions = getQuestionsBySectionId(
-                                this.props.project.cacheData, value.sectionId
-                            )
-            if(typeof questions == 'undefined') return null;
-            return questions.map(function(value, index) {
-                return(
-                    <p key = {index} onClick = {()=>_this.saveInfo(value)}>
+                this.props.project.cacheData, value.sectionId
+            )
+            if (typeof questions === 'undefined') return null;
+            return questions.map(function (value, index) {
+                return (
+                    <p key={index} onClick={() => _this.saveInfo(value)}>
                         <a href="#">{value.caption}</a>
                     </p>
                 );
@@ -57,13 +57,13 @@ export default class QuestionBank extends React.Component {
         }
     }
 
-    getSections=()=>{
+    getSections = () => {
         let _this = this;
-        return this.props.project.cacheData.map(function(value, index) {
-            return(
-                <section  key = {index} onClick = {function(e){e.stopPropagation(); _this.setSection(value)}}>
-                    <p style = {_this.state.sectionStyle}>
-                        {index+1}. <a href="#">{value.name}</a>
+        return this.props.project.cacheData.map(function (value, index) {
+            return (
+                <section key={index} onClick={function (e) { e.stopPropagation(); _this.setSection(value) }}>
+                    <p style={_this.state.sectionStyle}>
+                        {index + 1}. <a href="#">{value.name}</a>
                     </p>
                     {_this.getQuestions(value)}
                 </section>
@@ -72,9 +72,9 @@ export default class QuestionBank extends React.Component {
         })
     }
 
-    setSection=(section)=>{
+    setSection = (section) => {
 
-        if(!questionExist(section)){
+        if (!questionExist(section)) {
             this.props.fetchAndCache(section);
         }
 
@@ -83,24 +83,24 @@ export default class QuestionBank extends React.Component {
         });
     }
 
-    toggleQuesBank=(e)=>{
+    toggleQuesBank = (e) => {
         this.props.toggleQuesBank();
     }
 
-    render(){
+    render() {
         let question = this.props.data.question;
-        return(
+        return (
             <div>
                 <div className="rule_cell">
                     <i className="material-icons close_rule"
-                        onClick = {this.props.deleteNode}>close</i>
-                    <div className="dropdown" onClick = {this.toggleQuesBank}>
-                        <a href="#" className="dropdown-toggle" style = {{position: 'relative'}}>
-                            {question == null ? 'Select a question' : question.caption}
+                        onClick={this.props.deleteNode}>close</i>
+                    <div className="dropdown" onClick={this.toggleQuesBank}>
+                        <a href="#" className="dropdown-toggle" style={{ position: 'relative' }}>
+                            {question === null ? 'Select a question' : question.caption}
                             <i className="fa fa-chevron-down"></i>
                         </a>
-                        <div id="sectionBox" style = {sectionBox}>
-                            { this.props.data.showQuestions? this.getSections() : null }
+                        <div id="sectionBox" style={sectionBox}>
+                            {this.props.data.showQuestions ? this.getSections() : null}
                         </div>
                     </div>
                 </div>

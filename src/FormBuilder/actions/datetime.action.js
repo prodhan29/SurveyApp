@@ -1,5 +1,4 @@
 export function configPanelChange(payload) {
-
     return {
         type: 'DATETIME_CONFIGURE_PANEL_CHANGE',
         payload,
