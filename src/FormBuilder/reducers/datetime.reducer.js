@@ -1,0 +1,97 @@
+'use strict'
+
+import { setValidation } from '../actions/common.action';
+import moment from 'moment';
+
+var parseDate = function(d){
+    return d.getDate()+'/'+(d.getMonth()+1)+'/'+d.getFullYear();
+}
+
+var datetimeState = {}
+var initialState = {
+
+    configPanels: {
+        date: ['General', 'Validation'],
+        time: ['General', 'Validation', 'Rules']
+    },
+    activePanel: 'General',
+    edit : false,
+    data :{
+        questionId: 0,
+        name: '',
+        caption: '',
+        sectionId: 1,
+        valueCheckRule: '',
+        timeRange: moment().fromNow()+'-'+moment().fromNow(),
+        dateRange: parseDate(new Date())+'-'+parseDate(new Date()),
+        fieldType: {
+            fieldTypeId: 1,
+            fieldId: 0,
+            fieldTypeName: '',
+            exportValue: 0,
+            indexField: 1,
+            blank: true,
+            readOnly: true,
+            treatAsError: true,
+            treatAsWarning: false
+        }
+    }
+}
+
+export default function textField(state = initialState, action) {
+
+    state = deepClone(state);
+    datetimeState = state;
+
+    switch(action.type){
+
+        case 'DATETIME_CONFIGURE_PANEL_CHANGE':
+            state = deepClone(state);
+            state.activePanel = action.payload;
+            return state;
+
+        case 'DATE_DATA_CHANGE':
+            datetimeChange(action.payload);
+            break;
+
+        case 'ON_QUESTION_CLICK':
+            setEditMode(action.payload);
+            break;
+
+        case 'FIELD_CONFIG_PANEL_SELECT':
+            state = initialState;
+            break;
+
+    }
+    return state;
+}
+
+var datetimeChange = function(e){
+
+    var ob = (e.target.attributes.data.nodeValue == 'fieldType')?datetimeState.data.fieldType : datetimeState.data;
+    if(e.target.type == 'checkbox'){
+        ob[e.target.name] = !ob[e.target.name]
+    }
+    else if(e.target.type == 'treatValidation'){
+        setValidation(e.target.value, datetimeState.data.fieldType);
+    }
+    else {
+        ob[e.target.name] = e.target.value;
+    }
+    console.log(e.target.attributes.data.nodeValue);
+    console.log(e.target.value + '-- '+e.target.name);
+    console.log(JSON.stringify(datetimeState.data));
+}
+
+var setEditMode = function( data ) {
+    if( data.fieldType.fieldTypeName.toLowerCase() == 'time' ||
+        data.fieldType.fieldTypeName.toLowerCase() == 'date' ) {
+            datetimeState.data = data;
+            datetimeState.edit = true;
+    }
+
+}
+
+var deepClone = function(data){
+    return JSON.parse(JSON.stringify(data));
+}

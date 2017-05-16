@@ -1,0 +1,65 @@
+[
+  {
+    "questionId": "",
+    "name": "asd34",
+    "caption": "full name",
+    "priority": 0,
+    "sectionId": 4,
+    "allowedValues": "",
+    "caseNormalization": 1,
+    "length": 2,
+    "oneWord": true,
+    "calculationRule": "",
+    "jumpingRule": "",
+    "validationRange": "",
+    "pickAndSuggestRule": "",
+    "valueCheckRule": "",
+    "coordinates": "",
+    "timeRange": "",
+    "dateRange": "",
+    "optionValues": "",
+    "fieldType": {
+      "fieldTypeId": 1,
+      "fieldId": 0,
+      "fieldTypeName": "",
+      "exportValue": 0,
+      "indexField": 1,
+      "blank": true,
+      "readOnly": true,
+      "treatAsError": true,
+      "treatAsWarning": false
+    }
+},
+{
+  "questionId": "",
+  "name": "asdf34",
+  "caption": "home address",
+  "priority": 0,
+  "sectionId": 4,
+  "allowedValues": "",
+  "caseNormalization": 1,
+  "length": 2,
+  "oneWord": true,
+  "calculationRule": "",
+  "jumpingRule": "",
+  "validationRange": "",
+  "pickAndSuggestRule": "",
+  "valueCheckRule": "",
+  "coordinates": "",
+  "timeRange": "",
+  "dateRange": "",
+  "optionValues": "",
+  "fieldType": {
+    "fieldTypeId": 1,
+    "fieldId": 0,
+    "fieldTypeName": "",
+    "exportValue": 0,
+    "indexField": 1,
+    "blank": true,
+    "readOnly": true,
+    "treatAsError": true,
+    "treatAsWarning": false
+  }
+}
+
+]

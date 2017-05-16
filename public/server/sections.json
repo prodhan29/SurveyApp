@@ -1,0 +1,75 @@
+[
+  {
+    "sectionId": 1,
+    "name": "S0",
+    "description": "",
+    "repetitive": false,
+    "priority": 1,
+    "createdDate": "",
+    "lastModifiedDate": ""
+},
+{
+   "sectionId": 2,
+   "name": "S1",
+   "description": "",
+   "repetitive": true,
+   "priority": 1,
+   "createdDate": "",
+   "lastModifiedDate": ""
+ },
+ {
+   "sectionId": 3,
+   "name": "S2",
+   "description": " i am the avenger. owner of the Stark tower. Guess my name :/",
+   "repetitive": true,
+   "priority": 1,
+   "createdDate": "",
+   "lastModifiedDate": ""
+ },
+ {
+   "sectionId": 4,
+   "name": "S3",
+   "description": "",
+   "repetitive": true,
+   "priority": 1,
+   "createdDate": "",
+   "lastModifiedDate": ""
+ },
+ {
+   "sectionId": 5,
+   "name": "Sec four",
+   "description": "amazing spinderman. home coming tutorial",
+   "repetitive": false,
+   "priority": 1,
+   "createdDate": "",
+   "lastModifiedDate": ""
+ },
+ {
+   "sectionId": 6,
+   "name": "section five",
+   "description": "",
+   "repetitive": true,
+   "priority": 1,
+   "createdDate": "",
+   "lastModifiedDate": ""
+ },
+ {
+   "sectionId": 7,
+   "name": "family information section",
+   "description": " enter family members information here",
+   "repetitive": true,
+   "priority": 1,
+   "createdDate": "",
+   "lastModifiedDate": ""
+ },
+ {
+   "sectionId": 8,
+   "name": "Money source",
+   "description": " eto taka tomar .? :o",
+   "repetitive": false,
+   "priority": 1,
+   "createdDate": "",
+   "lastModifiedDate": ""
+ }
+
+]

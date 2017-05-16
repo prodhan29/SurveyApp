@@ -1,0 +1,31 @@
+{
+  questionId: ,
+  name: ,
+  caption: full name,
+  priority: 0,
+  sectionId: 1,
+  allowedValues: ,
+  caseNormalization: 1,
+  length: 2,
+  oneWord: true,
+  calculationRule: ,
+  jumpingRule: ,
+  validationRange: ,
+  pickAndSuggestRule: ,
+  valueCheckRule: ,
+  coordinates: ,
+  timeRange: ,
+  dateRange: ,
+  optionValues: ,
+  fieldType: {
+    fieldTypeId: 1,
+    fieldId: 0,
+    fieldTypeName: ,
+    exportValue: 0,
+    indexField: 1,
+    blank: true,
+    readOnly: true,
+    treatAsError: true,
+    treatAsWarning: false
+  }
+}
