@@ -13,6 +13,7 @@ export function setValidation(value, ob) {
     }
 }
 
+// this method is invoked in all the reducers to deeply clone the object
 export function deepClone(data) {
     return JSON.parse(JSON.stringify(data));
 }
@@ -48,3 +49,20 @@ export function getSectionById(sections, sectionId) {
 
 //---------------- Action for Field Types ------------------------//
 //----------------------------------------------------------------//
+
+// here fieldsState represents all the fieldTypes, and e is the event.
+// this method is invoked to change the data for all types. 
+
+export function changeFieldState(fieldState, e) {
+    
+    var ob = (e.target.attributes.data.nodeValue === 'fieldType') ? fieldState.data.fieldType : fieldState.data;
+    if (e.target.type === 'checkbox') {
+        ob[e.target.name] = !ob[e.target.name]
+    }
+    else if (e.target.type === 'treatValidation') {
+        setValidation(e.target.value, fieldState.data.fieldType);
+    }
+    else {
+        ob[e.target.name] = e.target.value;
+    }
+}

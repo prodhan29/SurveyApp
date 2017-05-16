@@ -1,5 +1,5 @@
 
-import { setValidation, deepClone } from '../actions/common.action';
+import { changeFieldState, deepClone } from '../actions/common.action';
 
 var fieldState = {};
 var initialState = {
@@ -30,9 +30,8 @@ export default function textField(state = initialState, action) {
 
     switch (action.type) {
         case 'OTHER_FIELD_VALUE_CHANGE':
-            fieldState = deepClone(state);
-            state = fieldState;
-            fieldChange(action.payload);
+            state = deepClone(state);
+            fieldChange(state, action.payload);
             break;
 
         case 'ON_QUESTION_CLICK':
@@ -46,17 +45,8 @@ export default function textField(state = initialState, action) {
     return state;
 }
 
-var fieldChange = function (e) {
-    var ob = (e.target.attributes.data.nodeValue === 'fieldType') ? fieldState.data.fieldType : fieldState.data;
-    if (e.target.type === 'checkbox') {
-        ob[e.target.name] = !ob[e.target.name];
-    }
-    else if (e.target.type === 'treatValidation') {
-        setValidation(e.target.value, fieldState.data.fieldType);
-    }
-    else {
-        ob[e.target.name] = e.target.value;
-    }
+var fieldChange = function (fieldState, e) {
+    changeFieldState(fieldState, e);
 }
 
 var setEditMode = function (data) {

@@ -1,5 +1,5 @@
 
-import { setValidation, deepClone } from '../actions/common.action';
+import { changeFieldState, deepClone } from '../actions/common.action';
 
 var dropCheckState = {};
 var initialState = {
@@ -59,17 +59,7 @@ export default function dropCheckField(state = initialState, action) {
 }
 
 var dropCheckChange = function (e) {
-    
-    var ob = (e.target.attributes.data.nodeValue === 'fieldType') ? dropCheckState.data.fieldType : dropCheckState.data;
-    if (e.target.type === 'checkbox') {
-        ob[e.target.name] = !ob[e.target.name];
-    }
-    else if (e.target.type === 'treatValidation') {
-        setValidation(e.target.value, dropCheckState.data.fieldType);
-    }
-    else {
-        ob[e.target.name] = e.target.value;
-    }
+    changeFieldState(dropCheckState, e);
 }
 
 var setEditMode = function (data) {

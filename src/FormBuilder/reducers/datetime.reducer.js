@@ -1,5 +1,5 @@
 
-import { setValidation, deepClone } from '../actions/common.action';
+import { changeFieldState, deepClone } from '../actions/common.action';
 import moment from 'moment';
 
 var parseDate = function (d) {
@@ -65,17 +65,7 @@ export default function textField(state = initialState, action) {
 }
 
 var datetimeChange = function (e) {
-
-    var ob = (e.target.attributes.data.nodeValue === 'fieldType') ? datetimeState.data.fieldType : datetimeState.data;
-    if (e.target.type === 'checkbox') {
-        ob[e.target.name] = !ob[e.target.name]
-    }
-    else if (e.target.type === 'treatValidation') {
-        setValidation(e.target.value, datetimeState.data.fieldType);
-    }
-    else {
-        ob[e.target.name] = e.target.value;
-    }
+    changeFieldState(datetimeState, e);
 }
 
 var setEditMode = function (data) {

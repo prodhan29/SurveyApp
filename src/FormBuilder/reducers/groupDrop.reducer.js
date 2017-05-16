@@ -1,4 +1,4 @@
-import { setValidation, deepClone } from '../actions/common.action';
+import { changeFieldState, deepClone } from '../actions/common.action';
 
 var groupDropState = {};
 var initialState = {
@@ -46,17 +46,7 @@ export default function groupDropField(state = initialState, action) {
 }
 
 var groupDropChange = function (e) {
-
-    var ob = (e.target.attributes.data.nodeValue === 'fieldType') ? groupDropState.data.fieldType : groupDropState.data;
-    if (e.target.type === 'checkbox') {
-        ob[e.target.name] = !ob[e.target.name];
-    }
-    else if (e.target.type === 'treatValidation') {
-        setValidation(e.target.value, groupDropState.data.fieldType);
-    }
-    else {
-        ob[e.target.name] = e.target.value;
-    }
+    changeFieldState(groupDropState, e);
 }
 
 var setEditMode = function (data) {

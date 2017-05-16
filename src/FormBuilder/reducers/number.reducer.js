@@ -1,5 +1,5 @@
 
-import { setValidation, deepClone } from '../actions/common.action';
+import { changeFieldState, deepClone } from '../actions/common.action';
 
 var numberState = {};
 var initialState = {
@@ -56,21 +56,7 @@ export default function numberField(state = initialState, action) {
 }
 
 var numberDataChange = function (e) {
-
-    var ob = (e.target.attributes.data.nodeValue === 'fieldType') ? numberState.data.fieldType : numberState.data;
-
-    if (e.target.type === 'checkbox') {
-        ob[e.target.name] = !ob[e.target.name];
-    }
-    else if (e.target.type === 'treatValidation') {
-        setValidation(e.target.value, numberState.data.fieldType);
-    }
-    else {
-        ob[e.target.name] = e.target.value;
-    }
-    console.log(e.target.attributes.data.nodeValue);
-    console.log(e.target.value + '-- ' + e.target.name);
-    console.log(JSON.stringify(numberState.data));
+    changeFieldState(numberState, e);
 }
 
 var setEditMode = function (data) {
