@@ -1,7 +1,6 @@
 import React from 'react';
 import Operators from './operator.component';
 import { getQuestionsBySectionId, questionExist } from '../../actions/common.action';
-import { fetchAndCache } from '../../actions/project.action';
 
 const sectionBox = {
     position: 'absolute',
@@ -38,7 +37,7 @@ export default class QuestionBox extends React.Component {
             var questions = getQuestionsBySectionId(
                 this.props.project.cacheData, value.sectionId
             )
-            if (typeof questions == 'undefined') return null;
+            if (typeof questions === 'undefined') return null;
             return questions.map(function (value, index) {
                 return (
                     <p key={index} onClick={() => _this.saveInfo(value)}>

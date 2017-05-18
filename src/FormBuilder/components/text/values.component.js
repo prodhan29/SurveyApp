@@ -1,6 +1,10 @@
-'use strict'
-
 import React from 'react';
+
+var resetEdit = {
+    mode: false,
+    index: -1,
+    name: ''
+}
 
 export default class AllowedValues extends React.Component {
 
@@ -8,6 +12,7 @@ export default class AllowedValues extends React.Component {
         super();
         this.state = {
             name: '',
+            edit: resetEdit,
             ob: {
                 target: {
                     name: 'allowedValues',
@@ -35,23 +40,82 @@ export default class AllowedValues extends React.Component {
         }
     }
 
+    editOption = (e) => {
+        let edit = this.state.edit;
+        edit.name = e.target.value;
+        this.setState({ edit });
+    }
+
     deleteOption = (index) => {
         this.props.data.splice(index, 1);
         this.state.ob.target.value = this.props.data;
         this.props.dataChange(this.state.ob);
     }
 
-    render() {
-        var _this = this;
-        const optionELements = this.props.data.map(function (value, index) {
+    turnOnEditOption = (index) => {
+        let _this = this;
+        this.setState({
+            edit: {
+                mode: !_this.state.edit.mode,
+                index,
+                name: _this.props.data[index]
+            }
+        })
+    }
+
+    doneEdit = () => {
+        let index = this.state.edit.index;
+        this.props.data[index] = this.state.edit.name;
+        this.state.ob.target.value = this.props.data;
+        this.props.dataChange(this.state.ob);
+        this.setState({
+            edit: resetEdit
+        })
+    }
+
+    cancelEdit = () => {
+        this.setState({
+            edit: resetEdit
+        })
+    }
+
+    getOption = (value, index)=>{
+          let _this = this;
+        if (index === this.state.edit.index) {
             return (
-                <tr key={index}>
+                <tr className="edit_row" key={index}>
+                    <td>
+                        <input type='text'
+                            style={{ width: '100%' }}
+                            name='name'
+                            value={_this.state.edit.name}
+                            onChange={_this.editOption} />
+                    </td>
+                    <td className="value_action">
+                        <div className="value_action_block">
+                            <span className="update"><i className="material-icons" onClick={_this.doneEdit}>done</i></span>
+                            <span className="delete"><i className="material-icons" onClick={_this.cancelEdit}>close</i></span>
+                        </div>
+                    </td>
+                </tr>
+            );
+        }
+        else {
+            return (
+                <tr key={index} onClick={() => _this.turnOnEditOption(index)}>
                     <td>{value}</td>
-                    <td className="value_action" onClick={() => _this.deleteOption(index)}>
+                    <td className="value_action" onClick={function (e) { e.stopPropagation(); _this.deleteOption(index) }}>
                         <span className="delete_row"><i className="material-icons">close</i></span>
                     </td>
                 </tr>
             );
+        }
+    }
+
+    render() {
+        var _this = this;
+        const optionELements = this.props.data.map(function (value, index) {
+            return _this.getOption(value, index);
         })
 
         return (

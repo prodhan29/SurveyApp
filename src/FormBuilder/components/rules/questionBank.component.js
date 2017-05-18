@@ -1,7 +1,7 @@
+// this component is for jumpRules
+
 import React from 'react';
-import Operators from './operator.component';
 import { getQuestionsBySectionId, questionExist } from '../../actions/common.action';
-import { fetchAndCache } from '../../actions/project.action';
 
 const sectionBox = {
     position: 'absolute',
@@ -20,14 +20,6 @@ export default class QuestionBank extends React.Component {
                 backgroundColor: '#eee'
             }
         }
-    }
-
-    componentDidMount() {
-        // document.onclick = function(e){
-        //     console.log(e.target.id);
-        //     console.log('clicking');
-        //     // document.getElementById('sectionBox')
-        // }
     }
 
     saveInfo = (question) => {

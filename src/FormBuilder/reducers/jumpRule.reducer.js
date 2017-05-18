@@ -23,12 +23,12 @@ export default function jumpRule(state = initialState, action) {
     switch (action.type) {
 
         case 'JUMP_RULE_DATA_CHANGE':
-            console.log('nodeIndex --> ' + action.payload.nodeIndex);
+            let node = state.nodes[action.payload.nodeIndex]
             if (action.payload.data.target.type === 'radio') {
-                state.nodes[action.payload.nodeIndex].skip = action.payload.data.target.name;
+                node.skip = (node.skip === 'Section') ? 'Question' : 'Section';
             }
             else {
-                state.nodes[action.payload.nodeIndex][action.payload.data.target.name] = action.payload.data.target.value;
+                node[action.payload.data.target.name] = action.payload.data.target.value;
             }
             break;
 

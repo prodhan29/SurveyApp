@@ -1,5 +1,12 @@
 import React from 'react';
 
+var resetEdit = {
+    mode: false,
+    index: -1,
+    optionName: '',
+    exportValue: ''
+}
+
 export default class NumberValidation extends React.Component {
 
     constructor() {
@@ -7,6 +14,7 @@ export default class NumberValidation extends React.Component {
         this.state = {
             optionName: '',
             exportValue: '',
+            edit: resetEdit,
             ob: {
                 target: {
                     name: 'optionValues',
@@ -22,7 +30,7 @@ export default class NumberValidation extends React.Component {
     handleChange = (e) => {
         this.setState({
             [e.target.name]: e.target.value
-         });
+        });
     }
 
     submitOption = (e) => {
@@ -43,19 +51,89 @@ export default class NumberValidation extends React.Component {
         this.props.dataChange(this.state.ob);
     }
 
-    render() {
+    editOption = (e) => {
+        let edit = this.state.edit;
+        edit[e.target.name] = e.target.value;
+        this.setState({ edit });
+    }
 
-        var _this = this;
-        const optionELements = this.props.data.map(function (ob, index) {
+    turnOnEditOption = (index) => {
+        let _this = this;
+        this.setState({
+            edit: {
+                mode: !_this.state.edit.mode,
+                index,
+                optionName: _this.props.data[index].option,
+                exportValue: _this.props.data[index].value,
+            }
+        })
+    }
+
+    doneEdit = () => {
+        let index = this.state.edit.index;
+        this.props.data[index].option = this.state.edit.optionName;
+        this.props.data[index].value = this.state.edit.exportValue;
+        this.state.ob.target.value = this.props.data;
+        this.props.dataChange(this.state.ob);
+        this.setState({
+            edit: resetEdit
+        })
+    }
+
+    cancelEdit = () => {
+        this.setState({
+            edit: resetEdit
+        })
+    }
+
+    getOption = (ob, index) => {
+        let _this = this;
+        if (index === this.state.edit.index) {
             return (
-                <tr key={index}>
+                <tr className="edit_row" key={index}>
+                    <td>
+                        <input type='text'
+                            style={{ width: '100%' }}
+                            name='optionName'
+                            value={_this.state.edit.optionName}
+                            onChange={_this.editOption} />
+
+                    </td>
+
+                    <td>
+                        <input type='text'
+                            style={{ width: '100%' }}
+                            name='exportValue'
+                            value={_this.state.edit.exportValue}
+                            onChange={_this.editOption} />
+                    </td>
+                    <td className="value_action">
+                        <div className="value_action_block">
+                            <span className="update"><i className="material-icons" onClick={_this.doneEdit}>done</i></span>
+                            <span className="delete"><i className="material-icons" onClick={_this.cancelEdit}>close</i></span>
+                        </div>
+                    </td>
+                </tr>
+            );
+        }
+        else {
+            return (
+                <tr key={index} onClick={() => _this.turnOnEditOption(index)}>
                     <td>{ob.option}</td>
                     <td>{ob.value}</td>
-                    <td className="value_action" onClick={() => _this.deleteOption(index)}>
+                    <td className="value_action" onClick={function (e) { e.stopPropagation(); _this.deleteOption(index) }}>
                         <span className="delete_row"><i className="material-icons">close</i></span>
                     </td>
                 </tr>
             );
+        }
+    }
+
+    render() {
+
+        var _this = this;
+        const optionELements = this.props.data.map(function (ob, index) {
+            return _this.getOption(ob, index);
         })
 
         return (

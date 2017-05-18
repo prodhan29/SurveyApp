@@ -9,7 +9,8 @@ export default class JumpRule extends React.Component {
     }
 
     getChecked = (value) => {
-        return (value === this.props.data.skip);
+
+        return (value === this.props.data.skip.split(' ')[0]);
     }
 
     getSections = () => {
@@ -74,7 +75,6 @@ export default class JumpRule extends React.Component {
                             <span className="">
                                 <label>
                                     <input type="radio"
-                                        name="Question"
                                         checked={this.getChecked('Question')}
                                         onChange={this.props.changeData} /> &nbsp; Question &nbsp;
                                 </label>
@@ -82,7 +82,6 @@ export default class JumpRule extends React.Component {
                             <span className="">
                                 <label>
                                     <input type="radio"
-                                        name="Section"
                                         checked={this.getChecked('Section')}
                                         onChange={this.props.changeData} />&nbsp; Section
                                 </label>

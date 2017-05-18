@@ -44,7 +44,7 @@ class JumpRule extends React.Component {
     }
 
     getStyle = (value) => {
-        if (this.state.show === true && value === 'remove' || this.state.show === false && value === 'add') {
+        if ((this.state.show === true && value === 'remove') || (this.state.show === false && value === 'add')) {
             return { display: 'block' }
         }
         else {
@@ -112,7 +112,6 @@ function mapDispatchToProps(dispatch) {
         deleteCondition: RuleAction.jumpRuleDeleteCondition,
         deleteNode: RuleAction.jumpRuleDeleteNode,
         saveQuestion: RuleAction.jumpRuleSaveQuestion,
-        addCondition: RuleAction.jumpRuleAddCondition,
         toggleQuesBank: RuleAction.jumpRuleToggleQuesBank,
         jumpRuleDataChange: RuleAction.jumpRuleDataChange,
         addDropdown: RuleAction.addDropdown,
