@@ -1,0 +1,5 @@
+Muslim,1
+Hidu,2
+Christian,3
+Buddist,4
+Athiest,5

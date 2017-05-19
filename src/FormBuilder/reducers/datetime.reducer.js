@@ -60,6 +60,10 @@ export default function textField(state = initialState, action) {
         case 'FIELD_CONFIG_PANEL_SELECT':
             state = initialState;
             break;
+
+        case 'CREATE_QUESTION':
+            state = initialState;
+            break;    
     }
     return state;
 }

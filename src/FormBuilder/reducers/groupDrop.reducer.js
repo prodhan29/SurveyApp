@@ -13,6 +13,98 @@ var initialState = {
         sectionId: 0,
         jumpingRule: '',
         optionValues: [],
+        nodes: {
+            name: 'Bangladesh',
+            exportValue: 'BD',
+            showChildren: true,
+            children:[
+                {
+                    name: 'dhaka',
+                    exportValue: 'dhk',
+                    showChildren: true,
+                    children:[
+                        {
+                            name: 'narayangonj',
+                            exportValue: 'NAR',
+                            showChildren: true,
+                            children:[
+                                {
+                                    name: 'gopalgonj',
+                                    exportValue: 'GOP',
+                                    showChildren: true,
+                                    children:[
+                                        {
+                                            name: 'satgram',
+                                            exportValue: 'SAT',
+                                            showChildren: false,
+                                            children:[],
+                                        }
+                                    ],
+                                },
+                                {
+                                    name: 'arihazar',
+                                    exportValue: 'arz',
+                                    showChildren: false,
+                                    children:[],
+                                },
+                            ]
+                        },
+                        {
+                            name: 'Gazipur',
+                            exportValue: 'GAZ',
+                            showChildren: false,
+                            children:[],
+                        },
+                        {
+                            name: 'Kishorgonj',
+                            exportValue: 'KSH',
+                            showChildren: false,
+                            children:[],
+                        }
+                    ]
+                },
+                {
+                    name: 'Barishal',
+                    exportValue: 'BASL',
+                    showChildren: false,
+                    children: [
+                        {
+                            name: 'Jhalokathi',
+                            exportValue: 'JHI',
+                            showChildren: false,
+                            children: []
+                        }
+                    ]
+                },
+                {
+                    name: 'Chittagong',
+                    exportValue: 'CTG',
+                    showChildren: true ,
+                    children:[
+                        {
+                            name: 'potenga',
+                            exportValue: 'PTG',
+                            showChildren: false,
+                            children:[],
+                        },
+                        {
+                            name: 'Coxs bazar',
+                            exportValue: 'KSH',
+                            showChildren: true,
+                            children:[
+                                {
+                                    name: 'pani',
+                                    exportValue: 'PNI',
+                                    showChildren: false,
+                                    children:[],
+                                }
+                            ],
+                        }
+                    ]
+                },
+                
+            ]
+        },
         fieldType: {
             fieldTypeId: 0,
             fieldId: 0,
@@ -41,6 +133,10 @@ export default function groupDropField(state = initialState, action) {
         case 'GROUP_DROP_DATA_CHANGE':
             groupDropChange(action.payload);
             break;
+
+        case 'CREATE_QUESTION':
+            state = initialState;
+            break;     
     }
     return state;
 }

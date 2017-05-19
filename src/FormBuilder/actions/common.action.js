@@ -1,23 +1,3 @@
-export function setValidation(value, ob) {
-    if (value === '1') {
-        ob.treatAsWarning = true;
-        ob.treatAsError = false;
-    }
-    else if (value === '2') {
-        ob.treatAsWarning = false;
-        ob.treatAsError = true;
-    }
-    else {
-        ob.treatAsWarning = false;
-        ob.treatAsError = false;
-    }
-}
-
-// this method is invoked in all the reducers to deeply clone the object
-export function deepClone(data) {
-    return JSON.parse(JSON.stringify(data));
-}
-
 // checking if questions for a section exist in Cache. if not then questions will be
 // fetched from server
 export function questionExist(section) {
@@ -64,5 +44,25 @@ export function changeFieldState(fieldState, e) {
     }
     else {
         ob[e.target.name] = e.target.value;
+    }
+}
+
+// this method is invoked in all the reducers to deeply clone the object
+export function deepClone(data) {
+    return JSON.parse(JSON.stringify(data));
+}
+
+export function setValidation(value, ob) {
+    if (value === '1') {
+        ob.treatAsWarning = true;
+        ob.treatAsError = false;
+    }
+    else if (value === '2') {
+        ob.treatAsWarning = false;
+        ob.treatAsError = true;
+    }
+    else {
+        ob.treatAsWarning = false;
+        ob.treatAsError = false;
     }
 }

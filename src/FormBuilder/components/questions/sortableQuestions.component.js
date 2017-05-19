@@ -1,12 +1,12 @@
 import React from 'react';
 import { SortableContainer, SortableElement, SortableHandle, arrayMove } from 'react-sortable-hoc';
 
-var getActiveclassName = function (index, activeIndex) {
+var getActiveclassName = function (id, activeId) {
 
-    return (index === activeIndex) ? "form_row active" : "form_row";
+    return (id === activeId) ? "form_row active" : "form_row";
 }
 
-const DragHandle = SortableHandle(() => <span><bold>:::</bold></span>);
+const DragHandle = SortableHandle(() => <span><bold>::::::</bold></span>);
 
 const SortableItem = SortableElement((props) =>
 
@@ -53,7 +53,7 @@ const SortableList = SortableContainer((props) => {
                     index={index}
                     value={value}
                     onClick={(data) => props.onClick(data, index)}
-                    clsName={getActiveclassName(index, props.active)}
+                    clsName={getActiveclassName(value.questionId, props.active)}
                     deleteQues={(data) => props.deleteQues(data, index)} />
             ))}
         </div>
@@ -79,7 +79,7 @@ export default class SortableQuestions extends React.Component {
                 onClick={this.handleChange}
                 onSortEnd={this.onSortEnd}
                 useDragHandle={true}
-                active={this.props.project.active.question.index}
+                active={this.props.project.active.question.data.questionId}
                 deleteQues={this.props.deleteQues} />
         );
     }

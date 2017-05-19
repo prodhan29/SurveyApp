@@ -24,18 +24,14 @@ export default function project(state = formBuilder, action) {
     state = deepClone(state);
     switch (action.type) {
 
+        case 'FIELD_CONFIG_PANEL_SELECT':
+            state.active.panel = action.payload;
+            break;
+            
+        // Section Operations    
         case 'FETCH_SECTIONS_FROM_SERVER':
             state.initialServerCall = true;
             state.cacheData = action.payload.data;
-            break;
-
-        case 'FETCH_QUESTIONS_FROM_SERVER':
-            let fetchedQues = (typeof action.payload.data === 'undefined') ? ([]) : action.payload.data;
-            state.cacheData[state.active.section.index]['child'] = fetchedQues;
-            break;
-
-        case 'FIELD_CONFIG_PANEL_SELECT':
-            state.active.panel = action.payload;
             break;
 
         case 'CREATE_SECTION':
@@ -44,9 +40,19 @@ export default function project(state = formBuilder, action) {
             state.cacheData.push(sec);
             break;
 
+       case 'SECTION_UPDATE':
+            sectionUpdate(state, action.payload);
+            break;     
+
         case 'SECTION_CHANGE':
             state.active.section = action.payload;
             break;
+
+        // Question operations
+        case 'FETCH_QUESTIONS_FROM_SERVER':
+            let fetchedQues = (typeof action.payload.data === 'undefined') ? ([]) : action.payload.data;
+            state.cacheData[state.active.section.index]['child'] = fetchedQues;
+            break;    
 
         case 'CREATE_QUESTION':
             state.cacheData[state.active.section.index].child.push(action.payload);
@@ -74,10 +80,6 @@ export default function project(state = formBuilder, action) {
 
         case 'QUESTION_DELETE':
             state.cacheData[state.active.section.index].child.splice(action.payload.index, 1);
-            break;
-
-        case 'SECTION_UPDATE':
-            sectionUpdate(state, action.payload);
             break;
 
     }

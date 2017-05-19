@@ -6,7 +6,7 @@ import { bindActionCreators } from 'redux';
 import General from '../components/common/field_general.component';
 import Rules from '../components/common/rules.component';
 import Validation from '../components/common/tickValidation.component';
-import Values from '../components/groupDrop/values.component';
+import Treeview from '../components/groupDrop/treeview.component';
 // Actions
 import * as GroupDropAction from '../actions/groupDrop.action';
 
@@ -55,7 +55,7 @@ class GroupDropdown extends React.Component {
 
             case "Values":
                 return (
-                    <Values data={this.props.groupDrop.data.optionValues}
+                    <Treeview data={this.props.groupDrop.data.nodes}
                         dataChange={this.props.dataChange} />
                 );
 

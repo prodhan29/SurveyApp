@@ -112,6 +112,26 @@ export default class AllowedValues extends React.Component {
         }
     }
 
+    uploadOption = (e) => {
+        var file = e.target.files[0];
+        let reader = new FileReader;
+        let _this = this;
+
+        reader.onload = function (e) {
+            var res = e.target.result;
+            var words = res.split("\n");
+
+            words.forEach(function (value) {
+                console.log(value);
+                _this.state.ob.target.value.push(value);
+            }, this);
+
+            _this.props.dataChange(_this.state.ob);
+            document.getElementById("file-upload").value = "";
+        }
+        reader.readAsText(file);
+    }
+
     render() {
         var _this = this;
         const optionELements = this.props.data.map(function (value, index) {
@@ -120,7 +140,17 @@ export default class AllowedValues extends React.Component {
 
         return (
             <div>
-                <div className="segment_title">Set Allowed Values</div>
+                  <div className="segment_title segment_title_with_action">Set Allowed Values
+                    <span className="add dropdown">
+                        <i className="material-icons" data-toggle="dropdown">more_vert</i>
+                        <div className="dropdown_panel action_dropdown dropdown-menu">
+                            <ul>
+                                <li>Remove All</li>
+                                <li><input id='file-upload' type='file' onChange={this.uploadOption} /> </li>
+                            </ul>
+                        </div>
+                    </span>
+                </div>
                 <div className="form_row">
                     <span className="form_label">Name:</span>
                     <span className="form_field">

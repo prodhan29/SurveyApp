@@ -75,7 +75,7 @@ class DropCheck extends React.Component {
                 <ul className="tab_nav compact_nav">
                     {this.getPanels()}
                 </ul>
-                <div className="tab_content">
+                <div className="tab_content values_content">
                     {this.getActivePanel()}
                 </div>
             </section>

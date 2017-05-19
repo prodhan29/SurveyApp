@@ -16,6 +16,7 @@ import PickRule from './FormBuilder/reducers/pickRule.reducer';
 import CalcRule from './FormBuilder/reducers/calcRule.reducer';
 import JumpRule from './FormBuilder/reducers/jumpRule.reducer';
 import GroupDrop from './FormBuilder/reducers/groupDrop.reducer';
+import {reducer as toastrReducer} from 'react-redux-toastr'
 
 const rootReducer = combineReducers({
 
@@ -32,7 +33,8 @@ const rootReducer = combineReducers({
     ValueCheck,
     PickRule,
     CalcRule,
-    JumpRule
+    JumpRule,
+    toastr: toastrReducer 
 });
 
 export default rootReducer;
