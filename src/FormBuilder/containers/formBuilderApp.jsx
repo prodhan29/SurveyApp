@@ -19,7 +19,7 @@ import GroupDrop from './groupDropdown';
 import AddFieldPanel from '../components/common/add_field.component';
 import Sidebar from '../components/common/sidebar.component';
 import SectionAdd from '../components/section/sectionAdd.component';
-import {toastr} from 'react-redux-toastr'
+import { toastr } from 'react-redux-toastr'
 
 const AddFieldRow = (props) => (
     <div className="add_field_row">
@@ -33,20 +33,6 @@ const SectionAddButton = (props) => (
     </div>
 )
 
-const toastrOptions = {
-  timeOut: 3000, // by setting to 0 it will prevent the auto close
-   // You can add any component you want but note the the with and height are 70px ;)
-  onShowComplete: () => console.log('SHOW: animation is done'),
-  onHideComplete: () => console.log('HIDE: animation is done'),
-  onCloseButtonClick: () => console.log('Close button was clicked'),
-  showCloseButton: false, // true by default
-  component: ( // this option will give you a func 'remove' as props
-    <div>
-      <span>Hello, World!</span>
-    </div>
-  )
-}
-
 class FormBuilderApp extends React.Component {
 
     constructor(props) {
@@ -55,11 +41,11 @@ class FormBuilderApp extends React.Component {
             showAddFieldPanel: false,
             showAddSection: false
         }
-          
+
         if (!this.props.project.initialServerCall) {
             this.props.fetchSections();
             console.log('server calls');
-           
+
         }
     }
 
@@ -169,12 +155,12 @@ class FormBuilderApp extends React.Component {
                             <div className="b_c_action_right grand_action">
                                 <button className="button cancel_btn">Cancel</button>
                                 <button className="button black_btn" onClick={this.saveQuestion}>Save Form</button>
-                                <button onClick = {function(){
-                                     toastr.warning('question successfully created',  {
-                                            timeOut: 10000,
-                                            position: 'top-right',
-                                            progressBar: true
-                                        })
+                                <button onClick={function () {
+                                    toastr.warning('question successfully created', {
+                                        timeOut: 10000,
+                                        position: 'top-right',
+                                        progressBar: true
+                                    })
                                 }}> show toastr</button>
                             </div>
                         </section>

@@ -131,7 +131,7 @@ export default class NumberValidation extends React.Component {
 
     uploadOption = (e) => {
         var file = e.target.files[0];
-        let reader = new FileReader;
+        let reader = new FileReader();
         let _this = this;
 
         reader.onload = function (e) {
