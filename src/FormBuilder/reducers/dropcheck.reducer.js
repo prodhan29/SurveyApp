@@ -1,7 +1,7 @@
 
 import { changeFieldState, deepClone } from '../actions/common.action';
 
-var dropCheckState = {};
+var state = {};
 var initialState = {
 
     configPanels: {
@@ -34,42 +34,50 @@ var initialState = {
 
 export default function dropCheckField(state = initialState, action) {
 
-    state = deepClone(state);
-    dropCheckState = state;
-
     switch (action.type) {
 
         case 'DROPCHECK_CONFIGURE_PANEL_CHANGE':
+            state = deepClone(state);
             state.activePanel = action.payload;
             return state;
 
         case 'DROPCHECK_DATA_CHANGE':
-            dropCheckChange(action.payload);
+            state = deepClone(state);
+            dropCheckChange(state, action.payload);
             break;
 
         case 'ON_QUESTION_CLICK':
-            setEditMode(action.payload);
+            state = deepClone(state);
+            setEditMode(state, action.payload);
             break;
 
         case 'FIELD_CONFIG_PANEL_SELECT':
+            state = deepClone(state);
             state = initialState;
             break;
 
+        case 'SAVE_RULE':
+            state = deepClone(state);
+            state.data.valueCheckRule = action.payload.valueCheck;
+            state.data.jumpingRule = action.payload.jumpRule;
+            break;     
+
         case 'CREATE_QUESTION':
+            state = deepClone(state);
             state = initialState;
             break;  
     }
     return state;
 }
 
-var dropCheckChange = function (e) {
-    changeFieldState(dropCheckState, e);
+var dropCheckChange = function (state, e) {
+    changeFieldState(state, e);
 }
 
-var setEditMode = function (data) {
+var setEditMode = function (state, data) {
     if (data.fieldType.fieldTypeName.toLowerCase() === 'dropdown' ||
         data.fieldType.fieldTypeName.toLowerCase() === 'checkbox') {
-        dropCheckState.data = data;
-        dropCheckState.edit = true;
+        state.data = data;
+        state.edit = true;
     }
 }

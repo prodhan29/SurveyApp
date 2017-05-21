@@ -11,3 +11,10 @@ export function dataChange(payload) {
         payload,
     }
 }
+
+export function treeViewChange(payload) {
+    return {
+        type: 'TREE_VIEW_CHANGE',
+        payload,
+    }
+}

@@ -18,7 +18,6 @@ class JumpRule extends React.Component {
     constructor() {
         super();
         this.state = {
-            show: false,
             data: {
                 question: false,
                 section: false,
@@ -36,16 +35,10 @@ class JumpRule extends React.Component {
 
     }
 
-    toggleRuleBox = () => {
-        var _this = this;
-        this.setState({
-            show: !_this.state.show
-        })
-    }
-
     getStyle = (value) => {
-        if ((this.state.show === true && value === 'remove') || (this.state.show === false && value === 'add')) {
-            return { display: 'block' }
+        if ((this.props.data.nodes.length > 0 && value === 'remove') ||
+            (this.props.data.nodes.length === 0 && value === 'add')) {
+            return { display: 'block' };
         }
         else {
             return { display: 'none' };
@@ -78,11 +71,11 @@ class JumpRule extends React.Component {
         return (
             <div>
                 <div style={this.getStyle('add')}>
-                    <NoRules toggle={this.toggleRuleBox} />
+                    <NoRules toggle={()=>this.props.addCondition()} />
                 </div>
                 <div style={this.getStyle('remove')}>
                     <div className="rules_block">
-                        <div className="segment_title">Jumping Rules<span onClick={this.toggleRuleBox} className="remove">Remove</span></div>
+                        <div className="segment_title">Jumping Rules<span onClick={()=>this.props.deleteAllCondition()} className="remove">Remove</span></div>
                     </div>
 
                     {this.getConditions()}
@@ -109,6 +102,7 @@ function mapDispatchToProps(dispatch) {
     return bindActionCreators({
 
         fetchAndCache,
+        deleteAllCondition: RuleAction.deleteAllCondition,
         deleteCondition: RuleAction.jumpRuleDeleteCondition,
         deleteNode: RuleAction.jumpRuleDeleteNode,
         saveQuestion: RuleAction.jumpRuleSaveQuestion,

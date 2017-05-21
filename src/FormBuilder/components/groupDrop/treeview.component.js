@@ -11,20 +11,38 @@ export default class Treeview extends React.Component {
         }
     }
 
+    addRoot = () => {
+        let root = {
+            name: '',
+            exportValue: '',
+            showChildren: true,
+            editMode: true,
+            children: []
+        }
+
+        this.setState({
+            data: root
+        });
+        this.props.treeChange(root);
+    }
+
     handleEditChange = (e, value) => {
         value[e.target.name] = e.target.value;
         this.setState({ value });
+        this.props.treeChange(this.state.data);
     }
 
     deleteNode = (parent, index) => {
         parent.splice(index, 1);
         this.setState({ parent });
+        this.props.treeChange(this.state.data);
     }
 
     makeEditable = (value) => {
         this.state.editableNode = JSON.parse(JSON.stringify(value));
         value.editMode = true;
         this.setState({ value });
+        this.props.treeChange(this.state.data);
     }
 
     closeForm = (value) => {
@@ -33,38 +51,45 @@ export default class Treeview extends React.Component {
         value.exportValue = this.state.editableNode.exportValue;
         value.editMode = false;
         this.setState({ value });
+        this.props.treeChange(this.state.data);
     }
 
     doneEdit = (value) => {
         value.editMode = false;
         this.setState({ value });
+        this.props.treeChange(this.state.data);
     }
 
     toggleView = (ob) => {
         ob.showChildren = !ob.showChildren;
         this.setState({ ob });
+        this.props.treeChange(this.state.data);
     }
 
     addMember = (parent) => {
         let newChild = {
-            name: 'NEW OPTION',
-            exportValue: 0,
+            name: '',
+            exportValue: '',
             showChildren: false,
+            editMode: true,
             children: []
         }
         parent.push(newChild);
         this.setState({ parent });
+        this.props.treeChange(this.state.data);
     }
 
     addChild = (node) => {
         node.showChildren = true;
         node.children.push({
-            name: 'NEW OPTION',
-            exportValue: 0,
+            name: '',
+            exportValue: '',
             showChildren: false,
+            editMode: true,
             children: []
         });
         this.setState({ node });
+        this.props.treeChange(this.state.data);
     }
 
     nodeEditForm = (value) => {
@@ -76,12 +101,14 @@ export default class Treeview extends React.Component {
                         <input value={value.name}
                             type="text"
                             name='name'
+                            placeholder='Option'
                             onChange={function (e) { _this.handleEditChange(e, value) }} />
                     </div>
                     <div className="field code">
                         <input value={value.exportValue}
                             type="text"
                             name='exportValue'
+                            placeholder='Value'
                             onChange={function (e) { _this.handleEditChange(e, value) }} />
                     </div>
                     <div className="field action_node">
@@ -94,7 +121,7 @@ export default class Treeview extends React.Component {
     }
 
     makeChildren = (node) => {
-        if (node.length === 0) return null;
+        if (typeof node === 'undefined' || node.length === 0) return null;
 
         let _this = this;
         let children;
@@ -166,11 +193,21 @@ export default class Treeview extends React.Component {
     }
 
     getNodes = () => {
-
+        if (typeof this.state.data.name === 'undefined') return null;
+        let _this = this;
         let children = this.makeChildren(this.state.data.children);
+        let root = (
+            <span className="root">{this.state.data.name}
+                <span className="actions"> &nbsp;  &nbsp;
+                    <i className="fa fa-pencil" onClick={function (e) { e.stopPropagation(); _this.makeEditable(_this.state.data) }}> edit </i>
+                    <i className="fa fa-plus" onClick={function (e) { e.stopPropagation(); _this.addChild(_this.state.data) }}> Add_child </i>
+                </span>
+            </span>
+
+        )
         return (
             <div className="tree">
-                <span className="root">{this.state.data.name}</span>
+                {(this.state.data.editMode) ? this.nodeEditForm(this.state.data) : root}
                 {children}
             </div>
         );
@@ -179,9 +216,16 @@ export default class Treeview extends React.Component {
     render() {
         return (
             <div>
-                <div className="segment_title segment_title_with_action">Calculation Rules
-                    <span className="add">
-                        <i className="material-icons">more_vert</i>
+                <div className="segment_title segment_title_with_action">Option Values
+                    <span className="add dropdown">
+                        <i className="material-icons" data-toggle="dropdown">more_vert</i>
+                        <div className="dropdown_panel action_dropdown dropdown-menu">
+                            <ul>
+                                <li onClick={this.addRoot}> Add New </li>
+                                <li>Remove All</li>
+                                <li><input id='file-upload' type='file' onChange={this.uploadOption} /> upload </li>
+                            </ul>
+                        </div>
                     </span>
                 </div>
                 <div className="group_dropdown_content">

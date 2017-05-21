@@ -1,6 +1,5 @@
 import { changeFieldState, deepClone } from '../actions/common.action';
 
-var groupDropState = {};
 var initialState = {
 
     configPanels: ['General', 'Validation', 'Values', 'Rules'],
@@ -13,112 +12,7 @@ var initialState = {
         sectionId: 0,
         jumpingRule: '',
         optionValues: [],
-        nodes: {
-            name: 'Bangladesh',
-            exportValue: 'BD',
-            showChildren: true,
-            editMode: false,
-            children:[
-                {
-                    name: 'dhaka',
-                    exportValue: 'dhk',
-                    showChildren: true,
-                    editMode: false,
-                    children:[
-                        {
-                            name: 'narayangonj',
-                            exportValue: 'NAR',
-                            showChildren: true,
-                            editMode: false,
-                            children:[
-                                {
-                                    name: 'gopalgonj',
-                                    exportValue: 'GOP',
-                                    showChildren: true,
-                                    editMode: false,
-                                    children:[
-                                        {
-                                            name: 'satgram',
-                                            exportValue: 'SAT',
-                                            showChildren: false,
-                                            editMode: false,
-                                            children:[],
-                                        }
-                                    ],
-                                },
-                                {
-                                    name: 'arihazar',
-                                    exportValue: 'arz',
-                                    showChildren: false,
-                                    editMode: false,
-                                    children:[],
-                                },
-                            ]
-                        },
-                        {
-                            name: 'Gazipur',
-                            exportValue: 'GAZ',
-                            showChildren: false,
-                            editMode: false,
-                            children:[],
-                        },
-                        {
-                            name: 'Kishorgonj',
-                            exportValue: 'KSH',
-                            showChildren: false,
-                            editMode: false,
-                            children:[],
-                        }
-                    ]
-                },
-                {
-                    name: 'Barishal',
-                    exportValue: 'BASL',
-                    showChildren: false,
-                    editMode: false,
-                    children: [
-                        {
-                            name: 'Jhalokathi',
-                            exportValue: 'JHI',
-                            showChildren: false,
-                            editMode: false,
-                            children: []
-                        }
-                    ]
-                },
-                {
-                    name: 'Chittagong',
-                    exportValue: 'CTG',
-                    showChildren: true ,
-                    editMode: false,
-                    children:[
-                        {
-                            name: 'potenga',
-                            exportValue: 'PTG',
-                            showChildren: false,
-                            editMode: false,
-                            children:[],
-                        },
-                        {
-                            name: 'Coxs bazar',
-                            exportValue: 'KSH',
-                            showChildren: true,
-                            editMode: false,
-                            children:[
-                                {
-                                    name: 'pani',
-                                    exportValue: 'PNI',
-                                    showChildren: false,
-                                    editMode: false,
-                                    children:[],
-                                }
-                            ],
-                        }
-                    ]
-                },
-                
-            ]
-        },
+        nodes: {},
         fieldType: {
             fieldTypeId: 0,
             fieldId: 0,
@@ -135,33 +29,45 @@ var initialState = {
 
 export default function groupDropField(state = initialState, action) {
 
-    state = deepClone(state);
-    groupDropState = state;
-
     switch (action.type) {
 
         case 'GROUP_DROP_CONFIGURE_PANEL_CHANGE':
+            state = deepClone(state);
             state.activePanel = action.payload;
             return state;
 
         case 'GROUP_DROP_DATA_CHANGE':
-            groupDropChange(action.payload);
+            state = deepClone(state);
+            groupDropChange(state, action.payload);
+            break;
+                
+        case 'TREE_VIEW_CHANGE':
+            state = deepClone(state);
+            console.log('grp dropdown -->'+ JSON.stringify(action.payload));
+            state.data.nodes = action.payload;  
             break;
 
+        case 'SAVE_RULE':
+            state = deepClone(state);
+            state.data.jumpingRule = action.payload.jumpRule;
+            break;       
+
         case 'CREATE_QUESTION':
+            state = deepClone(state);
             state = initialState;
-            break;     
+            break;
+
     }
     return state;
 }
 
-var groupDropChange = function (e) {
-    changeFieldState(groupDropState, e);
+var groupDropChange = function (state, e) {
+    changeFieldState(state, e);
 }
 
-var setEditMode = function (data) {
+var setEditMode = function (state, data) {
     if (data.fieldType.fieldTypeName.toLowerCase() === 'dropdown') {
-        groupDropState.data = data;
-        groupDropState.edit = true;
+        state.data = data;
+        state.edit = true;
     }
 }

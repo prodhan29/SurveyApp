@@ -1,6 +1,5 @@
 import { deepClone } from '../actions/common.action';
 
-let ruleState = {};
 let initialState = {
     result: '',
     nodes: [
@@ -18,14 +17,24 @@ let initialState = {
 }
 export default function calcRule(state = initialState, action) {
 
-    state = deepClone(state);
-    ruleState = state;
+    
     switch (action.type) {
 
         case 'CALC_RULE_NODE_CHANGE':
+            state = deepClone(state);
             state.nodes = action.payload;
             state.result = makeExpression(state.nodes);
             break;
+
+        case 'CREATE_QUESTION':
+            state = deepClone(state);
+            state = initialState;
+            break;
+
+        case 'FIELD_CONFIG_PANEL_SELECT':
+            state = deepClone(state);
+            state = initialState;
+            break;        
 
         default:
             break;
@@ -38,7 +47,6 @@ var makeExpression = function (nodes) {
     for (var i = 0; i < nodes.length; i++) {
         var str = '';
         var child = '';
-        console.log('reducer -->' + JSON.stringify(nodes[i]));
         if (nodes[i].info.section === null || nodes[i].info.question === null) return ans;
 
         var sec = nodes[i].info.section.name;

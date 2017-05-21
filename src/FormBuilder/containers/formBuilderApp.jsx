@@ -6,6 +6,7 @@ import { fetchSections } from '../actions/section.action';
 import { createSection } from '../actions/section.action';
 import * as ProjectAction from '../actions/project.action';
 import { updateQuestion } from '../actions/question.action';
+import { saveRule } from '../actions/common.action';
 // Containers
 import Sections from './sections';
 import Questions from './questions';
@@ -19,7 +20,6 @@ import GroupDrop from './groupDropdown';
 import AddFieldPanel from '../components/common/add_field.component';
 import Sidebar from '../components/common/sidebar.component';
 import SectionAdd from '../components/section/sectionAdd.component';
-import { toastr } from 'react-redux-toastr'
 
 const AddFieldRow = (props) => (
     <div className="add_field_row">
@@ -111,16 +111,22 @@ class FormBuilderApp extends React.Component {
     }
 
     saveQuestion = () => {
+        // if no Field type is active no need to save the question
         if (this.props.project.active.panel !== '') {
-            var field = this.fieldConfigPanel('object');
+
+            let field = this.fieldConfigPanel('object');
             field.data.fieldType.fieldTypeName = this.props.project.active.panel;
+            saveRule(this.props, field.data);
+
             if (field.edit) {
                 this.props.updateQuestion(field.data, this.props.project.active.question.index);
             }
             else {
+                console.log(JSON.stringify(field.data));
                 this.props.createQuestion(field.data);
             }
         }
+        
     }
 
     render() {
@@ -156,11 +162,7 @@ class FormBuilderApp extends React.Component {
                                 <button className="button cancel_btn">Cancel</button>
                                 <button className="button black_btn" onClick={this.saveQuestion}>Save Form</button>
                                 <button onClick={function () {
-                                    toastr.warning('question successfully created', {
-                                        timeOut: 10000,
-                                        position: 'top-right',
-                                        progressBar: true
-                                    })
+                                    
                                 }}> show toastr</button>
                             </div>
                         </section>
@@ -179,7 +181,11 @@ function mapStateToProps(state) {
         dateTime: state.DateTime,
         dropCheck: state.DropCheck,
         otherField: state.OtherField,
-        groupDrop: state.GroupDrop
+        groupDrop: state.GroupDrop,
+        valueCheck: state.ValueCheck,
+        pickRule: state.PickRule,
+        calcRule: state.CalcRule,
+        jumpRule: state.JumpRule,
     };
 }
 
@@ -190,6 +196,7 @@ function mapDispatchToProps(dispatch) {
         fetchSections,
         createSection,
         updateQuestion,
+        saveRule: ProjectAction.saveRule,
         createQuestion: ProjectAction.createQuestion,
         selectConfigPanel: ProjectAction.selectConfigPanel
 

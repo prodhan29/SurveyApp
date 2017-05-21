@@ -15,6 +15,12 @@ export function saveValueCheckOp(payload) {
     }
 }
 
+export function deleteValueCheckRule() {
+    return {
+        type: 'DELETE_VALUE_CHECK_RULE'
+    }
+}
+
 export function dataChangeInPickRule(value, name) {
     return {
         type: 'DATA_CHANGE_IN_PICK_RULE',
@@ -83,5 +89,11 @@ export function jumpRuleDeleteCondition(nodeIndex) {
     return {
         type: 'JUMP_RULE_DELETE_CONDITION',
         nodeIndex
+    }
+}
+
+export function deleteAllCondition() {
+    return {
+        type: 'JUMP_RULE_DELETE_ALL_CONDITION',
     }
 }

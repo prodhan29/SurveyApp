@@ -4,66 +4,6 @@ import Operators from './operator.component';
 
 export default class CalcRule extends React.Component {
 
-    /*getNodes=()=>{
-
-        var ob1_ref = this.props.data;
-        let _this = this;
-
-        if(ob1_ref.length === 0)return null;
-        var items = ob1_ref.map(function(value1, index1){
-
-            if(value1.child.length === 0) {
-                return (
-                    <QuestionBox key ={index1}
-                                 data = {value1}
-                                 saveNode = {(info)=>_this.props.saveNode(info ,value1)}
-                                 project = {_this.props.project}
-                                 deleteNode = {()=>_this.props.deleteNode(ob1_ref, index1)}
-                                 toggleQuesBank = {(e)=> _this.props.toggleQuesBank(ob1_ref, value1)}
-                                 onOperatorClick = {(op)=>_this.props.onOperatorClick(op, ob1_ref, value1)}
-                                 fetchAndCache = {_this.props.fetchAndCache}/>
-                );
-            }
-            else {
-
-                var ob2_items = value1.child.map(function(value2, index2){
-                    return (
-                        <QuestionBox project = {_this.props.project}
-                                     data = {value2}
-                                     saveNode = {(info)=>_this.props.saveNode(info ,value2)}
-                                     deleteNode = {()=>_this.props.deleteNode(value1.child, index2)}
-                                     toggleQuesBank = {(e)=> _this.props.toggleQuesBank(value1.child, value2)}
-                                     onOperatorClick = {(op)=>_this.props.onOperatorClick(op, value1.child, value2)}
-                                     fetchAndCache = {_this.props.fetchAndCache}
-                                     key ={index2} />
-                    );
-                });
-
-                return (
-                    <div  key = {index1}>
-                        <QuestionBox project = {_this.props.project}
-                                     data = {value1}
-                                     saveNode = {(info)=>_this.props.saveNode(info ,value1)}
-                                     deleteNode = {()=>_this.props.deleteNode(ob1_ref, index1)}
-                                     toggleQuesBank = {()=> _this.props.toggleQuesBank(ob1_ref, value1)}
-                                     onOperatorClick = {(op)=>_this.props.onOperatorClick(op, ob1_ref, value1)}
-                                     fetchAndCache = {_this.props.fetchAndCache} />
-
-                        <div className="rule_cell group_rules"  >
-                            <div className="group_rules_wrapper">
-                                {ob2_items}
-                            </div>
-                        </div>
-                        <Operators items = {['+', '-', '/', 'X', '()']}
-                                   saveOperator = {(op)=>_this.props.onOperatorClick(op, ob1_ref, value1)}
-                                   data = {value1.relation}/>
-                    </div>
-                );
-            }
-        });
-        return items;
-    }*/
-
     makeNodes = (questions) => {
         if (questions.length === 0) return null;
 
@@ -122,7 +62,7 @@ export default class CalcRule extends React.Component {
         return (
             <div className="rules_block">
                 <div className="segment_title">Calculation Rules
-                    <span className="remove" onClick={this.props.toggleRule}>+ Remove</span></div>
+                    <span className="remove" onClick={()=>this.props.toggleRule('remove')}>+ Remove</span></div>
                 <div className="segment_content no_content">
                     <div className="segment_content">
                         <div className="rules_condition">

@@ -2,6 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import SortableQuestions from '../components/questions/sortableQuestions.component';
+import { toastr } from 'react-redux-toastr'
 // Actions
 import {
     onQuestionClick,

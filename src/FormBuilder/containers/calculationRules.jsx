@@ -36,6 +36,10 @@ class CalculationRule extends React.Component {
         return JSON.parse(JSON.stringify(ob));
     }
 
+    dataPresent = () =>{
+        return !(this.props.data.nodes[0].info.question === null);
+    }
+
     onOperatorClick = (op, parent, node) => {
         let _this = this;
 
@@ -46,7 +50,7 @@ class CalculationRule extends React.Component {
         }
         else {
             node['child'] = [];
-            node.childRelation = node.relation;
+            node.childRelation = (node.relation === '...') ? '+' : node.relation; // if the user click directly on the '()' button;
             node.relation = '...';
             node['child'].push(_this.parse(initialNode));
             this.setState({ node });
@@ -61,15 +65,24 @@ class CalculationRule extends React.Component {
         this.props.dataChangeInCalcRule(this.state.nodes);
     }
 
-    toggleRule = () => {
+    toggleRule = (action) => {
         var _this = this;
-        this.setState({ addRule: _this.state.addRule ? false : true });
+        if(action === 'remove'){
+            this.state.nodes = [];
+            this.state.nodes.push(_this.parse(initialNode));
+            this.props.dataChangeInCalcRule(this.state.nodes);
+        }
+        this.setState({ 
+            addRule: !_this.state.addRule 
+        });
     }
+
     // showing section accordion for each dropdown
     toggleQuesBank = (parent, node) => {
         node.showQuestions = !node.showQuestions;
         this.setState({ node });
     }
+
     // info contains the selected section and question information
     saveNode = (info, node) => {
         node.info = info;
@@ -78,10 +91,10 @@ class CalculationRule extends React.Component {
     }
 
     getCalcRule = () => {
-        if (!this.state.addRule) {
+        if (!this.state.addRule && !this.dataPresent()) {
             return (
                 <StartPanel operators={['+', '-', '/', 'X', '()']}
-                    toggleRule={this.toggleRule} />
+                    toggleRule={()=>this.toggleRule('add')} />
             );
         }
         else {

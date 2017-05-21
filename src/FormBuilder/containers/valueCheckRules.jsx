@@ -8,7 +8,7 @@ import Dropdown from '../components/rules/dropdown.component';
 // Actions
 import { questionExist, getQuestionsBySectionId } from '../actions/common.action';
 import { fetchAndCache } from '../actions/project.action';
-import { dataChangeInValueCheck, saveValueCheckOp } from '../actions/rules.action';
+import { dataChangeInValueCheck, saveValueCheckOp, deleteValueCheckRule } from '../actions/rules.action';
 
 const NoRules = (props) => (
     <div className="rules_block">
@@ -111,7 +111,6 @@ class ValueCheckRule extends React.Component {
     }
 
     getQuestions = (section, index, name) => {
-        console.log('baal');
         if (!questionExist(section)) {
             this.props.fetchAndCache(section, index);
         }
@@ -126,14 +125,24 @@ class ValueCheckRule extends React.Component {
     saveOperator = (value) => {
         this.props.saveValueCheckOp(value);
     }
+
+    getView = () => {
+
+        if((typeof this.props.data.argument.first_section.name !== 'undefined' ||
+            typeof this.props.data.argument.second_section.name !== 'undefined') && 
+            !this.state.showRule) { 
+                return false;
+        }
+        return !this.state.showRule;
+    }
     render() {
         console.log('loading check');
         return (
             <div>
                 {
-                    (!this.state.showRule) ?
+                    (this.getView()) ?
                         <NoRules toggle={this.toggleRuleBox} /> :
-                        <Rules toggle={this.toggleRuleBox}
+                        <Rules toggle={()=> this.props.deleteValueCheckRule()}
                             data={this.props.data}
                             project={this.props.project}
                             getQuestions={this.getQuestions}
@@ -158,6 +167,7 @@ function mapDispatchToProps(dispatch) {
     return bindActionCreators({
         fetchAndCache,
         dataChangeInValueCheck,
+        deleteValueCheckRule,
         saveValueCheckOp
     }, dispatch);
 

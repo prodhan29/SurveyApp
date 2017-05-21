@@ -38,7 +38,7 @@ const SortableItem = SortableElement((props) =>
 
 const SortableList = SortableContainer((props) => {
     return (
-        <div className="builder_form_wrapper" style={{
+        <div className="builder_form_wrapper" id = 'questions' style={{
             width: '80%',
             height: '80vh',
             maxWidth: '500px',
@@ -69,6 +69,12 @@ export default class SortableQuestions extends React.Component {
     handleChange = (question, index) => {
         console.log(index + ' clicked on question ' + JSON.stringify(question));
         this.props.onClick(question, index);
+    }
+
+    componentDidUpdate() {
+        let elem = document.getElementById('questions');
+        console.log(document.getElementById('questions').scrollHeight);
+        elem.scrollTop = elem.scrollHeight
     }
 
     render() {

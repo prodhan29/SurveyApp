@@ -1,7 +1,6 @@
 
 import { changeFieldState, deepClone } from '../actions/common.action';
 
-var fieldState = {};
 var initialState = {
 
     configPanels: ['General', 'Validation'],
@@ -35,29 +34,30 @@ export default function textField(state = initialState, action) {
             break;
 
         case 'ON_QUESTION_CLICK':
-            setEditMode(action.payload);
+            state = deepClone(state);
+            setEditMode(state, action.payload);
             break;
 
         case 'FIELD_CONFIG_PANEL_SELECT':
-            state = initialState;
+            state = JSON.parse(JSON.stringify(initialState));
             break;
 
         case 'CREATE_QUESTION':
-            state = initialState;
+            state = JSON.parse(JSON.stringify(initialState));
             break;     
     }
     return state;
 }
 
-var fieldChange = function (fieldState, e) {
-    changeFieldState(fieldState, e);
+var fieldChange = function (state, e) {
+    changeFieldState(state, e);
 }
 
-var setEditMode = function (data) {
+var setEditMode = function (state, data) {
     if (data.fieldType.fieldTypeName.toLowerCase() === 'gprs' ||
         data.fieldType.fieldTypeName.toLowerCase() === 'image' ||
         data.fieldType.fieldTypeName.toLowerCase() === 'signature') {
-        fieldState.data = data;
-        fieldState.edit = true;
+        state.data = data;
+        state.edit = true;
     }
 }

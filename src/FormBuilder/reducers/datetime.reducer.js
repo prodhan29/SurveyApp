@@ -39,43 +39,50 @@ var initialState = {
 
 export default function textField(state = initialState, action) {
 
-    state = deepClone(state);
-    datetimeState = state;
-
     switch (action.type) {
 
         case 'DATETIME_CONFIGURE_PANEL_CHANGE':
+            state = deepClone(state);
             state = deepClone(state);
             state.activePanel = action.payload;
             return state;
 
         case 'DATE_DATA_CHANGE':
-            datetimeChange(action.payload);
+            state = deepClone(state);
+            datetimeChange(state, action.payload);
             break;
 
         case 'ON_QUESTION_CLICK':
-            setEditMode(action.payload);
+            state = deepClone(state);
+            setEditMode(state, action.payload);
             break;
 
         case 'FIELD_CONFIG_PANEL_SELECT':
+            state = deepClone(state);
             state = initialState;
             break;
 
+        case 'SAVE_RULE':
+            state = deepClone(state);
+            state.data.valueCheckRule = action.payload.valueCheck;
+            break;    
+
         case 'CREATE_QUESTION':
+            state = deepClone(state);
             state = initialState;
             break;    
     }
     return state;
 }
 
-var datetimeChange = function (e) {
-    changeFieldState(datetimeState, e);
+var datetimeChange = function (state, e) {
+    changeFieldState(state, e);
 }
 
-var setEditMode = function (data) {
+var setEditMode = function (state, data) {
     if (data.fieldType.fieldTypeName.toLowerCase() === 'time' ||
         data.fieldType.fieldTypeName.toLowerCase() === 'date') {
-        datetimeState.data = data;
-        datetimeState.edit = true;
+        state.data = data;
+        state.edit = true;
     }
 }

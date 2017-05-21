@@ -7,6 +7,13 @@ export function selectConfigPanel(payload) {
     }
 }
 
+export function saveRule(payload) {
+    return {
+        type: 'SAVE_RULE',
+        payload,
+    }
+}
+
 export function createQuestion(payload) {
     return {
         type: 'CREATE_QUESTION',

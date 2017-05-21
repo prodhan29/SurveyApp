@@ -60,7 +60,7 @@ class PickRule extends React.Component {
         return (
             <section>
                 <div className="rules_block" style={this.getStyle('add')}>
-                    <div className="segment_title">Value Check Rules<span className="add" onClick={this.toggle}>+ Add</span></div>
+                    <div className="segment_title">Pick and suggest Rule<span className="add" onClick={this.toggle}>+ Add</span></div>
                     <div className="segment_content no_content">No Rules Added yet</div>
                 </div>
                 <div className="rules_block" style={this.getStyle('remove')}>

@@ -1,7 +1,6 @@
 
 import { changeFieldState, deepClone } from '../actions/common.action';
 
-var numberState = {};
 var initialState = {
     configPanels: ['General', 'Validation', 'Rules'],
     activePanel: 'General',
@@ -31,9 +30,6 @@ var initialState = {
 
 export default function numberField(state = initialState, action) {
 
-    state = deepClone(state);
-    numberState = state;
-
     switch (action.type) {
         case 'NUMBER_CONFIGURE_PANEL_CHANGE':
             state = deepClone(state);
@@ -41,32 +37,44 @@ export default function numberField(state = initialState, action) {
             return state;
 
         case 'NUMBER_DATA_CHANGE':
-            numberDataChange(action.payload);
+            state = deepClone(state);
+            numberDataChange(state, action.payload);
             break;
 
         case 'ON_QUESTION_CLICK':
-            setEditMode(action.payload);
+            state = deepClone(state);
+            setEditMode(state, action.payload);
             break;
+
+         case 'SAVE_RULE':
+            state = deepClone(state);
+            state.data.valueCheckRule = action.payload.valueCheck;
+            state.data.jumpingRule = action.payload.jumpRule;
+            state.data.calculationRule = action.payload.calcRule;
+            break;    
 
         case 'FIELD_CONFIG_PANEL_SELECT':
-            state = initialState;
-            break;
+            state = JSON.parse(JSON.stringify(initialState));
+            break;    
 
         case 'CREATE_QUESTION':
-            state = initialState;
-            break;     
+            state = JSON.parse(JSON.stringify(initialState));
+            break;
+
+        default:
+            state;         
     }
     return state;
 }
 
-var numberDataChange = function (e) {
-    changeFieldState(numberState, e);
+var numberDataChange = function (state, e) {
+    changeFieldState(state, e);
 }
 
-var setEditMode = function (data) {
+var setEditMode = function (state, data) {
     if (data.fieldType.fieldTypeName.toLowerCase() === 'number' ||
         data.fieldType.fieldTypeName.toLowerCase() === 'float') {
-        numberState.data = data;
-        numberState.edit = true;
+        state.data = data;
+        state.edit = true;
     }
 }

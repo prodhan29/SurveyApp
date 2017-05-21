@@ -55,7 +55,12 @@ export default class QuestionBox extends React.Component {
         }
 
         this.setState({
-            activeSection: section
+            activeSection: {
+                sectionId: section.sectionId,
+                name: section.name,
+                description: section.description,
+                repetitive: section.repetitive,
+            }
         });
     }
 

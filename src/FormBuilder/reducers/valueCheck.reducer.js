@@ -1,6 +1,5 @@
 import { deepClone } from '../actions/common.action';
 
-var vcState = {};
 var initialState = {
     operator: '...',
     argument: {
@@ -13,18 +12,34 @@ var initialState = {
 
 export default function textField(state = initialState, action) {
 
-    state = deepClone(state);
-    vcState = state;
+    
     switch(action.type){
 
         case 'DATA_CHANGE_IN_VALUE_CHECK':
-            console.log(action);
+            state = deepClone(state);
+            if(action.payload.name === 'first_section' || action.payload.name ==='second_section') {
+                action.payload.data.child = undefined;
+            }
             state.argument[action.payload.name] = action.payload.data;
             break;
 
         case 'SAVE_VALUE_CHECK_OPERATOR':
+            state = deepClone(state);
             state.operator = action.payload;
             break;
+
+        // reset actions    
+        case 'DELETE_VALUE_CHECK_RULE':
+            state = JSON.parse(JSON.stringify(initialState));
+            break;   
+
+        case 'CREATE_QUESTION':
+            state = JSON.parse(JSON.stringify(initialState));
+            break;    
+
+        case 'FIELD_CONFIG_PANEL_SELECT':
+            state = JSON.parse(JSON.stringify(initialState));
+            break;     
     }
     return state;
 }

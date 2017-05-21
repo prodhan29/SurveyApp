@@ -47,6 +47,15 @@ export function changeFieldState(fieldState, e) {
     }
 }
 
+export function saveRule(project, fieldData) {
+
+    fieldData['calculationRule_client'] = project.calcRule;
+    fieldData['jumpingRule_client'] = project.jumpRule;
+    fieldData['valueCheckRule_client'] = JSON.stringify(project.valueCheck);
+    fieldData['pickAndSuggestRule_client'] = JSON.stringify(project.pickRule);
+    
+}
+
 // this method is invoked in all the reducers to deeply clone the object
 export function deepClone(data) {
     return JSON.parse(JSON.stringify(data));

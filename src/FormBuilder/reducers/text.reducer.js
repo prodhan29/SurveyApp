@@ -1,6 +1,5 @@
 import { changeFieldState, deepClone } from '../actions/common.action';
 
-var textState = {};
 var initialState = {
 
     configPanels: ['General', 'Values', 'Validation'],
@@ -31,8 +30,6 @@ var initialState = {
 
 export default function textField(state = initialState, action) {
 
-    state = deepClone(state);
-    textState = state;
     switch (action.type) {
 
         case 'TEXT_CONFIGURE_PANEL_CHANGE':
@@ -41,35 +38,36 @@ export default function textField(state = initialState, action) {
             break;
 
         case 'TEXT_CHANGE':
-            textChange(action.payload);
+            state = deepClone(state);
+            textChange(state, action.payload);
             break;
 
         case 'ON_QUESTION_CLICK':
-            setEditMode(action.payload);
+            state = deepClone(state);
+            setEditMode(state, action.payload);
             break;
 
         case 'FIELD_CONFIG_PANEL_SELECT':
-            state = initialState;
+            state = JSON.parse(JSON.stringify(initialState));
             break;
 
         case 'CREATE_QUESTION':
-            state = initialState;
+            state = JSON.parse(JSON.stringify(initialState));
             break;     
     }
-
     return state;
 }
 
-var textChange = function (e) {
-    changeFieldState(textState, e);
+var textChange = function (state, e) {
+    changeFieldState(state, e);
 }
 
-var setEditMode = function (data) {
+var setEditMode = function (state, data) {
     if (data.fieldType.fieldTypeName.toLowerCase() === 'text' ||
         data.fieldType.fieldTypeName.toLowerCase() === 'suggestion' ||
         data.fieldType.fieldTypeName.toLowerCase() === 'barcode') {
-        textState.data = data;
-        textState.edit = true;
+        state.data = data;
+        state.edit = true;
     }
 }
 

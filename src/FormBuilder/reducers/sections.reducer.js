@@ -7,14 +7,15 @@ const sec = {
 
 export default function sections(state = sec, action) {
 
-    state = deepClone(state);
     switch (action.type) {
 
         case "FETCH_SECTIONS_FROM_SERVER":
+            state = deepClone(state);
             state.list = action.payload.data;
             break;
 
         case 'CREATE_SECTION':
+            state = deepClone(state);
             console.log("create section" + action.payload);
             const sec = action.payload;
             sec['sectionId'] = new Date();
@@ -22,6 +23,7 @@ export default function sections(state = sec, action) {
             break;
 
         case 'SECTION_UPDATE':
+            state = deepClone(state);
             sectionUpdate(state, action.payload);
             break;
     }

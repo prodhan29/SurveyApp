@@ -56,7 +56,7 @@ class GroupDropdown extends React.Component {
             case "Values":
                 return (
                     <Treeview data={this.props.groupDrop.data.nodes}
-                        dataChange={this.props.dataChange} />
+                        treeChange={this.props.treeViewChange} />
                 );
 
             default:
@@ -93,6 +93,7 @@ function mapStateToProps(state) {
 function mapDispatchToProps(dispatch) {
 
     return bindActionCreators({
+        treeViewChange: GroupDropAction.treeViewChange,
         dataChange: GroupDropAction.dataChange,
         changeConfigPanel: GroupDropAction.configPanelChange
     }, dispatch);
