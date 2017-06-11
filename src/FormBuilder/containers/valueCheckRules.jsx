@@ -135,6 +135,11 @@ class ValueCheckRule extends React.Component {
         }
         return !this.state.showRule;
     }
+
+    deleteValueCheckRule = () => {
+        this.toggleRuleBox();
+        this.props.deleteValueCheckRule();
+    }
     render() {
         console.log('loading check');
         return (
@@ -142,7 +147,7 @@ class ValueCheckRule extends React.Component {
                 {
                     (this.getView()) ?
                         <NoRules toggle={this.toggleRuleBox} /> :
-                        <Rules toggle={()=> this.props.deleteValueCheckRule()}
+                        <Rules toggle={this.deleteValueCheckRule}
                             data={this.props.data}
                             project={this.props.project}
                             getQuestions={this.getQuestions}
@@ -170,7 +175,6 @@ function mapDispatchToProps(dispatch) {
         deleteValueCheckRule,
         saveValueCheckOp
     }, dispatch);
-
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(ValueCheckRule);

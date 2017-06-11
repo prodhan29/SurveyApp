@@ -1,11 +1,4 @@
-[{
-	"questionId": 0,
-	"name": "s8_q1",
-	"caption": "village",
-	"sectionId": 0,
-	"jumpingRule": "",
-	"optionValues": [],
-	"nodes": {
+"nodes": {
 		"name": "Bangladesh",
 		"exportValue": "BD",
 		"showChildren": true,
@@ -107,21 +100,4 @@
 				"children": []
 			}
 		]
-	},
-	"fieldType": {
-		"fieldTypeId": 0,
-		"fieldId": 0,
-		"fieldTypeName": "groupDrop",
-		"exportValue": true,
-		"indexField": false,
-		"blank": true,
-		"readOnly": false,
-		"treatAsError": true,
-		"treatAsWarning": false
-	},
-	"calculationRule_client": "{\"result\":\"\",\"nodes\":[{\"info\":{\"section\":null,\"question\":null},\"relation\":\"...\",\"childRelation\":\"...\",\"child\":[],\"showQuestions\":false}]}",
-	"jumpingRule_client": "{\"nodes\":[]}",
-	"valueCheckRule_client": "{\"operator\":\"...\",\"argument\":{\"first_section\":{},\"first_question\":{},\"second_section\":{},\"second_question\":{}}}",
-	"pickAndSuggestRule_client": "{\"section\":{},\"question\":{}}"
-}
-]
+	}

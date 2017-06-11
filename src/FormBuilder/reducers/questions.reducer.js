@@ -29,6 +29,7 @@ export default function questions(state = question, action) {
         case 'UPDATE_QUESTION':
             state = deepClone(state);
             state.list[action.payload.index] = action.payload.data;
+            state.toastrMsg = 'question updated successfully';
             break;
 
         case 'QUESTIONS_CHANGE':
@@ -45,7 +46,12 @@ export default function questions(state = question, action) {
         case 'QUESTION_DELETE':
             state = deepClone(state);
             state.list.splice(action.payload.index, 1);
+            state.toastrMsg = 'question delete successfully';
             break;
+
+        case 'RESET_TOASTR_MSG':
+            state.toastrMsg = '';
+            break;    
     }
     return state;
 }

@@ -18,7 +18,8 @@ export default function textField(state = initialState, action) {
         case 'DATA_CHANGE_IN_VALUE_CHECK':
             state = deepClone(state);
             if(action.payload.name === 'first_section' || action.payload.name ==='second_section') {
-                action.payload.data.child = undefined;
+                let section = deepClone(action.payload.data);
+                delete section.child;
             }
             state.argument[action.payload.name] = action.payload.data;
             break;

@@ -1,8 +1,6 @@
 // checking if questions for a section exist in Cache. if not then questions will be
 // fetched from server
 export function questionExist(section) {
-
-    console.log('section --> ' + JSON.stringify(section));
     var keys = Object.keys(section);
     if (keys.indexOf('child') === -1) return false;
     else return true;
@@ -49,8 +47,8 @@ export function changeFieldState(fieldState, e) {
 
 export function saveRule(project, fieldData) {
 
-    fieldData['calculationRule_client'] = project.calcRule;
-    fieldData['jumpingRule_client'] = project.jumpRule;
+    fieldData['calculationRule_client'] = JSON.stringify(project.calcRule);
+    fieldData['jumpingRule_client'] = JSON.stringify(project.jumpRule);
     fieldData['valueCheckRule_client'] = JSON.stringify(project.valueCheck);
     fieldData['pickAndSuggestRule_client'] = JSON.stringify(project.pickRule);
     

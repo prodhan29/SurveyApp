@@ -6,14 +6,15 @@ import Dropdown from '../components/rules/dropdown.component';
 // Actions
 import { questionExist, getQuestionsBySectionId } from '../actions/common.action';
 import { fetchAndCache } from '../actions/project.action';
-import { dataChangeInPickRule } from '../actions/rules.action';
+import { dataChangeInPickRule, deletePickRule } from '../actions/rules.action';
 
 class PickRule extends React.Component {
 
-    constructor() {
-        super();
+    constructor(props) {
+        super(props);
+        let _this = this;
         this.state = {
-            show: false
+            show: !(typeof _this.props.data.section.sectionId == 'undefined')
         }
     }
 
@@ -55,6 +56,11 @@ class PickRule extends React.Component {
         this.props.dataChangeInPickRule(section, name);
     }
 
+    deleteRule = () => {
+        this.toggle();
+        this.props.deletePickRule();
+    }
+
     render() {
 
         return (
@@ -64,8 +70,8 @@ class PickRule extends React.Component {
                     <div className="segment_content no_content">No Rules Added yet</div>
                 </div>
                 <div className="rules_block" style={this.getStyle('remove')}>
-                    <div className="segment_title">Value Check Rules
-                        <span className="remove" onClick={this.toggle}>Remove</span>
+                    <div className="segment_title">Pick and suggest Rule
+                        <span className="remove" onClick={this.deleteRule}>Remove</span>
                     </div>
                     <div className="segment_content">
                         <div className="rules_condition">
@@ -105,7 +111,8 @@ function mapDispatchToProps(dispatch) {
 
     return bindActionCreators({
         fetchAndCache,
-        dataChangeInPickRule
+        dataChangeInPickRule,
+        deletePickRule
     }, dispatch);
 
 }

@@ -2,12 +2,13 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import SortableQuestions from '../components/questions/sortableQuestions.component';
-import { toastr } from 'react-redux-toastr'
+import { toastr } from 'react-redux-toastr';
 // Actions
 import {
     onQuestionClick,
     quesSequenceChange,
-    deleteQues
+    deleteQues,
+    resetToastrMsg
 } from '../actions/question.action';
 
 import { selectConfigPanel, setActiveQuestion } from '../actions/project.action';
@@ -19,6 +20,15 @@ class Questions extends React.Component {
         this.props.selectConfigPanel(data.fieldType.fieldTypeName.toLowerCase());
         this.props.onQuestionClick(data);
         this.props.setActiveQuestion(data, index);
+    }
+
+    componentDidUpdate(prevProps, prevState) {
+        let _this = this;
+        if(this.props.question.toastrMsg!= ''){
+            toastr.success('boo',this.props.question.toastrMsg,{
+                onHideComplete: _this.props.resetToastrMsg
+            });
+        }
     }
 
     render() {
@@ -46,7 +56,8 @@ function mapDispatchToProps(dispatch) {
         selectConfigPanel,
         setActiveQuestion,
         quesSequenceChange,
-        deleteQues
+        deleteQues,
+        resetToastrMsg
     }, dispatch);
 }
 

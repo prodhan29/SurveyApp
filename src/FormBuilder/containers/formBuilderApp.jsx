@@ -20,6 +20,7 @@ import GroupDrop from './groupDropdown';
 import AddFieldPanel from '../components/common/add_field.component';
 import Sidebar from '../components/common/sidebar.component';
 import SectionAdd from '../components/section/sectionAdd.component';
+import {toastr} from 'react-redux-toastr';
 
 const AddFieldRow = (props) => (
     <div className="add_field_row">
@@ -44,9 +45,13 @@ class FormBuilderApp extends React.Component {
 
         if (!this.props.project.initialServerCall) {
             this.props.fetchSections();
-            console.log('server calls');
-
         }
+    }
+
+    componentDidMount() {
+        window.onerror = function(msg) {
+            toastr.error('Error: '+ msg);
+        };    
     }
 
     toggleAddFieldButton = (event) => {
@@ -104,7 +109,7 @@ class FormBuilderApp extends React.Component {
         else if (panel === 'time' || panel === 'date') {
             return (ans === 'element') ? <DateTime /> : this.props.dateTime;
         }
-        else if (panel === 'groupDrop') {
+        else if (panel === 'groupdrop') {
             return (ans === 'element') ? <GroupDrop /> : this.props.groupDrop;
         }
         return null;
@@ -126,7 +131,6 @@ class FormBuilderApp extends React.Component {
                 this.props.createQuestion(field.data);
             }
         }
-        
     }
 
     render() {

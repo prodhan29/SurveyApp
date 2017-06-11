@@ -5,8 +5,8 @@ var state = {};
 var initialState = {
 
     configPanels: {
-        dropdown: ['General', 'Validation', 'Values', 'Rules'],
-        checkbox: ['General', 'Validation', 'Values']
+        dropdown: ['General', 'Values', 'Validation', 'Rules'],
+        checkbox: ['General', 'Values', 'Validation']
     },
     activePanel: 'General',
     edit: false,

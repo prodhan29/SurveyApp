@@ -8,7 +8,7 @@ export default class AddField extends React.Component {
         this.state = {
             activePanel: 'general',
             general: ["text", "suggestion", "number", "float", "date", "time", "checkbox", "dropdown"],
-            group: ["groupDrop"],
+            group: ["groupdrop"],
             other: ["image", "barcode", "gprs", "signature"]
         }
     }

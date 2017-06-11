@@ -17,8 +17,11 @@ import CalcRule from './FormBuilder/reducers/calcRule.reducer';
 import JumpRule from './FormBuilder/reducers/jumpRule.reducer';
 import GroupDrop from './FormBuilder/reducers/groupDrop.reducer';
 import {reducer as toastrReducer} from 'react-redux-toastr'
+import { syncHistoryWithStore, routerReducer } from 'react-router-redux';
 
 const rootReducer = combineReducers({
+
+    routing: routerReducer,
 
     //Formbuilder reducers
     Project,

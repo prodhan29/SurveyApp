@@ -97,3 +97,9 @@ export function deleteAllCondition() {
         type: 'JUMP_RULE_DELETE_ALL_CONDITION',
     }
 }
+
+export function deletePickRule() {
+    return {
+        type: 'DELETE_PICK_RULE',
+    }
+}

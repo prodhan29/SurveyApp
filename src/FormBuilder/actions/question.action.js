@@ -43,3 +43,9 @@ export function deleteQues(data, index) {
         payload: { data, index }
     }
 }
+
+export function resetToastrMsg() {
+    return {
+        type: 'RESET_TOASTR_MSG',
+    }
+}

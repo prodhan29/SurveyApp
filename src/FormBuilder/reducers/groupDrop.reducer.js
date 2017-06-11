@@ -2,7 +2,7 @@ import { changeFieldState, deepClone } from '../actions/common.action';
 
 var initialState = {
 
-    configPanels: ['General', 'Validation', 'Values', 'Rules'],
+    configPanels: ['General', 'Values', 'Validation', 'Rules'],
     activePanel: 'General',
     edit: false,
     data: {
@@ -36,6 +36,11 @@ export default function groupDropField(state = initialState, action) {
             state.activePanel = action.payload;
             return state;
 
+        case 'ON_QUESTION_CLICK':
+            state = deepClone(state);
+            setEditMode(state, action.payload);
+            break;    
+
         case 'GROUP_DROP_DATA_CHANGE':
             state = deepClone(state);
             groupDropChange(state, action.payload);
@@ -66,7 +71,7 @@ var groupDropChange = function (state, e) {
 }
 
 var setEditMode = function (state, data) {
-    if (data.fieldType.fieldTypeName.toLowerCase() === 'dropdown') {
+    if (data.fieldType.fieldTypeName.toLowerCase() === 'groupdrop') {
         state.data = data;
         state.edit = true;
     }

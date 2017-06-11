@@ -15,13 +15,9 @@ export default function textField(state = initialState, action) {
             state = deepClone(state);
             // to avoid copy questions;
             if(action.payload.name === 'section') {
-                var value = {
-                    sectionId: action.payload.value.sectionId,
-                    name: action.payload.value.name,
-                    description: action.payload.value.description,
-                    repetitive: action.payload.value.repetitive,
-                };
-                state['section'] = value;
+                let section = deepClone(action.payload.value);
+                delete section.child
+                state['section'] = section;
             }
             else {
                 state['question'] = action.payload.value;
@@ -35,7 +31,11 @@ export default function textField(state = initialState, action) {
 
          case 'FIELD_CONFIG_PANEL_SELECT':
             state = JSON.parse(JSON.stringify(initialState));
-            break;   
+            break;
+
+         case 'DELETE_PICK_RULE':
+            state = JSON.parse(JSON.stringify(initialState));
+            break;      
     }
     return state;
 }
