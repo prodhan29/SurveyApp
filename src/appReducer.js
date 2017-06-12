@@ -16,8 +16,13 @@ import PickRule from './FormBuilder/reducers/pickRule.reducer';
 import CalcRule from './FormBuilder/reducers/calcRule.reducer';
 import JumpRule from './FormBuilder/reducers/jumpRule.reducer';
 import GroupDrop from './FormBuilder/reducers/groupDrop.reducer';
-import {reducer as toastrReducer} from 'react-redux-toastr'
+
+//Toastr
+import {reducer as toastrReducer} from 'react-redux-toastr';
 import { syncHistoryWithStore, routerReducer } from 'react-router-redux';
+
+//User
+import User from './GeneralReducers/user.reducer';
 
 const rootReducer = combineReducers({
 
@@ -37,7 +42,10 @@ const rootReducer = combineReducers({
     PickRule,
     CalcRule,
     JumpRule,
-    toastr: toastrReducer 
+    toastr: toastrReducer,
+
+    //Projects Reducer
+    User 
 });
 
 export default rootReducer;

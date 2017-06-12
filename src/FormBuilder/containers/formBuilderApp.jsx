@@ -18,7 +18,7 @@ import OtherField from './otherField';
 import GroupDrop from './groupDropdown';
 // components
 import AddFieldPanel from '../components/common/add_field.component';
-import Sidebar from '../components/common/sidebar.component';
+import Sidebar from '../../GeneralComponent/sidebar.component';
 import SectionAdd from '../components/section/sectionAdd.component';
 import {toastr} from 'react-redux-toastr';
 
