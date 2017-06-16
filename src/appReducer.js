@@ -1,6 +1,6 @@
-'user strict'
 
 import { combineReducers } from 'redux';
+import { syncHistoryWithStore, routerReducer } from 'react-router-redux';
 
 // Formbuilder reducers
 import Question from './FormBuilder/reducers/questions.reducer';
@@ -19,10 +19,12 @@ import GroupDrop from './FormBuilder/reducers/groupDrop.reducer';
 
 //Toastr
 import {reducer as toastrReducer} from 'react-redux-toastr';
-import { syncHistoryWithStore, routerReducer } from 'react-router-redux';
 
 //User
 import User from './GeneralReducers/user.reducer';
+
+//All Projects
+import AllProject from './Projects/reducers/allProjects.reducer';
 
 const rootReducer = combineReducers({
 
@@ -44,8 +46,11 @@ const rootReducer = combineReducers({
     JumpRule,
     toastr: toastrReducer,
 
-    //Projects Reducer
-    User 
+    //General Reducer
+    User,
+
+    //All projects reducer
+    AllProject
 });
 
 export default rootReducer;

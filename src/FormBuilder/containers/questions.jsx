@@ -7,11 +7,10 @@ import { toastr } from 'react-redux-toastr';
 import {
     onQuestionClick,
     quesSequenceChange,
-    deleteQues,
-    resetToastrMsg
+    deleteQues
 } from '../actions/question.action';
 
-import { selectConfigPanel, setActiveQuestion } from '../actions/project.action';
+import { selectConfigPanel, setActiveQuestion, resetToastrMsg } from '../actions/project.action';
 
 class Questions extends React.Component {
 

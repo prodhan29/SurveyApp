@@ -2,7 +2,8 @@ import { deepClone } from '../actions/common.action';
 
 const sec = {
 
-    list: []
+    list: [],
+    toastrMsg: ''
 };
 
 export default function sections(state = sec, action) {
@@ -11,28 +12,36 @@ export default function sections(state = sec, action) {
 
         case "FETCH_SECTIONS_FROM_SERVER":
             state = deepClone(state);
-            state.list = action.payload.data;
+            state.list = (typeof action.payload.data === 'undefined') ? ([]) : action.payload.data;
             break;
 
         case 'CREATE_SECTION':
             state = deepClone(state);
-            console.log("create section" + action.payload);
-            const sec = action.payload;
-            sec['sectionId'] = new Date();
-            state.list.push(sec);
+            state.list.push(action.payload.data);
+            state.toastrMsg = "section created successfully"
             break;
 
-        case 'SECTION_UPDATE':
+        case 'UPDATE_SECTION':
             state = deepClone(state);
-            sectionUpdate(state, action.payload);
+            sectionUpdate(state, action.payload, action.index);
+            state.toastrMsg = 'section updated successfully'
             break;
+
+        case 'DELETE_SECTION':
+            state = deepClone(state)
+            state.list.splice(action.index, 1);
+            break;
+
+        case 'RESET_SECTION_TOASTR_MSG':
+            state.toastrMsg = '';
+            break;     
     }
     return state;
 }
 
-function sectionUpdate(state, payload) {
-    let sec = state.list[payload.index];
-    sec.name = payload.data.name;
-    sec.description = payload.data.description;
-    sec.repetitive = payload.data.repetitive;
+function sectionUpdate(state, payload, index) {
+    let sec = state.list[index];
+    sec.name = payload.name;
+    sec.description = payload.description;
+    sec.repetitive = payload.repetitive;
 }

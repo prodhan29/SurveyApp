@@ -16,10 +16,9 @@ const history = syncHistoryWithStore(browserHistory, Store);
 
 class Apps extends React.Component {
     render() {
-
         return (
             <div>
-                <FormBuilderApp />
+                <FormBuilderApp projectId = {this.props.params.projectId}/>
                 <ReduxToastr preventDuplicates />
             </div>
         );
@@ -34,7 +33,7 @@ class Root extends React.Component {
                 <Router history={history}>
                      <Route path="/projects" component={ProjectsApp}></Route>
                      <Route path="/login" component={Login}></Route>
-                     <Route path="/form-builder" component={Apps}></Route>
+                     <Route path="/form-builder/:projectId" component={Apps}></Route>
                  </Router>   
             </Provider>
         );

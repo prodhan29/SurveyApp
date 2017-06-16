@@ -47,10 +47,10 @@ export function changeFieldState(fieldState, e) {
 
 export function saveRule(project, fieldData) {
 
-    fieldData['calculationRule_client'] = JSON.stringify(project.calcRule);
-    fieldData['jumpingRule_client'] = JSON.stringify(project.jumpRule);
-    fieldData['valueCheckRule_client'] = JSON.stringify(project.valueCheck);
-    fieldData['pickAndSuggestRule_client'] = JSON.stringify(project.pickRule);
+    fieldData['calculationRule'] = JSON.stringify(project.calcRule);
+    fieldData['jumpingRule'] = JSON.stringify(project.jumpRule);
+    fieldData['valueCheckRule'] = JSON.stringify(project.valueCheck);
+    fieldData['pickAndSuggestRule'] = JSON.stringify(project.pickRule);
     
 }
 

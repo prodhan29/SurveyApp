@@ -1,6 +1,5 @@
 import axios from 'axios'
-
-var domain = "http://54.69.108.14:8090";
+import AppConfig from '../application.config';
 
 export function signinSuccess(payload) {
     return {
@@ -10,7 +9,7 @@ export function signinSuccess(payload) {
 }
 
 export function signin(data, success){
-    let payload = axios.post(`${domain}/login_session`,data).then((response)=>{
+    let payload = axios.post(`${AppConfig.domain}/login_session`,data).then((response)=>{
         success(response.data);
     })
 }

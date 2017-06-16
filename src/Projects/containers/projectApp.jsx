@@ -4,14 +4,23 @@ import { bindActionCreators } from 'redux';
 //components
 import Sidebar from '../../GeneralComponent/sidebar.component';
 import ProjectCreateModal from '../components/projectCreateModal';
+import ConfirmationModal from '../components/confirmationModal';
+//actions
+import { createProject, fetchAllProjects, deleteProject } from '../actions/allProjects.action';
 
 class Projects extends React.Component {
 
     constructor(props) {
         super(props);
         this.state = {
-            showCreateModal: false
+            showCreateModal: false,
+            project: null,
+            index: -1
         }
+    }
+
+    componentDidMount() {
+        this.props.fetchAllProjects();
     }
 
     toggleModal = () => {
@@ -20,10 +29,38 @@ class Projects extends React.Component {
             showCreateModal: !_this.state.showCreateModal
         })
     }
+
+    setProject = (project, index) => {
+        this.setState({ project, index });
+    }
+
+    showAllProjects = () => {
+        return this.props.projects.list.map((project, index) => {
+            let formbuilderLink = `/form-builder/${project.projectId}`;
+            return (
+                <tr key={index}>
+                    <td className="selection"><span className="ui_checkbox unchecked"></span></td>
+                    <td className="text_left"> <a href={formbuilderLink}> {project.name}</a> </td>
+                    <td className="text_center"> {project.version} </td>
+                    <td className="text_center"> {project.published ? <span className="label label-success">sucess</span> : <span className="label label-default">in progress</span>} </td>
+                    <td className="text_center"> {project.sectionAllowed ? <span className="label label-info"> Allowed </span> : <span className="label label-danger">Not allowed</span>}</td>
+                    <td className="text_center"> {project.lastModifiedDate}</td>
+                    <td className="text_center">
+                        <button className="button manage_user" onClick={() => this.setProject(project, index)} data-toggle="modal" data-target="#myModal" >Delete</button> &nbsp;
+                        <button className="button manage_user"> Edit</button>
+                    </td>
+
+                </tr>
+            )
+        })
+    }
+
     render() {
-        console.log(this.state.showCreateModal)
+
+        console.log('length ==' + this.props.projects.list.length);
         return (
             <div className="main_container">
+
                 <section className="header">
                     <div className="logo"><img src="assets/img/logo.png" /></div>
                     <div className="header_main">
@@ -50,29 +87,28 @@ class Projects extends React.Component {
                                             <th className="text_left">Name</th>
                                             <th className="text_center">Version</th>
                                             <th className="text_center">published</th>
+                                            <th className="text_center">section Allowed</th>
                                             <th className="text_center">last modified</th>
                                             <th className="action"></th>
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <tr>
-                                            <td className="selection"><span className="ui_checkbox unchecked"></span></td>
-                                            <td className="text_left"></td>
-                                            <td className="text_center">05</td>
-                                            <td className="text_center">0</td>
-                                            <td className="text_center">05</td>
-                                            <td className="text_center">
-                                                <button className="button manage_user">Delete</button> &nbsp;
-                                                <button className="button manage_user"> Edit</button>
-                                            </td>
-                                        </tr>
+                                        {this.showAllProjects()}
                                     </tbody>
                                 </table>
                             </div>
                         </div>
                     </section>
+
                 </section>
-                {this.state.showCreateModal ? <ProjectCreateModal toggleModal = {this.toggleModal}/> : null}
+                {
+                    !this.state.showCreateModal ? null : <ProjectCreateModal toggleModal={this.toggleModal}
+                        createProject={this.props.createProject} />
+                }
+                <ConfirmationModal project={this.state.project}
+                    deleteProject={() => this.props.deleteProject(this.state.project.projectId, this.state.index)}
+                />
+
             </div>
         )
     }
@@ -81,14 +117,19 @@ class Projects extends React.Component {
 
 function mapStateToProps(state) {
     return {
-        project: state.Project,
+        projects: state.AllProject,
     };
 }
 
 function mapDispatchToProps(dispatch) {
 
     return bindActionCreators({
+        createProject,
+        deleteProject,
+        fetchAllProjects
     }, dispatch);
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(Projects);
+
+//onClick={() => this.props.deleteProject(project.projectId, index)}

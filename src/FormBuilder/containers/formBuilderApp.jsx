@@ -36,19 +36,21 @@ const SectionAddButton = (props) => (
 
 class FormBuilderApp extends React.Component {
 
-    constructor(props) {
-        super(props);
+    constructor() {
+        super();
         this.state = {
             showAddFieldPanel: false,
             showAddSection: false
         }
-
-        if (!this.props.project.initialServerCall) {
-            this.props.fetchSections();
-        }
+        
     }
 
     componentDidMount() {
+        console.log(" url params -- > "+ JSON.stringify(this.props.projectId));
+        if (!this.props.project.initialServerCall) {
+            this.props.fetchSections(this.props.projectId);
+        }
+
         window.onerror = function(msg) {
             toastr.error('Error: '+ msg);
         };    
@@ -69,6 +71,7 @@ class FormBuilderApp extends React.Component {
     }
 
     sectionSubmit = (data) => {
+        data.projectId = this.props.projectId;
         this.props.createSection(data);
         this.toggleSectionAdd();
     }
@@ -120,6 +123,7 @@ class FormBuilderApp extends React.Component {
         if (this.props.project.active.panel !== '') {
 
             let field = this.fieldConfigPanel('object');
+            field.data.sectionId = this.props.project.active.section.data.sectionId;
             field.data.fieldType.fieldTypeName = this.props.project.active.panel;
             saveRule(this.props, field.data);
 
@@ -177,8 +181,9 @@ class FormBuilderApp extends React.Component {
     }
 }
 
-function mapStateToProps(state) {
+function mapStateToProps(state, ownProps) {
     return {
+        parent: ownProps,
         project: state.Project,
         text: state.Text,
         number: state.Number,

@@ -1,8 +1,11 @@
 import axios from 'axios';
+import AppConfig from '../../application.config';
+import Store from '../../store';
 
-export function fetchQuestions(section) {
-    const url = 'server/questions_' + section.sectionId + '.json';
-    var questions = axios.get(url);
+export function fetchQuestions(data) {
+    
+    const url = `${AppConfig.domain}/question?sectionId=${data.sectionId}`;
+    var questions = axios.get(url, AppConfig.ajaxConfig());
     return {
         type: 'FETCH_QUESTIONS_FROM_SERVER',
         payload: questions
@@ -44,8 +47,4 @@ export function deleteQues(data, index) {
     }
 }
 
-export function resetToastrMsg() {
-    return {
-        type: 'RESET_TOASTR_MSG',
-    }
-}
+

@@ -43,9 +43,9 @@ export default function project(state = formBuilder, action) {
             state.cacheData.push(sec);
             break;
 
-       case 'SECTION_UPDATE':
+       case 'UPDATE_SECTION':
             state = deepClone(state);
-            sectionUpdate(state, action.payload);
+            sectionUpdate(state, action.payload, action.index);
             break;     
 
         case 'SECTION_CHANGE':
@@ -100,9 +100,9 @@ export default function project(state = formBuilder, action) {
     return state;
 }
 
-function sectionUpdate(state, payload) {
-    let sec = state.cacheData[payload.index];
-    sec.name = payload.data.name;
-    sec.description = payload.data.description;
-    sec.repetitive = payload.data.repetitive;
+function sectionUpdate(state, payload, index) {
+    let sec = state.cacheData[index];
+    sec.name = payload.name;
+    sec.description = payload.description;
+    sec.repetitive = payload.repetitive;
 }

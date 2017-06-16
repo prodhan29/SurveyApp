@@ -1,4 +1,6 @@
 import axios from 'axios';
+import AppConfig from '../../application.config';
+import Store from '../../store';
 
 export function selectConfigPanel(payload) {
     return {
@@ -14,7 +16,8 @@ export function saveRule(payload) {
     }
 }
 
-export function createQuestion(payload) {
+export function createQuestion(data) {
+    let payload = axios.post(`${AppConfig.domain}/question`, data, AppConfig.ajaxConfig());
     return {
         type: 'CREATE_QUESTION',
         payload
@@ -37,5 +40,11 @@ export function fetchAndCache(section, sectionIndex) {
     return {
         type: 'QUESTION_FETCH_AND_CACHE',
         payload: questions
+    }
+}
+
+export function resetToastrMsg() {
+    return {
+        type: 'RESET_TOASTR_MSG',
     }
 }

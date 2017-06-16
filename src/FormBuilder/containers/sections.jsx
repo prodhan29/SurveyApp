@@ -1,7 +1,9 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
+//Component
 import SectionEditView from '../components/section/sectionEdit.component';
+import { toastr } from 'react-redux-toastr';
 // Actions
 import * as SectionAction from '../actions/section.action';
 import { fetchQuestions, questionsChange } from '../actions/question.action';
@@ -13,6 +15,15 @@ class Sections extends React.Component {
         super();
         this.state = {
             editSection: {}
+        }
+    }
+
+    componentDidUpdate() {
+        let _this = this;
+        if (this.props.section.toastrMsg != '') {
+            toastr.success('Success', this.props.section.toastrMsg, {
+                onHideComplete: _this.props.resetToastrMsg
+            });
         }
     }
 
@@ -49,7 +60,7 @@ class Sections extends React.Component {
         return (
             <SectionEditView data={data}
                 cancelEdit={() => this.state.editSection = {}}
-                updateData={(data) => this.props.sectionUpdate(data, index)} />
+                updateData={(data) => SectionAction.update(data, index)} />
         );
     }
 
@@ -63,15 +74,15 @@ class Sections extends React.Component {
                 <li className={clsName} key={index}
                     onClick={() => _this.fetchQuestions(val, index)}>
                     <span> {val.name}</span>
-                    <i className="fa fa-repeat"></i>
+                    {val.repetitive ? <i className="fa fa-repeat"></i> : null}
                     {clsName === "section_nav_item edit_section_nav" ? _this.getEditView(val, index) : null}
                     <span className="dropdown pull-right" >
                         <i className="fa fa-ellipsis-v " style={{ fontSize: '15px' }} data-toggle="dropdown" onClick={(e) => e.stopPropagation()}></i>
 
                         <div className="dropdown_panel action_dropdown dropdown-menu">
                             <ul>
-                                <li onClick={function (e) { e.stopPropagation(); _this.editSection(val) }}>Edit</li>
-                                <li>Delete</li>
+                                <li onClick={(e) => { e.stopPropagation(); _this.editSection(val) }}>Edit</li>
+                                <li onClick={(e) => { e.stopPropagation(); SectionAction.deleteSection(val.sectionId, index) }}>Delete</li>
                                 <li>Export</li>
                             </ul>
                         </div>
@@ -104,7 +115,7 @@ function mapDispatchToProps(dispatch) {
 
         fetchQuestions,
         questionsChange,
-        sectionUpdate: SectionAction.update,
+        resetToastrMsg: SectionAction.resetToastrMsg,
         sectionChange: SectionAction.change,
 
     }, dispatch);
