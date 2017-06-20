@@ -20,8 +20,6 @@ export default class Sidebar extends React.Component {
         console.log("click testing ");
     }
     getNavigationItems = () => {
-
-
         return this.state.navItems.map((item, index) => {
 
             let status = (item === this.state.active) ? 'active' : '';

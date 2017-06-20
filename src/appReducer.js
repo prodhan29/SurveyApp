@@ -17,8 +17,16 @@ import CalcRule from './FormBuilder/reducers/calcRule.reducer';
 import JumpRule from './FormBuilder/reducers/jumpRule.reducer';
 import GroupDrop from './FormBuilder/reducers/groupDrop.reducer';
 
+//Settings
+import Settings from './Settings/reducers/settings.reducer';
+import License from './Settings/reducers/license.reducer';
+import Organization from './Settings/reducers/organization.reducer';
+import ProjectUser from './Settings/reducers/projectUser.reducer';
+import UserGroup from './Settings/reducers/userGroup.reducer';
+import ProjectUserGroup from './Settings/reducers/projectUserGroup.reducer';
+
 //Toastr
-import {reducer as toastrReducer} from 'react-redux-toastr';
+import { reducer as toastrReducer } from 'react-redux-toastr';
 
 //User
 import User from './GeneralReducers/user.reducer';
@@ -50,7 +58,16 @@ const rootReducer = combineReducers({
     User,
 
     //All projects reducer
-    AllProject
+    AllProject,
+
+    //Settings
+    Settings,
+    License,
+    Organization,
+    ProjectUser,
+    UserGroup,
+    ProjectUserGroup,
+
 });
 
 export default rootReducer;

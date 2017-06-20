@@ -9,6 +9,7 @@ import ReduxToastr from 'react-redux-toastr';
 import FormBuilderApp from './FormBuilder/containers/formBuilderApp';
 import ProjectsApp from './Projects/containers/projectApp';
 import Login from './GeneralComponent/Login.container';
+import Setting from './Settings/containers/settings';
 //Store
 import Store from './store';
 
@@ -34,6 +35,7 @@ class Root extends React.Component {
                      <Route path="/projects" component={ProjectsApp}></Route>
                      <Route path="/login" component={Login}></Route>
                      <Route path="/form-builder/:projectId" component={Apps}></Route>
+                     <Route path="/setting" component={Setting}></Route>
                  </Router>   
             </Provider>
         );

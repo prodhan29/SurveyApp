@@ -23,9 +23,10 @@ class Login extends React.Component {
         }
         proceedSignin =(data)=> {
 
-            Store.dispatch(replace('/projects'));
             this.state.auth_token = data.accessToken;
-            this.props.signinSuccess(this.state);            
+            this.state.roleName = data.roleName;
+            this.props.signinSuccess(this.state);
+            Store.dispatch(replace('/projects'));            
         }
         render() {
             return (
