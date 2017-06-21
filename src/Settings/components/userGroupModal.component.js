@@ -20,8 +20,6 @@ export default class UserGroupModal extends React.Component {
         })
     }
 
-    comp
-
     getRandomString = () => {
         var randomNumber = Math.floor(Math.random() * this.state.colors.length);
         return this.state.colors[randomNumber];

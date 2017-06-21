@@ -42,6 +42,7 @@ class Settings extends React.Component {
                 return <UserGroup />;
 
             case 'Project User Group':
+                return <ProjectUserGroup />
                 break;
 
             case 'License':

@@ -18,7 +18,7 @@ var initialState = {
   roleId: 1
 }
 
-class Organization extends React.Component {
+class ProjectUser extends React.Component {
 
     constructor(props) {
         super(props);
@@ -175,4 +175,4 @@ function mapDispatchToProps(dispatch) {
     }, dispatch);
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(Organization);
+export default connect(mapStateToProps, mapDispatchToProps)(ProjectUser);
