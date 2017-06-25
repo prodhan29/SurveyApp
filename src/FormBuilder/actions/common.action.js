@@ -1,5 +1,9 @@
-// checking if questions for a section exist in Cache. if not then questions will be
+// checking whether questions for a section exist in Cache. if not then questions will be
 // fetched from server
+
+import * as RulesAction from './rules.action';
+
+
 export function questionExist(section) {
     var keys = Object.keys(section);
     if (keys.indexOf('child') === -1) return false;
@@ -47,10 +51,16 @@ export function changeFieldState(fieldState, e) {
 
 export function saveRule(project, fieldData) {
 
-    fieldData['calculationRule'] = JSON.stringify(project.calcRule);
-    fieldData['jumpingRule'] = JSON.stringify(project.jumpRule);
-    fieldData['valueCheckRule'] = JSON.stringify(project.valueCheck);
-    fieldData['pickAndSuggestRule'] = JSON.stringify(project.pickRule);
+    fieldData['calculationRuleClient'] = JSON.stringify(project.calcRule);
+
+    fieldData['jumpingRuleClient'] = JSON.stringify(project.jumpRule);
+    fieldData['jumpingRule'] = RulesAction.createJumpRule(project);
+
+    fieldData['valueCheckRuleClient'] = JSON.stringify(project.valueCheck);
+    fieldData['valueCheckRule'] = RulesAction.createValueChecklRule(project);
+
+    fieldData['pickAndSuggestRuleClient'] = JSON.stringify(project.pickRule);
+    fieldData['pickAndSuggestRule'] = RulesAction.createPickAndSuggestRule(project);
     
 }
 

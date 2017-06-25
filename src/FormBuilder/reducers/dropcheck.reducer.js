@@ -60,12 +60,18 @@ export default function dropCheckField(state = initialState, action) {
             state = deepClone(state);
             state.data.valueCheckRule = action.payload.valueCheck;
             state.data.jumpingRule = action.payload.jumpRule;
-            break;     
+            break;
 
+        // Reset Actions   
         case 'CREATE_QUESTION':
             state = deepClone(state);
             state = initialState;
             break;  
+
+        case 'CANCEL_FORM':
+            state = deepClone(state);
+            state = initialState;
+            break;    
     }
     return state;
 }

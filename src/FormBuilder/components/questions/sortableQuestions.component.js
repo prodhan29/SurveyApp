@@ -9,7 +9,6 @@ var getActiveclassName = function (id, activeId) {
 const DragHandle = SortableHandle(() => <span><bold>::::::</bold></span>);
 
 const SortableItem = SortableElement((props) =>
-
     <div className={props.clsName}
         onClick={() => props.onClick(props.value)}
         style={{
@@ -20,12 +19,13 @@ const SortableItem = SortableElement((props) =>
             backgroundColor: '#FFF',
             boxSizing: 'border-box',
             WebkitUserSelect: 'none',
-            height: 110
+            height: 110,
+            marginBottom: '3px'
         }}>
 
         <div className="form_row_actions">
             <DragHandle />
-            <span className="fa fa-files-o"></span>
+            <span className="fa fa-files-o" onClick={() => props.copyQues(props.value)}></span>
             <span className="fa fa-trash" onClick={() => props.deleteQues(props.value)}></span>
         </div>
         <span className="form_label">{props.value.caption}</span>
@@ -38,7 +38,7 @@ const SortableItem = SortableElement((props) =>
 
 const SortableList = SortableContainer((props) => {
     return (
-        <div className="builder_form_wrapper" id = 'questions' style={{
+        <div className="builder_form_wrapper" id='questions' style={{
             width: '80%',
             height: '80vh',
             maxWidth: '500px',
@@ -54,7 +54,9 @@ const SortableList = SortableContainer((props) => {
                     value={value}
                     onClick={(data) => props.onClick(data, index)}
                     clsName={getActiveclassName(value.questionId, props.active)}
-                    deleteQues={(data) => props.deleteQues(data, index)} />
+                    deleteQues={(data) => props.deleteQues(data, index)}
+                    copyQues={(data) => props.copyQues(data, index)}
+                />
             ))}
         </div>
     );
@@ -67,14 +69,13 @@ export default class SortableQuestions extends React.Component {
     };
 
     handleChange = (question, index) => {
-        console.log(index + ' clicked on question ' + JSON.stringify(question));
         this.props.onClick(question, index);
     }
 
     componentDidUpdate() {
-        let elem = document.getElementById('questions');
-        console.log(document.getElementById('questions').scrollHeight);
-        elem.scrollTop = elem.scrollHeight
+        // let elem = document.getElementById('questions');
+        // console.log(document.getElementById('questions').scrollHeight);
+        // elem.scrollTop = elem.scrollHeight
     }
 
     render() {
@@ -86,7 +87,9 @@ export default class SortableQuestions extends React.Component {
                 onSortEnd={this.onSortEnd}
                 useDragHandle={true}
                 active={this.props.project.active.question.data.questionId}
-                deleteQues={this.props.deleteQues} />
+                deleteQues={this.props.deleteQues}
+                copyQues={this.props.copyQues}
+            />
         );
     }
 }

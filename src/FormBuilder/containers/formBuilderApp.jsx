@@ -3,9 +3,9 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 // Actions
 import { fetchSections } from '../actions/section.action';
-import { createSection } from '../actions/section.action';
+import { createSection, importSection } from '../actions/section.action';
 import * as ProjectAction from '../actions/project.action';
-import { updateQuestion } from '../actions/question.action';
+import { updateQuestion, preprocess } from '../actions/question.action';
 import { saveRule } from '../actions/common.action';
 // Containers
 import Sections from './sections';
@@ -20,7 +20,7 @@ import GroupDrop from './groupDropdown';
 import AddFieldPanel from '../components/common/add_field.component';
 import Sidebar from '../../GeneralComponent/sidebar.component';
 import SectionAdd from '../components/section/sectionAdd.component';
-import {toastr} from 'react-redux-toastr';
+import { toastr } from 'react-redux-toastr';
 
 const AddFieldRow = (props) => (
     <div className="add_field_row">
@@ -42,18 +42,15 @@ class FormBuilderApp extends React.Component {
             showAddFieldPanel: false,
             showAddSection: false
         }
-        
+
     }
 
     componentDidMount() {
-        console.log(" url params -- > "+ JSON.stringify(this.props.projectId));
-        if (!this.props.project.initialServerCall) {
-            this.props.fetchSections(this.props.projectId);
-        }
-
-        window.onerror = function(msg) {
-            toastr.error('Error: '+ msg);
-        };    
+        console.log(" url params -- > " + JSON.stringify(this.props.projectId));
+        fetchSections(this.props.projectId);
+        window.onerror = function (msg) {
+            toastr.error('Error: ' + msg);
+        };
     }
 
     toggleAddFieldButton = (event) => {
@@ -124,11 +121,11 @@ class FormBuilderApp extends React.Component {
 
             let field = this.fieldConfigPanel('object');
             field.data.sectionId = this.props.project.active.section.data.sectionId;
-            field.data.fieldType.fieldTypeName = this.props.project.active.panel;
-            saveRule(this.props, field.data);
+            field.data.fieldType.fieldTypeName = ProjectAction.capitalize(this.props.project.active.panel);
+            saveRule(this.props, preprocess(field.data));
 
             if (field.edit) {
-                this.props.updateQuestion(field.data, this.props.project.active.question.index);
+                updateQuestion(field.data, this.props.project.active.question.index);
             }
             else {
                 console.log(JSON.stringify(field.data));
@@ -164,14 +161,15 @@ class FormBuilderApp extends React.Component {
                         <section className="builder_content_action_bar">
                             <div className="b_c_action_left section_action">
                                 {this.getSectionAddElement()}
-                                <div className="action_item">Import Section</div>
+                                <div className="action_item">
+                                    <lable htmlFor="#import-section">Import Section</lable>
+                                    <input id="import-section" type="file" onChange={importSection} />
+                                </div>
                             </div>
                             <div className="b_c_action_right grand_action">
-                                <button className="button cancel_btn">Cancel</button>
+                                <button className="button cancel_btn" onClick={this.props.cancelForm}>Cancel</button>
                                 <button className="button black_btn" onClick={this.saveQuestion}>Save Form</button>
-                                <button onClick={function () {
-                                    
-                                }}> show toastr</button>
+
                             </div>
                         </section>
                     </section>
@@ -204,7 +202,7 @@ function mapDispatchToProps(dispatch) {
 
         fetchSections,
         createSection,
-        updateQuestion,
+        cancelForm: ProjectAction.cancelForm,
         saveRule: ProjectAction.saveRule,
         createQuestion: ProjectAction.createQuestion,
         selectConfigPanel: ProjectAction.selectConfigPanel

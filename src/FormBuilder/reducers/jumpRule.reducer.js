@@ -65,6 +65,11 @@ export default function jumpRule(state = initialState, action) {
             state = initialState;
             break;
 
+        case 'SET_ACTIVE_QUESTION':
+            state = deepClone(state);
+            state = getRuleFromQuestion(action.payload.question.jumpingRuleClient);
+            break;    
+
         case 'FIELD_CONFIG_PANEL_SELECT':
             state = deepClone(state);
             state = initialState;
@@ -113,7 +118,7 @@ function addCondition(state) {
 function saveQuestion(state, payload) {
     let quesNode = state.nodes[payload.nodeIndex].questionList[payload.valueIndex];
     quesNode.section = payload.data.section;
-    quesNode.question = payload.data.question;
+    quesNode.question = optimizeQues(payload.data.question);
 }
 
 function deleteNode(state, payload) {
@@ -127,4 +132,22 @@ function toggleQuesBank(state, payload) {
 
 function deleteCondition(state, nodeIndex) {
     state.nodes.splice(nodeIndex, 1);
+}
+
+function optimizeQues(ques) {
+
+    let ob = {
+        questionId: ques.questionId,
+        name: ques.name,
+        caption: ques.caption,
+        sectionId: ques.sectionId,
+        fieldType: {
+            fieldTypeName: ques.fieldType.fieldTypeName
+        },
+    }   
+    return ob;
+}
+
+function getRuleFromQuestion(rule) {
+    return (rule === null) ? initialState : JSON.parse(rule);
 }

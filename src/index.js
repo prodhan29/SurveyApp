@@ -33,7 +33,7 @@ class Root extends React.Component {
                 { /* Tell the Router to use our enhanced history */ }
                 <Router history={history}>
                      <Route path="/projects" component={ProjectsApp}></Route>
-                     <Route path="/login" component={Login}></Route>
+                     <Route path="/" component={Login}></Route>
                      <Route path="/form-builder/:projectId" component={Apps}></Route>
                      <Route path="/setting" component={Setting}></Route>
                  </Router>   

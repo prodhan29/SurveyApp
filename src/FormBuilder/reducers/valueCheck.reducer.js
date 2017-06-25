@@ -12,16 +12,13 @@ var initialState = {
 
 export default function textField(state = initialState, action) {
 
-    
-    switch(action.type){
+
+    switch (action.type) {
 
         case 'DATA_CHANGE_IN_VALUE_CHECK':
             state = deepClone(state);
-            if(action.payload.name === 'first_section' || action.payload.name ==='second_section') {
-                let section = deepClone(action.payload.data);
-                delete section.child;
-            }
-            state.argument[action.payload.name] = action.payload.data;
+            dataChange(state, action);
+
             break;
 
         case 'SAVE_VALUE_CHECK_OPERATOR':
@@ -32,15 +29,51 @@ export default function textField(state = initialState, action) {
         // reset actions    
         case 'DELETE_VALUE_CHECK_RULE':
             state = JSON.parse(JSON.stringify(initialState));
-            break;   
+            break;
 
         case 'CREATE_QUESTION':
             state = JSON.parse(JSON.stringify(initialState));
-            break;    
+            break;
+
+        case 'SET_ACTIVE_QUESTION':
+            state = deepClone(state);
+            state = getRuleFromQuestion(action.payload.question.valueCheckRuleClient);
+            break;
 
         case 'FIELD_CONFIG_PANEL_SELECT':
             state = JSON.parse(JSON.stringify(initialState));
-            break;     
+            break;
     }
     return state;
+}
+
+function dataChange(state, action) {
+    if (action.payload.name === 'first_section' || action.payload.name === 'second_section') {
+        let section = deepClone(action.payload.data);
+        delete section.child;
+        delete section.project;
+        state.argument[action.payload.name] = section;
+    }
+    if (action.payload.name === 'first_question' || action.payload.name === 'second_question') {
+        state.argument[action.payload.name] = optimizeQues(action.payload.data);
+    }
+}
+
+function optimizeQues(ques) {
+
+    console.log('value check ---->> ' + JSON.stringify(ques));
+    let ob = {
+        questionId: ques.questionId,
+        name: ques.name,
+        caption: ques.caption,
+        sectionId: ques.sectionId,
+        fieldType: {
+            fieldTypeName: ques.fieldType.fieldTypeName
+        },
+    }
+    return ob;
+}
+// this function is important. rules are set to empty string When user copy a question.
+function getRuleFromQuestion(rule) {
+    return (rule === null) ? initialState : JSON.parse(rule);
 }

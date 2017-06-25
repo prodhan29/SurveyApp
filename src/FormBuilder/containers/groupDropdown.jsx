@@ -55,7 +55,7 @@ class GroupDropdown extends React.Component {
 
             case "Values":
                 return (
-                    <Treeview data={this.props.groupDrop.data.nodes}
+                    <Treeview data={this.props.groupDrop.data.groupOptionValues}
                         treeChange={this.props.treeViewChange} />
                 );
 

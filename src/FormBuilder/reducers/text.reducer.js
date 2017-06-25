@@ -53,7 +53,12 @@ export default function textField(state = initialState, action) {
 
         case 'CREATE_QUESTION':
             state = JSON.parse(JSON.stringify(initialState));
-            break;     
+            break;
+
+        case 'CANCEL_FORM':
+            state = deepClone(state);
+            state = initialState;
+            break;         
     }
     return state;
 }

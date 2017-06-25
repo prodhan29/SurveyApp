@@ -66,11 +66,16 @@ export default function textField(state = initialState, action) {
             state = deepClone(state);
             state.data.valueCheckRule = action.payload.valueCheck;
             break;    
-
+        // Reset Actions    
         case 'CREATE_QUESTION':
             state = deepClone(state);
             state = initialState;
-            break;    
+            break;
+
+        case 'CANCEL_FORM':
+            state = deepClone(state);
+            state = initialState;
+            break;
     }
     return state;
 }

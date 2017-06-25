@@ -7,7 +7,8 @@ import { toastr } from 'react-redux-toastr';
 import {
     onQuestionClick,
     quesSequenceChange,
-    deleteQues
+    deleteQues,
+    copyQues
 } from '../actions/question.action';
 
 import { selectConfigPanel, setActiveQuestion, resetToastrMsg } from '../actions/project.action';
@@ -35,8 +36,9 @@ class Questions extends React.Component {
             <SortableQuestions question={this.props.question}
                 onClick={this.onQuestionClick}
                 project={this.props.project}
-                sequenceChange={this.props.quesSequenceChange}
-                deleteQues={this.props.deleteQues} />
+                sequenceChange={(oldIndex, newIndex)=>quesSequenceChange(this.props.project.active.section.data.sectionId, this.props.question, oldIndex, newIndex)}
+                deleteQues={deleteQues}
+                copyQues={this.props.copyQues} />
         );
     }
 }
@@ -54,9 +56,8 @@ function mapDispatchToProps(dispatch) {
         onQuestionClick,
         selectConfigPanel,
         setActiveQuestion,
-        quesSequenceChange,
-        deleteQues,
-        resetToastrMsg
+        resetToastrMsg,
+        copyQues,
     }, dispatch);
 }
 

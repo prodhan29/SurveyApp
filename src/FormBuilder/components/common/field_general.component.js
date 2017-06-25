@@ -8,7 +8,7 @@ export default class General extends React.Component {
         return (
             <div>
                 <div className="form_row">
-                    <span className="form_label">Field Name</span>
+                    <span className="form_label">Question Name</span>
                     <span className="form_field">
                         <input type="text"
                             value={this.props.data.name}

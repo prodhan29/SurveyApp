@@ -35,8 +35,9 @@ export function setActiveQuestion(question, index) {
 
 // to fetch questions and cache in projcet cacheDate
 export function fetchAndCache(section, sectionIndex) {
-    const url = '/server/questions_' + section.sectionId + '.json';
-    var questions = axios.get(url);
+
+    const url = `${AppConfig.domain}/question?sectionId=${section.sectionId}`;
+    var questions = axios.get(url, AppConfig.ajaxConfig());
     return {
         type: 'QUESTION_FETCH_AND_CACHE',
         payload: questions
@@ -46,5 +47,22 @@ export function fetchAndCache(section, sectionIndex) {
 export function resetToastrMsg() {
     return {
         type: 'RESET_TOASTR_MSG',
+    }
+}
+
+export function capitalize(string) {
+
+    if(string === 'gprs'){
+        return string.toUpperCase();
+    }
+    else if(string === 'groupdrop'){
+        return 'GroupDrop';
+    }
+    return string.charAt(0).toUpperCase() + string.slice(1);
+}
+
+export function cancelForm(){
+    return {
+        type: 'CANCEL_FORM'
     }
 }

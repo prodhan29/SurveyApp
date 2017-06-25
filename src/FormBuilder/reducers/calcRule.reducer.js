@@ -34,13 +34,22 @@ export default function calcRule(state = initialState, action) {
         case 'FIELD_CONFIG_PANEL_SELECT':
             state = deepClone(state);
             state = initialState;
-            break;        
+            break;
+
+       case 'SET_ACTIVE_QUESTION':
+            state = deepClone(state);
+            state = getRuleFromQuestion(action.payload.question.calculationRuleClient);
+            break;             
 
         default:
             break;
     }
     return state;
 }
+
+function getRuleFromQuestion(rule) {
+    return (rule === null) ? initialState : JSON.parse(rule);
+} 
 
 var makeExpression = function (nodes) {
     var ans = '';

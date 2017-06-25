@@ -3,8 +3,6 @@
 import { getSectionById, deepClone } from '../actions/common.action';
 
 const formBuilder = {
-
-    initialServerCall: false,
     active: {
         panel: null,
         section: {
@@ -21,18 +19,17 @@ const formBuilder = {
 
 export default function project(state = formBuilder, action) {
 
-    
+
     switch (action.type) {
 
         case 'FIELD_CONFIG_PANEL_SELECT':
             state = deepClone(state);
             state.active.panel = action.payload;
             break;
-            
+
         // Section Operations    
         case 'FETCH_SECTIONS_FROM_SERVER':
             state = deepClone(state);
-            state.initialServerCall = true;
             state.cacheData = action.payload.data;
             break;
 
@@ -43,10 +40,10 @@ export default function project(state = formBuilder, action) {
             state.cacheData.push(sec);
             break;
 
-       case 'UPDATE_SECTION':
+        case 'UPDATE_SECTION':
             state = deepClone(state);
             sectionUpdate(state, action.payload, action.index);
-            break;     
+            break;
 
         case 'SECTION_CHANGE':
             state = deepClone(state);
@@ -58,12 +55,19 @@ export default function project(state = formBuilder, action) {
             state = deepClone(state);
             let fetchedQues = (typeof action.payload.data === 'undefined') ? ([]) : action.payload.data;
             state.cacheData[state.active.section.index]['child'] = fetchedQues;
+            break;
+
+        case 'FETCH_QUESTIONS_FOR_ALL_SECTIONS_INITIALLY':
+            console.log(state.cacheData);
+            state = deepClone(state);
+            let questionList =  action.payload.data;
+            state.cacheData[action.index]['child'] = questionList;
             break;    
 
         case 'CREATE_QUESTION':
             state = deepClone(state);
-            state.cacheData[state.active.section.index].child.push(action.payload);
-            break;
+            state.cacheData[state.active.section.index].child.push(action.payload.data);
+            break;    
 
         case 'UPDATE_QUESTION':
             state = deepClone(state);
@@ -93,7 +97,12 @@ export default function project(state = formBuilder, action) {
             state = deepClone(state);
             state.cacheData[state.active.section.index].child.splice(action.payload.index, 1);
             break;
-        
+
+        case 'CANCEL_FORM':
+            state = deepClone(state);
+            refresh(state);
+            break;
+
         default:
             state;
     }
@@ -105,4 +114,11 @@ function sectionUpdate(state, payload, index) {
     sec.name = payload.name;
     sec.description = payload.description;
     sec.repetitive = payload.repetitive;
+}
+
+function refresh(state) {
+    state.active.question = {
+        data: {},
+        index: null
+    }
 }

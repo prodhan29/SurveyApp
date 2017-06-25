@@ -22,7 +22,7 @@ export default function questions(state = question, action) {
 
         case 'CREATE_QUESTION':
             state = deepClone(state);
-            state.list.push(action.payload);
+            state.list.push(action.payload.data);
             state.toastrMsg = 'question created successfully';
             break;
 
@@ -51,7 +51,7 @@ export default function questions(state = question, action) {
 
         case 'RESET_TOASTR_MSG':
             state.toastrMsg = '';
-            break;    
+            break;   
     }
     return state;
 }

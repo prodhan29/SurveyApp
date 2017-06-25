@@ -12,7 +12,7 @@ var initialState = {
         sectionId: 0,
         jumpingRule: '',
         optionValues: [],
-        nodes: {},
+        groupOptionValues: {},
         fieldType: {
             fieldTypeId: 0,
             fieldId: 0,
@@ -49,18 +49,24 @@ export default function groupDropField(state = initialState, action) {
         case 'TREE_VIEW_CHANGE':
             state = deepClone(state);
             console.log('grp dropdown -->'+ JSON.stringify(action.payload));
-            state.data.nodes = action.payload;  
+            state.data.groupOptionValues = action.payload;  
             break;
 
         case 'SAVE_RULE':
             state = deepClone(state);
             state.data.jumpingRule = action.payload.jumpRule;
             break;       
-
+        
+        // Reset Actions
         case 'CREATE_QUESTION':
             state = deepClone(state);
             state = initialState;
             break;
+
+        case 'CANCEL_FORM':
+            state = deepClone(state);
+            state = initialState;
+            break;    
 
     }
     return state;
@@ -73,6 +79,7 @@ var groupDropChange = function (state, e) {
 var setEditMode = function (state, data) {
     if (data.fieldType.fieldTypeName.toLowerCase() === 'groupdrop') {
         state.data = data;
+        state.data.groupOptionValues = data.groupOptionValues[0]
         state.edit = true;
     }
 }

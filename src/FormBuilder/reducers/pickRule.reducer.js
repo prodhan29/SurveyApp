@@ -20,14 +20,19 @@ export default function textField(state = initialState, action) {
                 state['section'] = section;
             }
             else {
-                state['question'] = action.payload.value;
+                state['question'] = optimizeQues(action.payload.value);
             }
             break;
 
          // reset actions    
          case 'CREATE_QUESTION':
             state = JSON.parse(JSON.stringify(initialState));
-            break;   
+            break;
+
+         case 'SET_ACTIVE_QUESTION':
+            state = deepClone(state);
+            state = getRuleFromQuestion(action.payload.question.pickAndSuggestRuleClient);
+            break;      
 
          case 'FIELD_CONFIG_PANEL_SELECT':
             state = JSON.parse(JSON.stringify(initialState));
@@ -38,4 +43,22 @@ export default function textField(state = initialState, action) {
             break;      
     }
     return state;
+}
+
+function optimizeQues(ques) {
+
+    let ob = {
+        questionId: ques.questionId,
+        name: ques.name,
+        caption: ques.caption,
+        sectionId: ques.sectionId,
+        fieldType: {
+            fieldTypeName: ques.fieldType.fieldTypeName
+        },
+    }   
+    return ob;
+}
+
+function getRuleFromQuestion(rule) {
+    return (rule === null) ? initialState : JSON.parse(rule);
 }

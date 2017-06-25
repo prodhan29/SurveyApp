@@ -61,6 +61,11 @@ export default function numberField(state = initialState, action) {
             state = JSON.parse(JSON.stringify(initialState));
             break;
 
+        case 'CANCEL_FORM':
+            state = deepClone(state);
+            state = initialState;
+            break;    
+
         default:
             state;         
     }

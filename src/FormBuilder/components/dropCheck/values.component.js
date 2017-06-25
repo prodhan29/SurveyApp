@@ -36,10 +36,12 @@ export default class NumberValidation extends React.Component {
     submitOption = (e) => {
         if (e.charCode === 13) {
             var _this = this;
-            this.state.ob.target.value.push({
-                option: _this.state.optionName,
-                value: _this.state.exportValue
+            // this.state.ob.target.value.push();
+            this.props.data.push({
+                name: _this.state.optionName,
+                exportValue: _this.state.exportValue
             });
+            this.state.ob.target.value = this.props.data;
             this.setState({ optionName: '', exportValue: '' })
             this.props.dataChange(this.state.ob);
         }
@@ -63,16 +65,16 @@ export default class NumberValidation extends React.Component {
             edit: {
                 mode: !_this.state.edit.mode,
                 index,
-                optionName: _this.props.data[index].option,
-                exportValue: _this.props.data[index].value,
+                optionName: _this.props.data[index].name,
+                exportValue: _this.props.data[index].exportValue,
             }
         })
     }
 
     doneEdit = () => {
         let index = this.state.edit.index;
-        this.props.data[index].option = this.state.edit.optionName;
-        this.props.data[index].value = this.state.edit.exportValue;
+        this.props.data[index].name = this.state.edit.optionName;
+        this.props.data[index].exportValue = this.state.edit.exportValue;
         this.state.ob.target.value = this.props.data;
         this.props.dataChange(this.state.ob);
         this.setState({
@@ -119,8 +121,8 @@ export default class NumberValidation extends React.Component {
         else {
             return (
                 <tr key={index} onClick={() => _this.turnOnEditOption(index)}>
-                    <td>{ob.option}</td>
-                    <td>{ob.value}</td>
+                    <td>{ob.name}</td>
+                    <td>{ob.exportValue}</td>
                     <td className="value_action" onClick={function (e) { e.stopPropagation(); _this.deleteOption(index) }}>
                         <span className="delete_row"><i className="material-icons">close</i></span>
                     </td>
@@ -140,8 +142,8 @@ export default class NumberValidation extends React.Component {
 
             words.forEach(function (value) {
                 _this.state.ob.target.value.push({
-                    option: value.split(',')[0],
-                    value: value.split(',')[1]
+                    name: value.split(',')[0],
+                    exportValue: value.split(',')[1]
                 });
             }, this);
 

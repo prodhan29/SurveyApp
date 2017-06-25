@@ -6,7 +6,7 @@ import SectionEditView from '../components/section/sectionEdit.component';
 import { toastr } from 'react-redux-toastr';
 // Actions
 import * as SectionAction from '../actions/section.action';
-import { fetchQuestions, questionsChange } from '../actions/question.action';
+import { fetchQuestions, questionsChange, fetchQuesForExport } from '../actions/question.action';
 import { questionExist, getQuestionsBySectionId } from '../actions/common.action';
 
 class Sections extends React.Component {
@@ -64,6 +64,11 @@ class Sections extends React.Component {
         );
     }
 
+    exportSection=(e, section)=>{
+        e.stopPropagation();
+        fetchQuesForExport(section, SectionAction.exportSection);
+    }
+
     render() {
         var _this = this;
         const sectionList = this.props.section.list.map(function (val, index) {
@@ -83,7 +88,7 @@ class Sections extends React.Component {
                             <ul>
                                 <li onClick={(e) => { e.stopPropagation(); _this.editSection(val) }}>Edit</li>
                                 <li onClick={(e) => { e.stopPropagation(); SectionAction.deleteSection(val.sectionId, index) }}>Delete</li>
-                                <li>Export</li>
+                                <li onClick={(e)=> _this.exportSection(e, val) } >Export</li>
                             </ul>
                         </div>
                     </span>
@@ -116,7 +121,7 @@ function mapDispatchToProps(dispatch) {
         fetchQuestions,
         questionsChange,
         resetToastrMsg: SectionAction.resetToastrMsg,
-        sectionChange: SectionAction.change,
+        sectionChange: SectionAction.change
 
     }, dispatch);
 }
