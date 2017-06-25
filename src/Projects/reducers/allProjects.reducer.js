@@ -18,6 +18,10 @@ export default function allProjects(state = initialState, action) {
             state.list.push(action.payload.data);
             break;
 
+        case 'UPDATE_PROJECT': 
+            state.list.splice(action.index, 1, action.payload);
+            break;
+
         case 'DELETE_PROJECT':
             state = deepClone(state);
             state.list.splice(action.index, 1);
@@ -25,8 +29,7 @@ export default function allProjects(state = initialState, action) {
 
         case 'FETCH_ALL_PROJECTS':
             state = deepClone(state);
-            state.list = action.payload.data;
-            
+            state.list = action.payload.data;            
             break;
 
         default:

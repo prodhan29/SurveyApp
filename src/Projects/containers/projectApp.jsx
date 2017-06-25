@@ -6,7 +6,7 @@ import Sidebar from '../../GeneralComponent/sidebar.component';
 import ProjectCreateModal from '../components/projectCreateModal';
 import ConfirmationModal from '../components/confirmationModal';
 //actions
-import { createProject, fetchAllProjects, deleteProject } from '../actions/allProjects.action';
+import * as ProjectAction from '../actions/allProjects.action';
 
 class Projects extends React.Component {
 
@@ -34,6 +34,11 @@ class Projects extends React.Component {
         this.setState({ project, index });
     }
 
+    publish =(project, index)=>{
+        project.published = !project.published;
+        ProjectAction.updateProject(project, index);
+    }
+
     showAllProjects = () => {
         return this.props.projects.list.map((project, index) => {
             let formbuilderLink = `/form-builder/${project.projectId}`;
@@ -42,7 +47,7 @@ class Projects extends React.Component {
                     <td className="selection"><span className="ui_checkbox unchecked"></span></td>
                     <td className="text_left"> <a href={formbuilderLink}> {project.name}</a> </td>
                     <td className="text_center"> {project.version} </td>
-                    <td className="text_center"> {project.published ? <span className="label label-success">sucess</span> : <span className="label label-default">in progress</span>} </td>
+                    <td className="text_center" onClick={()=>this.publish(project, index)}> {project.published ? <span className="label label-success"> Published</span> : <span className="label label-default">in progress</span>} </td>
                     <td className="text_center"> {project.sectionAllowed ? <span className="label label-info"> Allowed </span> : <span className="label label-danger">Not allowed</span>}</td>
                     <td className="text_center"> {project.lastModifiedDate}</td>
                     <td className="text_center">
@@ -124,9 +129,9 @@ function mapStateToProps(state) {
 function mapDispatchToProps(dispatch) {
 
     return bindActionCreators({
-        createProject,
-        deleteProject,
-        fetchAllProjects
+        createProject : ProjectAction.createProject,
+        deleteProject : ProjectAction.deleteProject,
+        fetchAllProjects : ProjectAction.fetchAllProjects
     }, dispatch);
 }
 

@@ -1,6 +1,6 @@
 import axios from 'axios';
 import AppConfig from '../../application.config';
-
+import Store from '../../store';
 
 export function createProject(data) {
 
@@ -26,4 +26,16 @@ export function fetchAllProjects() {
         type: 'FETCH_ALL_PROJECTS',
         payload
     }
+}
+
+export function updateProject(project, index) {
+    axios.patch(`${AppConfig.domain}/project/${project.projectId}`, project,AppConfig.ajaxConfig()).then((response)=>{
+        Store.dispatch((()=>{
+            return {
+                type: 'UPDATE_PROJECT',
+                payload: response.data,
+                index
+            }
+        })());
+    })
 }

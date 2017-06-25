@@ -56,17 +56,9 @@ class Rules extends React.Component {
                         <div className="rule_cell">
                             <i className="material-icons close_rule">close</i>
                             <Dropdown name='first_section'
-                                items={this.props.project.cacheData}
+                                items={[]}
                                 onClick={this.props.getQuestions}
-                                selectedData={this.getSelectedSection(this.props.data.argument.first_section)} />
-                        </div>
-
-                        <div className="rule_cell">
-                            <i className="material-icons close_rule">close</i>
-                            <Dropdown name='first_question'
-                                items={this.getQuestionList(this.props.data.argument.first_section)}
-                                onClick={this.props.saveQuestion}
-                                selectedData={this.getSelectedQuestion(this.props.data.argument.first_question)} />
+                                selectedData={'this Question'} />
                         </div>
 
                         <Operator name='operator'
@@ -128,8 +120,7 @@ class ValueCheckRule extends React.Component {
 
     getView = () => {
 
-        if((typeof this.props.data.argument.first_section.name !== 'undefined' ||
-            typeof this.props.data.argument.second_section.name !== 'undefined') && 
+        if((typeof this.props.data.argument.second_section.name !== 'undefined') && 
             !this.state.showRule) { 
                 return false;
         }

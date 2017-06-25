@@ -163,7 +163,7 @@ class FormBuilderApp extends React.Component {
                                 {this.getSectionAddElement()}
                                 <div className="action_item">
                                     <lable htmlFor="#import-section">Import Section</lable>
-                                    <input id="import-section" type="file" onChange={importSection} />
+                                    {/*<input id="import-section" type="file" onChange={importSection} />*/}
                                 </div>
                             </div>
                             <div className="b_c_action_right grand_action">
