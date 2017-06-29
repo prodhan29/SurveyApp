@@ -18,7 +18,8 @@ export default function allProjects(state = initialState, action) {
             state.list.push(action.payload.data);
             break;
 
-        case 'UPDATE_PROJECT': 
+        case 'UPDATE_PROJECT':
+            state = deepClone(state); 
             state.list.splice(action.index, 1, action.payload);
             break;
 

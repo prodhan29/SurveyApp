@@ -119,7 +119,7 @@ class ProjectUserGroup extends React.Component {
                         </div>
                     </td>
                     <td className="user_group_details">
-                        {item.accountGroupList.length} User Group
+                        <b>{item.accountGroupList.length}</b> User Group
                     </td>
                     <td className="text_center">
                         <button className="button manage_user" onClick={() => this.setEditable(project, item, index)}>Manage User</button>
@@ -137,8 +137,8 @@ class ProjectUserGroup extends React.Component {
                 <div className="list_view_control_bar">
                     <div className="list_view_control_bar">
                         <span className="icon_item search_panel">
-                            <input className="search_bar" type="text" placeholder="Search Here " name="search" /></span><br></br><br></br>
-                        <button className="button manage_user" onClick={this.toggleModal}> create User Group</button>
+                            <input className="search_bar" type="text" placeholder="Search Here " name="search" /></span>
+                        
                     </div>
                 </div>
 

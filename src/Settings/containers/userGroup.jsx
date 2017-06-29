@@ -95,6 +95,15 @@ class UserGroup extends React.Component {
         this.setState( deepClone(initialState) );
     }
 
+    getTotalUser=(item)=>{
+        let count = 0;
+        count+= item.totalEnumerators;
+        count+= item.totalFormDesigner;
+        count+= item.totalSupervisor;
+        count+= item.totalResultUser;
+        return count;
+    }
+
     getuserGroup = () => {
         if(typeof this.props.userGroup.list === 'undefined')return null;
         
@@ -111,7 +120,7 @@ class UserGroup extends React.Component {
                         </div>
                     </td>
                     <td className="user_group_details">
-                        <span className="text_bold user_count">{item.totalUser} user </span>{`( ${item.totalEnumerators} Enumerator, ${item.totalFormDesigner} From Designer, ${item.totalSupervisor} Supervisor, ${item.totalResultUser} Result User )`}
+                        <span className="text_bold user_count">{this.getTotalUser(item)} user </span>{`( ${item.totalEnumerators} Enumerator, ${item.totalFormDesigner} From Designer, ${item.totalSupervisor} Supervisor, ${item.totalResultUser} Result User )`}
                     </td>
                     <td className="text_center">
                         <button className="button manage_user" onClick={() => UserGroupAction.readUserGroup(item.accountGroupId, index, this.setEditable)}>Manage User</button>

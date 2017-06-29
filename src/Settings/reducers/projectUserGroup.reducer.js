@@ -21,7 +21,7 @@ export default function projectUserGroup(state = initialState, action) {
 
         case 'DELETE_PROJECT_USER_GROUP':
             state = deepClone(state);
-            state.list.splice(action.index, 1);
+            state.list[action.index].accountGroupList = [];
             break;
 
         case 'CREATE_PROJECT_USER_GROUP':
