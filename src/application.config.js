@@ -6,6 +6,14 @@ const config = {
                 'Authorization': `Bearer $(${sessionStorage.getItem("auth_token")})`
             }
         }
+    },
+    maltipartConfig: function(){
+        return {
+            headers: {
+                'Authorization': `Bearer $(${sessionStorage.getItem("auth_token")})`,
+                'Content-Type': 'multipart/form-data' 
+            }
+        }
     }
 }
 

@@ -35,9 +35,17 @@ export default function project(state = formBuilder, action) {
 
         case 'CREATE_SECTION':
             state = deepClone(state);
-            let sec = action.payload;
-            sec['sectionId'] = new Date();
-            state.cacheData.push(sec);
+            state.cacheData.push(action.payload.data);
+            break;
+
+        case 'COPY_SECTION':
+            state = deepClone(state);
+            state.cacheData.push(action.payload.data);
+            break;
+
+        case 'IMPORT_SECTION':
+            state = deepClone(state);
+            Array.prototype.push.apply(state.cacheData, action.payload.data)
             break;
 
         case 'UPDATE_SECTION':
@@ -60,14 +68,14 @@ export default function project(state = formBuilder, action) {
         case 'FETCH_QUESTIONS_FOR_ALL_SECTIONS_INITIALLY':
             console.log(state.cacheData);
             state = deepClone(state);
-            let questionList =  action.payload.data;
+            let questionList = action.payload.data;
             state.cacheData[action.index]['child'] = questionList;
-            break;    
+            break;
 
         case 'CREATE_QUESTION':
             state = deepClone(state);
             state.cacheData[state.active.section.index].child.push(action.payload.data);
-            break;    
+            break;
 
         case 'UPDATE_QUESTION':
             state = deepClone(state);

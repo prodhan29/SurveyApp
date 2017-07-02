@@ -103,6 +103,7 @@ export function preprocess(data) {
     return data;
 }
 
+// this method is called to copy a question
 export function precessQuesForCopy(ques) {
     let newQues = JSON.parse(JSON.stringify(ques));
     newQues.questionId = undefined;

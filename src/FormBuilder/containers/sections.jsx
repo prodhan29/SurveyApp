@@ -87,6 +87,7 @@ class Sections extends React.Component {
                         <div className="dropdown_panel action_dropdown dropdown-menu">
                             <ul>
                                 <li onClick={(e) => { e.stopPropagation(); _this.editSection(val) }}>Edit</li>
+                                <li onClick={(e) => { e.stopPropagation(); SectionAction.copySection(val) }}>Copy</li>
                                 <li onClick={(e) => { e.stopPropagation(); SectionAction.deleteSection(val.sectionId, index) }}>Delete</li>
                                 <li onClick={(e)=> _this.exportSection(e, val) } >Export</li>
                             </ul>
