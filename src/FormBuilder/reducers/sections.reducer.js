@@ -36,12 +36,13 @@ export default function sections(state = sec, action) {
         case 'UPDATE_SECTION':
             state = deepClone(state);
             sectionUpdate(state, action.payload, action.index);
-            state.toastrMsg = 'section updated successfully'
+            state.toastrMsg = 'section UPDATED successfully'
             break;
 
         case 'DELETE_SECTION':
             state = deepClone(state)
             state.list.splice(action.index, 1);
+            state.toastrMsg = 'section DELETED successfully'
             break;
 
         case 'RESET_SECTION_TOASTR_MSG':

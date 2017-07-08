@@ -106,9 +106,18 @@ class FormBuilderApp extends React.Component {
         )
     }
 
+    selectConfigPanel = (e) =>{
+        if(!this.props.question.pendingQues){
+            this.props.selectConfigPanel(e);
+        }
+        else {
+            alert('save or cancel the ongoing quesiton');
+        }  
+    } 
+
     getAddFieldElement = () => {
         return this.state.showAddFieldPanel ? <AddFieldPanel onClick={this.toggleAddFieldButton}
-            selectConfigPanel={this.props.selectConfigPanel} />
+            selectConfigPanel={this.selectConfigPanel} />
             : <AddFieldRow onClick={this.toggleAddFieldButton} />;
     }
 
@@ -193,7 +202,7 @@ class FormBuilderApp extends React.Component {
                             </div>
                             <div className="b_c_action_right grand_action">
                                 <button className="button cancel_btn" onClick={this.props.cancelForm}>Cancel</button>
-                                <button className="button black_btn" onClick={this.saveQuestion}>Save Form</button>
+                                <button className="button black_btn" onClick={this.saveQuestion}>Save Question</button>
 
                             </div>
                         </section>
@@ -208,6 +217,7 @@ function mapStateToProps(state, ownProps) {
     return {
         parent: ownProps,
         project: state.Project,
+        question: state.Question,
         text: state.Text,
         number: state.Number,
         dateTime: state.DateTime,

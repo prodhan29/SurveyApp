@@ -5,6 +5,7 @@ import { bindActionCreators } from 'redux';
 
 // Actions
 import * as NumberAction from '../actions/number.action';
+import {questionLiveUpdate} from '../actions/question.action';
 
 // Components
 import General from '../components/common/field_general.component';
@@ -29,6 +30,11 @@ class Number extends React.Component {
         return panels;
     }
 
+    dataChange =(e)=>{
+        this.props.dataChange(e);
+        this.props.questionLiveUpdate(e);
+    }
+
     getActivePanel = () => {
 
         switch (this.props.number.activePanel) {
@@ -41,13 +47,13 @@ class Number extends React.Component {
             case 'Validation':
                 return (
                     <Validation data={this.props.number.data}
-                        dataChange={this.props.dataChange} />
+                        dataChange={this.dataChange} />
                 );
                 
             default:
                 return (
                     <General data={this.props.number.data}
-                        dataChange={this.props.dataChange} />
+                        dataChange={this.dataChange} />
                 );
         }
     }
@@ -78,6 +84,7 @@ function mapDispatchToProps(dispatch) {
 
     return bindActionCreators({
         dataChange: NumberAction.dataChange,
+        questionLiveUpdate: questionLiveUpdate,
         changeConfigPanel: NumberAction.configPanelChange
     }, dispatch);
 

@@ -5,6 +5,7 @@ import { bindActionCreators } from 'redux';
 
 // Actions
 import * as dateTimeAction from '../actions/datetime.action';
+import {questionLiveUpdate} from '../actions/question.action';
 
 // Components
 import General from '../components/common/field_general.component';
@@ -32,6 +33,11 @@ class DateTime extends React.Component {
         return panels;
     }
 
+    dataChange =(e)=>{
+        this.props.dataChange(e);
+        this.props.questionLiveUpdate(e);
+    }
+
     getActivePanel = () => {
 
         switch (this.props.datetime.activePanel) {
@@ -45,13 +51,13 @@ class DateTime extends React.Component {
                 return (
                     <Validation active={this.props.project.active.panel}
                         data={this.props.datetime.data}
-                        dataChange={this.props.dataChange} />
+                        dataChange={this.dataChange} />
                 )
 
             default:
                 return (
                     <General data={this.props.datetime.data}
-                        dataChange={this.props.dataChange} />
+                        dataChange={this.dataChange} />
                 )
         }
     }
@@ -83,6 +89,7 @@ function mapDispatchToProps(dispatch) {
 
     return bindActionCreators({
         dataChange: dateTimeAction.dataChange,
+        questionLiveUpdate: questionLiveUpdate,
         changeConfigPanel: dateTimeAction.configPanelChange
     }, dispatch);
 }

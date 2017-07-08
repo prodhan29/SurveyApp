@@ -1,5 +1,6 @@
 import React from 'react';
 import { SortableContainer, SortableElement, SortableHandle, arrayMove } from 'react-sortable-hoc';
+import {quesTypeElement} from '../../actions/question.action';
 
 var getActiveclassName = function (id, activeId) {
 
@@ -19,7 +20,7 @@ const SortableItem = SortableElement((props) =>
         </div>
         <span className="form_label"> {`${props.indexNumber + 1}) ${props.value.caption}`}</span>
         <span className="form_field">
-            <input type="text" />
+            {quesTypeElement(props.value)}
         </span>
     </div>
 );

@@ -2,9 +2,17 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import General from '../components/common/field_general.component';
+
+// Actions
 import * as OtherFieldAction from '../actions/otherField.action';
+import {questionLiveUpdate} from '../actions/question.action';
 
 class OtherField extends React.Component {
+
+    dataChange =(e)=>{
+        this.props.dataChange(e);
+        this.props.questionLiveUpdate(e);
+    }
 
     render() {
         return (
@@ -16,7 +24,7 @@ class OtherField extends React.Component {
                 </ul>
                 <div className="tab_content">
                     <General data={this.props.otherField.data}
-                        dataChange={this.props.dataChange} />
+                        dataChange={this.dataChange} />
                 </div>
             </section>
         );
@@ -33,6 +41,7 @@ function mapDispatchToProps(dispatch) {
 
     return bindActionCreators({
         dataChange: OtherFieldAction.dataChange,
+        questionLiveUpdate: questionLiveUpdate,
     }, dispatch);
 }
 

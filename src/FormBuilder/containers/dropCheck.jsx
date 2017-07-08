@@ -2,8 +2,11 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
+
 // Actions
 import * as DropCheckAction from '../actions/dropCheck.action';
+import {questionLiveUpdate} from '../actions/question.action';
+
 // Components
 import General from '../components/common/field_general.component';
 import Rules from '../components/common/rules.component';
@@ -39,6 +42,11 @@ class DropCheck extends React.Component {
         else { return 1; }
     }
 
+    dataChange =(e)=>{
+        this.props.dataChange(e);
+        this.props.questionLiveUpdate(e);
+    }
+
     getActivePanel = () => {
 
         switch (this.props.dropCheck.activePanel) {
@@ -47,7 +55,7 @@ class DropCheck extends React.Component {
                 return (
                     <Validation data='treatValidation'
                         ans={this.getValidationAns()}
-                        onchange={this.props.dataChange} />
+                        onchange={this.dataChange} />
                 );
 
             case "Rules":
@@ -58,12 +66,12 @@ class DropCheck extends React.Component {
             case "Values":
                 return (
                     <Values data={this.props.dropCheck.data.optionValues}
-                        dataChange={this.props.dataChange} />
+                        dataChange={this.dataChange} />
                 );
             default:
                 return (
                     <General data={this.props.dropCheck.data}
-                        dataChange={this.props.dataChange} />
+                        dataChange={this.dataChange} />
                 );
         }
     }
@@ -95,6 +103,7 @@ function mapDispatchToProps(dispatch) {
 
     return bindActionCreators({
         dataChange: DropCheckAction.dataChange,
+        questionLiveUpdate: questionLiveUpdate,
         changeConfigPanel: DropCheckAction.configPanelChange
     }, dispatch);
 

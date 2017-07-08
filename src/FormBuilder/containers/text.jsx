@@ -5,12 +5,15 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
+
 // Components
 import General from '../components/common/field_general.component';
 import TextValidation from '../components/text/validation.component';
 import Values from '../components/text/values.component';
+
 // Actions
 import * as TextAction from '../actions/text.action';
+import {questionLiveUpdate} from '../actions/question.action';
 
 class Text extends React.Component {
 
@@ -36,22 +39,27 @@ class Text extends React.Component {
         return panels;
     }
 
+    dataChange =(e)=>{
+        this.props.dataChange(e);
+        this.props.questionLiveUpdate(e);
+    }
+
     getActivePanel = () => {
 
         switch (this.props.txt.activePanel) {
 
             case "Values":
                 return <Values data={this.props.txt.data.allowedValues}
-                    dataChange={this.props.dataChange} />
+                    dataChange={this.dataChange} />
 
             case "Validation":
                 return <TextValidation project={this.props.project}
                     data={this.props.txt.data}
-                    dataChange={this.props.dataChange} />
+                    dataChange={this.dataChange} />
 
             default:
                 return <General data={this.props.txt.data}
-                    dataChange={this.props.dataChange} />
+                    dataChange={this.dataChange} />
         }
     }
 
@@ -82,6 +90,7 @@ function mapDispatchToProps(dispatch) {
 
     return bindActionCreators({
         dataChange: TextAction.dataChange,
+        questionLiveUpdate: questionLiveUpdate,
         changeConfigPanel: TextAction.textConfigurePanelChange
 
     }, dispatch);

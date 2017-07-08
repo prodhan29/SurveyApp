@@ -8,7 +8,8 @@ import {
     onQuestionClick,
     quesSequenceChange,
     deleteQues,
-    copyQues
+    copyQues,
+    removeExtraQues
 } from '../actions/question.action';
 
 import { selectConfigPanel, setActiveQuestion, resetToastrMsg } from '../actions/project.action';
@@ -16,10 +17,14 @@ import { selectConfigPanel, setActiveQuestion, resetToastrMsg } from '../actions
 class Questions extends React.Component {
 
     onQuestionClick = (data, index) => {
-
-        this.props.selectConfigPanel(data.fieldType.fieldTypeName.toLowerCase());
-        this.props.onQuestionClick(data);
-        this.props.setActiveQuestion(data, index);
+        if(!this.props.question.pendingQues) {
+            this.props.selectConfigPanel(data.fieldType.fieldTypeName.toLowerCase());
+            this.props.setActiveQuestion(data, index);
+            this.props.onQuestionClick(data);
+            this.props.removeExtraQues();
+        } else {
+            alert('save or cancel the existing question');
+        }
     }
 
     componentDidUpdate(prevProps, prevState) {
@@ -58,6 +63,7 @@ function mapDispatchToProps(dispatch) {
         setActiveQuestion,
         resetToastrMsg,
         copyQues,
+        removeExtraQues,
     }, dispatch);
 }
 

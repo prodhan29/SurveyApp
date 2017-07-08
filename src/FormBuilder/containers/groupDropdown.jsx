@@ -2,13 +2,16 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
+
 // Components
 import General from '../components/common/field_general.component';
 import Rules from '../components/common/rules.component';
 import Validation from '../components/common/tickValidation.component';
 import Treeview from '../components/groupDrop/treeview.component';
+
 // Actions
 import * as GroupDropAction from '../actions/groupDrop.action';
+import {questionLiveUpdate} from '../actions/question.action';
 
 class GroupDropdown extends React.Component {
 
@@ -39,6 +42,11 @@ class GroupDropdown extends React.Component {
         else { return 1; }
     }
 
+    dataChange =(e)=>{
+        this.props.dataChange(e);
+        this.props.questionLiveUpdate(e);
+    }
+
     getActivePanel = () => {
 
         switch (this.props.groupDrop.activePanel) {
@@ -46,7 +54,7 @@ class GroupDropdown extends React.Component {
             case "Validation":
                 return <Validation data='treatValidation'
                     ans={this.getValidationAns()}
-                    onchange={this.props.dataChange} />;
+                    onchange={this.dataChange} />;
 
             case "Rules":
                 return (
@@ -62,7 +70,7 @@ class GroupDropdown extends React.Component {
             default:
                 return (
                     <General data={this.props.groupDrop.data}
-                        dataChange={this.props.dataChange} />
+                        dataChange={this.dataChange} />
                 );
         }
     }

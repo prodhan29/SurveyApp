@@ -1,3 +1,4 @@
+import React from 'react';
 import axios from 'axios';
 import AppConfig from '../../application.config';
 import Store from '../../store';
@@ -47,13 +48,31 @@ export function updateQuestion(data, index) {
             }
         })());
     });
-
 }
 
+// hot reload the question list 
+// to show the status of the questions properties
+export function questionLiveUpdate(payload) {
+    return {
+        type: 'FIELD_DATA_LIVE_RELOAD',
+        payload
+    }
+}
+
+// this action flows to all the field reducer
+// and get set to the appropriate field type
 export function onQuestionClick(payload) {
     return {
         type: 'ON_QUESTION_CLICK',
         payload,
+    }
+}
+
+// this action is to avoid an unwanted question in questionList 
+// at the time of editing an question
+export function removeExtraQues() {
+    return {
+        type: 'REMOVE_EXTRA_QUES'
     }
 }
 
@@ -82,6 +101,8 @@ export function deleteQues(data, index) {
         })());
     });
 }
+// ---------- this actions are not related to server -----------------
+// --------------------------------------------------------------------
 
 function getQuestionIds(questions, oldIndex, newIndex) {
 
@@ -96,6 +117,7 @@ function getQuestionIds(questions, oldIndex, newIndex) {
     return questionIds;
 }
 
+// in future multiple section can be exported
 export function preprocess(data) {
     if (data.fieldType.fieldTypeName === 'GroupDrop') {
         data.groupOptionValues = [data.groupOptionValues];
@@ -114,5 +136,81 @@ export function precessQuesForCopy(ques) {
     newQues.valueCheckRuleClient = null;
     newQues.calculationRuleClient = null;
     return newQues;
+}
+
+// this function returns element based on question types 
+export function quesTypeElement(ques) {
+
+    console.log('selection question');
+    console.log(ques);
+    if (ques.fieldType.fieldTypeName.toLowerCase() == 'checkbox') {
+        return ques.optionValues.map((item, index) => {
+            return (
+                <label key={index}>
+                    &nbsp;
+                    <input type="checkbox" />
+                    {item.name} &nbsp;
+                </label>
+            );
+        })
+    }
+
+    else if (ques.fieldType.fieldTypeName.toLowerCase() == 'dropdown') {
+        return (
+            <div className="dropdown">
+                <a href="#" className="dropdown-toggle" data-toggle="dropdown">select a value<i className="fa fa-chevron-down"></i></a>
+                <ul className="dropdown-menu">
+                    {
+                        ques.optionValues.map(function (item, index) {
+                            return (
+                                <li key={index}>
+                                    <a href="#">{item.name}</a>
+                                </li>
+                            );
+                        })
+                    }
+                </ul>
+            </div>
+        );
+    }
+
+    else if (ques.fieldType.fieldTypeName.toLowerCase() == 'date' || ques.fieldType.fieldTypeName.toLowerCase() == 'time') {
+        return (<input type="date" />);
+    }
+    return (<input type="text" />);
+}
+
+export function hybridQues() {
+    let ob = {
+        name: '',
+        caption: '',
+        sectionId: null,
+        allowedValues: [],
+        calculationRule: null,
+        calculationRuleClient: null,
+        jumpingRule: null,
+        jumpingRuleClient: null,
+        validationRange: null,
+        pickAndSuggestRule: null,
+        pickAndSuggestRuleClient: null,
+        valueCheckRule: null,
+        valueCheckRuleClient: null,
+        coordinates: null,
+        timeRange: null,
+        dateRange: null,
+        optionValues: [],
+        groupOptionValues: [],
+        fieldType: {
+            fieldTypeName: 'GroupDrop',
+            exportValue: 1,
+            indexField: 2,
+            blank: true,
+            readOnly: true,
+            treatAsError: true,
+            treatAsWarning: false
+        }
+    }
+
+    return ob;
 }
 

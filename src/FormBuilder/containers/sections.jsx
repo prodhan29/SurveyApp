@@ -31,6 +31,10 @@ class Sections extends React.Component {
     // checking if the section has questions in cacheData if not then fetch from server`
     fetchQuestions = (section, index) => {
 
+        if(this.props.question.pendingQues) {
+            alert('save or cancel the ongoing question to continue');
+            return;
+        }
         // prevent section change when child event is clicked on;
         if (section.sectionId === this.state.editSection.sectionId) return;
 
@@ -121,7 +125,8 @@ class Sections extends React.Component {
 function mapStateToProps(state) {
     return {
         section: state.Section,
-        project: state.Project
+        project: state.Project,
+        question: state.Question,
     };
 }
 
