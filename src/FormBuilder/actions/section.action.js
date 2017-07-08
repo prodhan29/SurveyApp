@@ -160,5 +160,4 @@ export function removeQuestionRules(questionList) {
 function processSectionForCopy(data) {
     data.projectId = data.project.projectId;
     delete data.project;
-    data.name = `${data.name}_(copy)`;
 }

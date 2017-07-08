@@ -20,11 +20,12 @@ import GroupDrop from './groupDropdown';
 import AddFieldPanel from '../components/common/add_field.component';
 import Sidebar from '../../GeneralComponent/sidebar.component';
 import SectionAdd from '../components/section/sectionAdd.component';
+import SectionImport from '../components/section/sectionImport.component';
 import { toastr } from 'react-redux-toastr';
 
 const AddFieldRow = (props) => (
     <div className="add_field_row">
-        <button onClick={props.onClick} >Add Field</button>
+        <button id= "field-type" onClick={props.onClick} >Add Field</button>
     </div>
 );
 
@@ -34,13 +35,20 @@ const SectionAddButton = (props) => (
     </div>
 )
 
+const SectionImportButton = (props) => (
+    <div className="action_item" onClick={props.toggle}>
+        Import Section
+    </div>
+)
+
 class FormBuilderApp extends React.Component {
 
     constructor() {
         super();
         this.state = {
             showAddFieldPanel: false,
-            showAddSection: false
+            showAddSection: false,
+            showImportSection: false,
         }
 
     }
@@ -67,6 +75,13 @@ class FormBuilderApp extends React.Component {
         })
     }
 
+    toggleSectionImport = (event) => {
+        let _this = this;
+        this.setState({
+            showImportSection: !_this.state.showImportSection
+        })
+    }
+
     sectionSubmit = (data) => {
         data.projectId = this.props.projectId;
         this.props.createSection(data);
@@ -79,6 +94,15 @@ class FormBuilderApp extends React.Component {
                 <SectionAdd close={this.toggleSectionAdd}
                     submit={this.sectionSubmit} />
                 : <SectionAddButton toggle={this.toggleSectionAdd} />
+        )
+    }
+
+    getSectionImportElement = (event) => {
+        return (
+            this.state.showImportSection ?
+                <SectionImport close={this.toggleSectionImport}
+                    submit={(e)=>{importSection(e, this.props.projectId)}} />
+                : <SectionImportButton toggle={this.toggleSectionImport} />
         )
     }
 
@@ -156,15 +180,16 @@ class FormBuilderApp extends React.Component {
                                 <Questions />
                                 {this.getAddFieldElement()}
                             </section>
-                            {this.fieldConfigPanel('element')}
+                            <section className="builder_right">
+                                {this.fieldConfigPanel('element')}
+                            </section>
+
                         </section>
                         <section className="builder_content_action_bar">
                             <div className="b_c_action_left section_action">
                                 {this.getSectionAddElement()}
-                                <div className="action_item">
-                                    <lable htmlFor="#import-section">Import Section</lable>
-                                    <input id="import-section" type="file" onChange={(e)=>importSection(e, this.props.projectId)} />
-                                </div>
+                                {this.getSectionImportElement()}
+                                
                             </div>
                             <div className="b_c_action_right grand_action">
                                 <button className="button cancel_btn" onClick={this.props.cancelForm}>Cancel</button>

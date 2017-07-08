@@ -55,7 +55,7 @@ class Number extends React.Component {
     render() {
 
         return (
-            <section className="builder_right field_configuration">
+            <section >
                 <ul className="tab_nav compact_nav">
                     {this.getPanels()}
                 </ul>

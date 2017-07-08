@@ -16,7 +16,7 @@ var initialState = {
     activeProjectUserGroup: null,
     edit: {
         enable: false,
-        project:null,
+        project: null,
         index: -1
     }
 }
@@ -49,10 +49,20 @@ class ProjectUserGroup extends React.Component {
         });
     }
 
+    isAlreadyAdded = (group) => {
+        for (let i = 0; i < this.state.selectedGroups.length; i++) {
+            if (this.state.selectedGroups[i].accountGroupId == group.accountGroupId)
+                return true;
+        }
+        return false;
+    }
+
     addTotselectedGroups = (group) => {
         let selectedGroups = this.state.selectedGroups;
-        selectedGroups.push(group);
-        this.setState({ selectedGroups });
+        if (!this.isAlreadyAdded(group)) {
+            selectedGroups.push(group);
+            this.setState({ selectedGroups });
+        }
     }
 
     removeFromSelectedGroups = (index) => {
@@ -60,7 +70,7 @@ class ProjectUserGroup extends React.Component {
         let removeGroupIds = this.state.removeGroupIds;
 
         let account = selectedGroups.splice(index, 1);
-        console.log(' project user group will be deleted -->'+JSON.stringify(account));
+        console.log(' project user group will be deleted -->' + JSON.stringify(account));
         removeGroupIds.push(account[0].accountGroupId);
         this.setState({ selectedGroups, removeGroupIds });
     }
@@ -138,7 +148,7 @@ class ProjectUserGroup extends React.Component {
                     <div className="list_view_control_bar">
                         <span className="icon_item search_panel">
                             <input className="search_bar" type="text" placeholder="Search Here " name="search" /></span>
-                        
+
                     </div>
                 </div>
 

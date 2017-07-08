@@ -1,8 +1,13 @@
-import { deepClone } from '../actions/common.action';
+import { changeFieldState, deepClone } from '../actions/common.action';
 
 const question = {
     toastrMsg: '',
-    active: {},
+    active: {
+        question: {
+            data: {},
+            index: null
+        }
+    },
     list: []
 };
 
@@ -51,7 +56,51 @@ export default function questions(state = question, action) {
 
         case 'RESET_TOASTR_MSG':
             state.toastrMsg = '';
-            break;   
+            break;
+
+        case 'FETCH_QUESTIONS_FOR_ALL_SECTIONS_INITIALLY':
+            state = setBuilderInitialState(state, action);
+            break;
+
+        case 'DATE_DATA_CHANGE':
+            state = deepClone(state);
+            updateRealTime(state, action);
+            break;    
+
+        case 'SET_ACTIVE_QUESTION':
+            state = deepClone(state);
+            state.active.question.data = action.payload.question;
+            state.active.question.index = action.payload.index;
+            break;    
+
+        case 'CANCEL_FORM':
+            state = deepClone(state);
+            refresh(state);
+            break;            
     }
     return state;
+}
+
+function setBuilderInitialState(state, action) {
+    state = deepClone(state);
+    if(action.index == '0') {
+        state.list = action.payload.data
+    }
+    return state;
+}
+
+function refresh(state) {
+    state.active.question = {
+        data: {},
+        index: null
+    }
+}
+
+function updateRealTime(state, action) {
+    if(state.active.question.index !== null) {
+        let fieldState = {};
+        fieldState.data = state.active.question.data;
+        changeFieldState(fieldState, action.payload);
+        state.list[state.active.question.index] = fieldState.data;
+    }
 }

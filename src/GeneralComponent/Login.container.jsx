@@ -21,6 +21,12 @@ class Login extends React.Component {
                 [e.target.name]: e.target.value
             })
         }
+
+        onEnter = (e) => {
+            if(e.charCode === 13) {
+                signin(this.state, this.proceedSignin);
+            }
+        }
         proceedSignin =(data)=> {
 
             this.state.auth_token = data.accessToken;
@@ -52,6 +58,7 @@ class Login extends React.Component {
                                     className="form-control"
                                     name="password"
                                     onChange={this.handleChange}
+                                    onKeyPress={this.onEnter}
                                 />
                             </div>
                             <button className="btn btn-primary btn-round" onClick={()=> signin(this.state, this.proceedSignin)}>Sign In</button>

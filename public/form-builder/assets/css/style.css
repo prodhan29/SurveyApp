@@ -1765,3 +1765,23 @@ form.node_edit_form .field.action_node .fa.fa-close {
 .user_data_list .close_action a:hover{
     color: #333;
 }
+.questions {
+    height: 70vh;
+    margin: 0 auto;
+    overflow: auto;
+    background-color: #f3f3f3;
+    border: 1px solid #EFEFEF;
+    border-radius: 3;
+}
+
+.question-row{
+    position: relative;
+    width: 100%;
+    display: block;
+    padding: 20;
+    background-color: #FFF;
+    box-sizing: border-box;
+    -webkit-user-select: none;
+    height: 110;
+    margin-bottom: 3px;
+}

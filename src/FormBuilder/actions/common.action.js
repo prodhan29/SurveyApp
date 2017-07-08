@@ -36,7 +36,7 @@ export function getSectionById(sections, sectionId) {
 // this method is invoked to change the data for all types. 
 
 export function changeFieldState(fieldState, e) {
-    
+    console.log(fieldState);
     var ob = (e.target.attributes.data.nodeValue === 'fieldType') ? fieldState.data.fieldType : fieldState.data;
     if (e.target.type === 'checkbox') {
         ob[e.target.name] = !ob[e.target.name]

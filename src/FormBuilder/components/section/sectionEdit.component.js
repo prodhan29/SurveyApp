@@ -25,6 +25,11 @@ export default class SectionEdit extends React.Component {
         this.props.cancelEdit();
     }
 
+    copyData =()=>{
+        this.props.copyData(this.state);
+        this.props.cancelEdit();
+    }
+
     render() {
         return (
             <div className="add_section_dropdown dropdown_panel edit_section">
@@ -44,8 +49,6 @@ export default class SectionEdit extends React.Component {
                             <textarea name="description"
                                 onChange={this.changeData}
                                 value={this.state.description}>
-
-                                Lorem Ipsum simply dummy text in print industry
                         </textarea>
                         </span>
                     </div>
@@ -61,7 +64,8 @@ export default class SectionEdit extends React.Component {
                     </div>
                 </form>
                 <div className="btn_row flex_btn_row">
-                    <button onClick={this.updateData}>Update</button>
+                    
+                    {this.props.editForCopy ? <button onClick={this.copyData}>Copy</button> : <button onClick={this.updateData}>Update</button>}
                     <button onClick={this.props.cancelEdit}>Cancel</button>
                 </div>
             </div>

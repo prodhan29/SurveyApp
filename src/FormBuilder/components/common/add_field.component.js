@@ -13,6 +13,23 @@ export default class AddField extends React.Component {
         }
     }
 
+    componentDidMount() {
+        console.log( typeof window.onclick);
+        let _this = this;
+        window.onclick = function(e){
+            console.log(e.target.id);
+            if(e.target.id != 'field-type') {
+                _this.props.onClick();
+            }
+        }
+    }
+
+    componentWillUnmount() {
+        
+       window.onclick = null;
+       console.log('component is unmounting');
+    }
+
     changePanel = (data) => {
 
         console.log(data);
@@ -46,17 +63,17 @@ export default class AddField extends React.Component {
 
         return (
 
-            <div className="add_field_row">
+            <div  className="add_field_row">
                 <button onClick={this.props.onClick} >Add Field</button>
                 <div id="fieldbox" className="add_field_dropdown dropdown_panel" >
                     <ul className="tab_nav compact_nav">
-                        <li className={this.getclassName('general')}
+                        <li id="field-type" className={this.getclassName('general')}
                             onClick={() => this.changePanel('general')}>General Fields</li>
 
-                        <li className={this.getclassName('group')}
+                        <li id="field-type" className={this.getclassName('group')}
                             onClick={() => this.changePanel('group')}>Group Fields</li>
 
-                        <li className={this.getclassName('other')}
+                        <li id="field-type" className={this.getclassName('other')}
                             onClick={() => this.changePanel('other')}>Other Fields</li>
                     </ul>
                     <div className="tab_content">

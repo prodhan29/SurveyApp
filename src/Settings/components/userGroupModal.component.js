@@ -9,7 +9,7 @@ export default class UserGroupModal extends React.Component {
         this.state = {
             grpName: this.props.edit.enable ? this.props.edit.grpName : '',
             searchName: '',
-            users: [],
+            users: this.props.allUsers,
             colors: ['moonstone_blue', 'light_green', 'olive_green', 'dark_salmon']
         }
     }
@@ -34,12 +34,12 @@ export default class UserGroupModal extends React.Component {
         return shortName.join('');
     }
 
-    allReadySelected = (user) => {
+    isAlreadySelected = (user) => {
         for (let i = 0; i < this.props.selectedUsers.length; i++) {
             if (this.props.selectedUsers[i].accountId == user.accountId)
-                return true;
+                return [true, i];
         }
-        return false
+        return [false, -1]
     }
 
     userFilter = (e) => {
@@ -47,7 +47,7 @@ export default class UserGroupModal extends React.Component {
         let users = [];
         for (let i = 0; i < this.props.allUsers.length; i++) {
             let name = this.props.allUsers[i].accountInfo.firstName.concat(` ${this.props.allUsers[i].accountInfo.lastName}`)
-            if (!this.allReadySelected(this.props.allUsers[i]) && name.toLowerCase().indexOf(e.target.value.toLowerCase()) > -1) {
+            if (name.toLowerCase().indexOf(e.target.value.toLowerCase()) > -1) {
                 users.push(this.props.allUsers[i]);
             }
         }
@@ -57,23 +57,35 @@ export default class UserGroupModal extends React.Component {
         })
     }
 
+    selectUser = (e) => {
+        console.log(e.target.dataset.value);
+    }
     getFilteredUser = () => {
-        if (this.state.searchName === '') return null;
+        if (this.state.users.length === 0) return null;
         return this.state.users.map((item, index) => {
             return (
-                <li key={index} onClick={() => this.addToSelected(item)}>
-                    {item.accountInfo.firstName.concat(` ${item.accountInfo.lastName}`)}
+                <li key={index} >
+                    <label>
+                        <input type="checkbox"
+                            data-value={index}
+                            checked={this.isAlreadySelected(item)[0]}
+                            onChange={() => this.addToSelected(item)}
+                        />
+                        {item.accountInfo.firstName.concat(` ${item.accountInfo.lastName}`)}
+                    </label>
                 </li>
             )
         })
     }
 
     addToSelected = (user) => {
+
         this.setState({
             searchName: '',
-            users: []
+            users: this.props.allUsers
         });
-        this.props.addTotselectedUsers(user)
+        let ans = this.isAlreadySelected(user);
+        ans[0] ? this.props.removeFromSelectedUsers(ans[1]) : this.props.addTotselectedUsers(user);
     }
 
     showSelectedUsers = () => {
@@ -112,7 +124,10 @@ export default class UserGroupModal extends React.Component {
                             <div className="user_data_container">
                                 <div className="data_container_top">
                                     <span className="title">Users</span>
+                                    <button id="sectionAdd" className="button add_user action_item">Add User</button>
+
                                 </div>
+
                                 <div className="form_row">
                                     <span className="form_label"> Search User</span>
                                     <span className="form_field">

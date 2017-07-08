@@ -14,7 +14,8 @@ class Sections extends React.Component {
     constructor() {
         super();
         this.state = {
-            editSection: {}
+            editSection: {},
+            editForCopy: false,
         }
     }
 
@@ -48,6 +49,13 @@ class Sections extends React.Component {
         this.setState({ editSection: section });
     }
 
+    copySection = (section) => {
+        this.setState({
+            editSection: section,
+            editForCopy: true
+        })
+    }
+
     getclassName = (secId1, secId2) => {
         let clsNameprimary = (secId1 === secId2) ? 'section_nav_item active' : 'section_nav_item';
         if (this.state.editSection === null) return clsNameprimary;
@@ -59,12 +67,14 @@ class Sections extends React.Component {
     getEditView = (data, index) => {
         return (
             <SectionEditView data={data}
-                cancelEdit={() => this.state.editSection = {}}
-                updateData={(data) => SectionAction.update(data, index)} />
+                cancelEdit={() => this.setState({ editSection: {}, editForCopy: false })}
+                updateData={(data) => SectionAction.update(data, index)}
+                copyData={(data) => SectionAction.copySection(data)}
+                editForCopy={this.state.editForCopy} />
         );
     }
 
-    exportSection=(e, section)=>{
+    exportSection = (e, section) => {
         e.stopPropagation();
         fetchQuesForExport(section, SectionAction.exportSection);
     }
@@ -87,9 +97,9 @@ class Sections extends React.Component {
                         <div className="dropdown_panel action_dropdown dropdown-menu">
                             <ul>
                                 <li onClick={(e) => { e.stopPropagation(); _this.editSection(val) }}>Edit</li>
-                                <li onClick={(e) => { e.stopPropagation(); SectionAction.copySection(val) }}>Copy</li>
+                                <li onClick={(e) => { e.stopPropagation(); _this.copySection(val) }}>Copy</li>
                                 <li onClick={(e) => { e.stopPropagation(); SectionAction.deleteSection(val.sectionId, index) }}>Delete</li>
-                                <li onClick={(e)=> _this.exportSection(e, val) } >Export</li>
+                                <li onClick={(e) => { e.stopPropagation(); _this.exportSection(e, val) }} >Export</li>
                             </ul>
                         </div>
                     </span>

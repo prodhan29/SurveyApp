@@ -52,7 +52,7 @@ export default class UserGroupModal extends React.Component {
             <div className="popup-mask">
                 <div className="popup open">
                     <div className="popup-header">
-                        <span className="title">Create User Group</span>
+                        <span className="title">Project Access Rights</span>
                         <span className="popup-close"><button className="button close_btn" onClick={this.props.toggleModal}>Close</button></span>
                     </div>
                     <div className="popup_content">
@@ -64,15 +64,9 @@ export default class UserGroupModal extends React.Component {
                                 </div>
                                 <div className="form_row">
 
-                                    <div className="dropdown">
-                                        <a href="#" className="dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
-                                            {this.state.project === null ? 'Select project' : this.state.project.name}
-                                            <i className="fa fa-chevron-down"></i>
-                                        </a>
-                                        <ul className="dropdown-menu">
-                                            {this.showProjects()}
-                                        </ul>
-                                    </div>
+                                    <span className="form_field">
+                                        <input type="text" value={this.state.project.name} disabled/>
+                                    </span> <br></br>
 
                                     <div className="dropdown">
                                         <a href="#" className="dropdown-toggle" data-toggle="dropdown" aria-expanded="false">

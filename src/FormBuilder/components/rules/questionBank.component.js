@@ -84,8 +84,9 @@ export default class QuestionBank extends React.Component {
         return (
             <div>
                 <div className="rule_cell">
-                    <i className="material-icons close_rule"
-                        onClick={this.props.deleteNode}>close</i>
+                    <i className="material-icons close_rule" onClick={this.props.deleteNode}>
+                        close
+                    </i>
                     <div className="dropdown" onClick={this.toggleQuesBank}>
                         <a href="#" className="dropdown-toggle" style={{ position: 'relative' }}>
                             {question === null ? 'Select a question' : question.caption}

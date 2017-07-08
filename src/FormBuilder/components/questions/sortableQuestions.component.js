@@ -9,26 +9,15 @@ var getActiveclassName = function (id, activeId) {
 const DragHandle = SortableHandle(() => <span><bold>::::::</bold></span>);
 
 const SortableItem = SortableElement((props) =>
-    <div className={props.clsName}
-        onClick={() => props.onClick(props.value)}
-        style={{
-            position: 'relative',
-            width: '100%',
-            display: 'block',
-            padding: 20,
-            backgroundColor: '#FFF',
-            boxSizing: 'border-box',
-            WebkitUserSelect: 'none',
-            height: 110,
-            marginBottom: '3px'
-        }}>
+    <div className={`${props.clsName} question-row`}
+        onClick={() => props.onClick(props.value)}>
 
         <div className="form_row_actions">
             <DragHandle />
             <span className="fa fa-files-o" onClick={() => props.copyQues(props.value)}></span>
             <span className="fa fa-trash" onClick={() => props.deleteQues(props.value)}></span>
         </div>
-        <span className="form_label">{props.value.caption}</span>
+        <span className="form_label"> {`${props.indexNumber + 1}) ${props.value.caption}`}</span>
         <span className="form_field">
             <input type="text" />
         </span>
@@ -38,18 +27,10 @@ const SortableItem = SortableElement((props) =>
 
 const SortableList = SortableContainer((props) => {
     return (
-        <div className="builder_form_wrapper" id='questions' style={{
-            width: '80%',
-            height: '80vh',
-            maxWidth: '500px',
-            margin: '0 auto',
-            overflow: 'auto',
-            backgroundColor: '#f3f3f3',
-            border: '1px solid #EFEFEF',
-            borderRadius: 3
-        }}>
+        <div className="builder_form_wrapper questions">
             {props.items.map((value, index) => (
                 <SortableItem key={`item-${index}`}
+                    indexNumber={index}
                     index={index}
                     value={value}
                     onClick={(data) => props.onClick(data, index)}

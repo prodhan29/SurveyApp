@@ -1,6 +1,6 @@
 'use strict'
 
-import { getSectionById, deepClone } from '../actions/common.action';
+import { getSectionById, deepClone, changeFieldState } from '../actions/common.action';
 
 const formBuilder = {
     active: {
@@ -66,10 +66,7 @@ export default function project(state = formBuilder, action) {
             break;
 
         case 'FETCH_QUESTIONS_FOR_ALL_SECTIONS_INITIALLY':
-            console.log(state.cacheData);
-            state = deepClone(state);
-            let questionList = action.payload.data;
-            state.cacheData[action.index]['child'] = questionList;
+            state = setBuilderInitialState(state, action);
             break;
 
         case 'CREATE_QUESTION':
@@ -129,4 +126,17 @@ function refresh(state) {
         data: {},
         index: null
     }
+}
+
+function setBuilderInitialState(state, action) {
+    state = deepClone(state);
+    let questionList = action.payload.data;
+    state.cacheData[action.index]['child'] = questionList;
+
+    // to select the first section At the formbuilder initial load
+    if (action.index == '0') {
+        state.active.section.data = state.cacheData[action.index];
+        state.active.section.index = 0;
+    }
+    return state;
 }
