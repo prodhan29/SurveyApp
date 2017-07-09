@@ -92,7 +92,6 @@ class Organization extends React.Component {
 
             return (
                 <tr key={index}>
-                    <td className="selection"><span className="ui_checkbox unchecked"></span></td>
                     <td className="text_left">
                         <div className="project_name">
                             {item.organization.orgName}
@@ -130,7 +129,6 @@ class Organization extends React.Component {
                     <table className="bordered_table">
                         <thead>
                             <tr>
-                                <th className="selection"><span className="ui_checkbox checked"></span></th>
                                 <th className="text_left">Organization Name</th>
                                 <th className="text_center">Contact Person</th>
                                 <th className="text_center">Permanent Address</th>

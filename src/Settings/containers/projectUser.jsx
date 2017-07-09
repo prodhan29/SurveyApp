@@ -89,7 +89,6 @@ class ProjectUser extends React.Component {
 
             return (
                 <tr key={index}>
-                    <td className="selection"><span className="ui_checkbox unchecked"></span></td>
                     <td className="text_left">
                         <div className="project_name">
                             {`${item.accountInfo.firstName} ${item.accountInfo.lastName}`}
@@ -128,7 +127,6 @@ class ProjectUser extends React.Component {
                     <table className="bordered_table">
                         <thead>
                             <tr>
-                                <th className="selection"><span className="ui_checkbox checked"></span></th>
                                 <th className="text_left"> Name</th>
                                 <th className="text_center">Role</th>
                                 <th className="text_center">Age</th>

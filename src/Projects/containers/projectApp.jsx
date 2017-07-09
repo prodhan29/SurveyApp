@@ -1,6 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
+import logo from '../../styles/img/logo.png';
 //components
 import Sidebar from '../../GeneralComponent/sidebar.component';
 import ProjectCreateModal from '../components/projectCreateModal';
@@ -67,10 +68,10 @@ class Projects extends React.Component {
             <div className="main_container">
 
                 <section className="header">
-                    <div className="logo"><img src="assets/img/logo.png" /></div>
+                    <div className="logo"><img src={logo} /></div>
                     <div className="header_main">
                         <h2 className="header_title">Proin Gravida Nibh Vel</h2>
-                        <div className="user"><img src="assets/img/user.png" /></div>
+                        <div className="user"><img src="styles/img/user.png" /></div>
                     </div>
                 </section>
                 <section className="content_body">

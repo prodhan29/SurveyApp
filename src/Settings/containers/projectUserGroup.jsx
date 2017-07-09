@@ -120,12 +120,9 @@ class ProjectUserGroup extends React.Component {
             let project = ProjectUserGroupAction.getProjectbyId(item.projectId, this.props.projects.list);
             return (
                 <tr key={index}>
-                    <td className="selection">
-                        <span className="ui_checkbox unchecked"></span>
-                    </td>
                     <td>
                         <div className="project_name">
-                            {project.name}
+                            {item.projectName}
                         </div>
                     </td>
                     <td className="user_group_details">
@@ -156,7 +153,6 @@ class ProjectUserGroup extends React.Component {
                     <table className="bordered_table">
                         <thead>
                             <tr>
-                                <th className="selection"><span className="ui_checkbox checked"></span></th>
                                 <th>Project Name </th>
                                 <th>User Group Details</th>
                                 <th className="text_center">Manager User</th>

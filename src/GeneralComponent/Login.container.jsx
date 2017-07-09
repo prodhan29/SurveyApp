@@ -39,7 +39,7 @@ class Login extends React.Component {
                 <div className="login-content-wrapper">
                     <div className="form" >
                         <div className="login-header header-primary text-center">
-                            <img src="assets/img/logo-login.png" />
+                            <img src="styles/img/logo-login.png" />
                             <h4>Welcome to ZuZu</h4>
                             <p>Sign In to continue</p>
                         </div>

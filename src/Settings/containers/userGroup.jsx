@@ -111,9 +111,6 @@ class UserGroup extends React.Component {
 
             return (
                 <tr key={index}>
-                    <td className="selection">
-                        <span className="ui_checkbox unchecked"></span>
-                    </td>
                     <td>
                         <div className="project_name">
                             {item.name}
@@ -147,7 +144,6 @@ class UserGroup extends React.Component {
                     <table className="bordered_table">
                         <thead>
                             <tr>
-                                <th className="selection"><span className="ui_checkbox checked"></span></th>
                                 <th>User Group name </th>
                                 <th>Group Details</th>
                                 <th className="text_center">Manager User</th>
