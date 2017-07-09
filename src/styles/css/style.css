@@ -2082,3 +2082,25 @@ form.node_edit_form .field.action_node .fa.fa-close {
     font-weight: 300;
     margin-bottom: -15px;
 }
+
+.question-row {
+    position: relative;
+    width: 100%;
+    display: block;
+    padding: 20;
+    background-color: #FFF;
+    border-bottom: 1px solid #EFEFEF;
+    box-sizing: border-box;
+    margin-bottom: 5px;
+}
+
+.question-container {
+    width: 80%;
+    height: 80vh;
+    max-width: 500px;
+    margin: 0 auto;
+    overflow: auto;
+    background-color: #f3f3f3;
+    border: 1px solid #EFEFEF;
+    border-radius: 3;
+}

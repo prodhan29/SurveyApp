@@ -3,7 +3,6 @@ import { SortableContainer, SortableElement, SortableHandle, arrayMove } from 'r
 import {quesTypeElement} from '../../actions/question.action';
 
 var getActiveclassName = function (id, activeId) {
-
     return (id === activeId) ? "form_row active" : "form_row";
 }
 
@@ -28,7 +27,7 @@ const SortableItem = SortableElement((props) =>
 
 const SortableList = SortableContainer((props) => {
     return (
-        <div className="builder_form_wrapper questions">
+        <div className="builder_form_wrapper question-container">
             {props.items.map((value, index) => (
                 <SortableItem key={`item-${index}`}
                     indexNumber={index}
@@ -61,8 +60,6 @@ export default class SortableQuestions extends React.Component {
     }
 
     render() {
-
-        console.log('active question index -- > ' + this.props.project.active.question.index);
         return (
             <SortableList items={this.props.question.list}
                 onClick={this.handleChange}

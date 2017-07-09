@@ -4,6 +4,10 @@ import { hybridQues } from '../actions/question.action';
 const question = {
     toastrMsg: '',
     pendingQues: false, // to trace if any question is in the middle of construction
+    edit: {
+        isRunning: false,
+        quesOldState: null,
+    },
     active: {
         question: {
             data: {},
@@ -35,8 +39,16 @@ export default function questions(state = question, action) {
             state.toastrMsg = 'question created successfully';
             break;
 
+        case 'COPY_QUESTION':
+            state = deepClone(state);
+            state.list.push(action.payload.data);
+            state.toastrMsg = 'question COPIED successfully';
+            break;
+
         case 'UPDATE_QUESTION':
             state = deepClone(state);
+            state.pendingQues = false;
+            state.edit.isRunning = false;
             state.list[action.payload.index] = action.payload.data;
             state.toastrMsg = 'question updated successfully';
             break;
@@ -84,7 +96,7 @@ export default function questions(state = question, action) {
 
         case 'REMOVE_EXTRA_QUES':
             state = deepClone(state);
-            refresh(state);
+            removeExtraQues(state, action.payload, action.index);
             break;
 
         case 'CANCEL_FORM':
@@ -103,7 +115,25 @@ function setBuilderInitialState(state, action) {
     return state;
 }
 
+function removeExtraQues(state, payload, index) {
+    state.list.pop();
+    state.edit = {
+        isRunning: true,
+        quesOldState: payload,
+        quesIndex: index,
+    };
+}
+
 function refresh(state) {
+    if (state.edit.isRunning) {
+        state.pendingQues = false;
+        state.list[state.edit.quesIndex] = state.edit.quesOldState;
+        state.edit = {
+            isRunning: false,
+            quesOldState: null,
+            quesIndex: null,
+        };
+    }
     if (state.pendingQues) {
         state.list.pop();
         state.pendingQues = false;

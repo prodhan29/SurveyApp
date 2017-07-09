@@ -21,7 +21,7 @@ class Questions extends React.Component {
             this.props.selectConfigPanel(data.fieldType.fieldTypeName.toLowerCase());
             this.props.setActiveQuestion(data, index);
             this.props.onQuestionClick(data);
-            this.props.removeExtraQues();
+            this.props.removeExtraQues(data, index);
         } else {
             alert('save or cancel the existing question');
         }

@@ -16,7 +16,7 @@ export function fetchQuestions(data) {
 export function copyQues(ques) {
     let payload = axios.post(`${AppConfig.domain}/question`, precessQuesForCopy(ques), AppConfig.ajaxConfig());
     return {
-        type: 'CREATE_QUESTION',
+        type: 'COPY_QUESTION',
         payload,
     }
 }
@@ -70,9 +70,11 @@ export function onQuestionClick(payload) {
 
 // this action is to avoid an unwanted question in questionList 
 // at the time of editing an question
-export function removeExtraQues() {
+export function removeExtraQues(payload, index) {
     return {
-        type: 'REMOVE_EXTRA_QUES'
+        type: 'REMOVE_EXTRA_QUES',
+        payload,
+        index,
     }
 }
 

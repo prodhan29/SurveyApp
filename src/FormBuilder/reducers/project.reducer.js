@@ -74,6 +74,11 @@ export default function project(state = formBuilder, action) {
             state.cacheData[state.active.section.index].child.push(action.payload.data);
             break;
 
+        case 'COPY_QUESTION':
+            state = deepClone(state);
+            state.cacheData[state.active.section.index].child.push(action.payload.data);
+            break;     
+
         case 'UPDATE_QUESTION':
             state = deepClone(state);
             state.cacheData[state.active.section.index].child[action.payload.index] = action.payload.data;
