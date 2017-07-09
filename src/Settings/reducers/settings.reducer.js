@@ -1,5 +1,6 @@
 import { deepClone } from '../../GeneralActions/action';
 
+
 var initialState = {
     tab: {
         active: '',
@@ -15,6 +16,12 @@ export default function settings(state = initialState, action) {
             state = deepClone(state);
             state.tab.active = action.payload;
             break;
+
+        case 'SET_AUTH_TOKEN':
+            state = deepClone(state);
+            state.tab.active = (action.payload.roleName === 'Admin') ? 'User' : 'License';
+            break;
+
     }
     return state;
 }

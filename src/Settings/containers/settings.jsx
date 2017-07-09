@@ -21,7 +21,7 @@ class Settings extends React.Component {
 
     getSettingsTab = () => {
         let userType = sessionStorage.getItem('roleName').replace(/ /g, '');
-        this.props.settings.tab.active === ''
+        
         return this.props.settings.tab[userType].map((item, index) => {
 
             let clsName = (this.props.settings.tab.active === item) ? 'tab_nav_item active' : 'tab_nav_item';
