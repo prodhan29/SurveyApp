@@ -10,15 +10,15 @@ import { deepClone } from '../../GeneralActions/action';
 
 
 var initialState = {
-            showModal: false,
-            selectedUsers: [],
-            removeAccountIds:[],
-            edit: {
-                enable: false,
-                data: null,
-                grpName: ''
-            }
-        }
+    showModal: false,
+    selectedUsers: [],
+    removeAccountIds: [],
+    edit: {
+        enable: false,
+        data: null,
+        grpName: ''
+    }
+}
 
 class UserGroup extends React.Component {
 
@@ -34,16 +34,16 @@ class UserGroup extends React.Component {
 
     toggleModal = () => {
         let _this = this;
-        this.setState({ 
+        this.setState({
             showModal: !_this.state.showModal,
             selectedUsers: [],
-            removeAccountIds:[],
+            removeAccountIds: [],
             edit: {
                 enable: false,
                 data: null,
                 grpName: ''
             }
-         });
+        });
     }
 
     addTotselectedUsers = (user) => {
@@ -55,7 +55,7 @@ class UserGroup extends React.Component {
     removeFromSelectedUsers = (index) => {
         let selectedUsers = this.state.selectedUsers;
         let removeAccountIds = this.state.removeAccountIds;
-        
+
         let account = selectedUsers.splice(index, 1);
         removeAccountIds.push(account[0].accountId);
         this.setState({ selectedUsers });
@@ -80,10 +80,10 @@ class UserGroup extends React.Component {
             name,
             account_ids: UserGroupAction.makeSendAble(this.state.selectedUsers)
         });
-        this.setState( deepClone(initialState));
+        this.setState(deepClone(initialState));
     }
 
-    updateUserGroup =(name)=>{
+    updateUserGroup = (name) => {
         let _this = this;
         let userGrp = {
             name,
@@ -92,21 +92,21 @@ class UserGroup extends React.Component {
         }
 
         UserGroupAction.updateUserGroup(this.state.edit.index, this.state.removeAccountIds, userGrp);
-        this.setState( deepClone(initialState) );
+        this.setState(deepClone(initialState));
     }
 
-    getTotalUser=(item)=>{
+    getTotalUser = (item) => {
         let count = 0;
-        count+= item.totalEnumerators;
-        count+= item.totalFormDesigner;
-        count+= item.totalSupervisor;
-        count+= item.totalResultUser;
+        count += item.totalEnumerators;
+        count += item.totalFormDesigner;
+        count += item.totalSupervisor;
+        count += item.totalResultUser;
         return count;
     }
 
     getuserGroup = () => {
-        if(typeof this.props.userGroup.list === 'undefined')return null;
-        
+        if (typeof this.props.userGroup.list === 'undefined') return null;
+
         return this.props.userGroup.list.map((item, index) => {
 
             return (
@@ -121,7 +121,7 @@ class UserGroup extends React.Component {
                     </td>
                     <td className="text_center">
                         <button className="button manage_user" onClick={() => UserGroupAction.readUserGroup(item.accountGroupId, index, this.setEditable)}>Manage User</button>
-                        &nbsp; <button className="button manage_user" onClick ={()=> UserGroupAction.deleteUserGroup(item, index) }>Delete Group</button>
+                        &nbsp; <button className="button manage_user" onClick={() => UserGroupAction.deleteUserGroup(item, index)}>Delete Group</button>
                     </td>
                 </tr>
             )
@@ -133,11 +133,12 @@ class UserGroup extends React.Component {
         return (
             <div className="data_container">
                 <div className="list_view_control_bar">
-                    <div className="list_view_control_bar">
-                        <span className="icon_item search_panel">
-                            <input className="search_bar" type="text" placeholder="Search Here " name="search" /></span><br></br><br></br>
-                        <button className="button manage_user" onClick={this.toggleModal}> create User Group</button>
-                    </div>
+                    <span className="icon_item search_panel">
+                        <input type="text" className="search_bar" placeholder="Search Here" name="search" />
+                    </span>
+                    <span className="button_area">
+                        <button className="button create_btn" onClick={this.toggleModal} >create User Group</button>
+                    </span>
                 </div>
 
                 <div className="settings_list">
@@ -164,7 +165,7 @@ class UserGroup extends React.Component {
                             removeFromSelectedUsers={this.removeFromSelectedUsers}
                             createUserGroup={this.createUserGroup}
                             updateUserGroup={this.updateUserGroup}
-                            edit ={this.state.edit}
+                            edit={this.state.edit}
                         /> : null
                 }
             </div>

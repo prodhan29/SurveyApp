@@ -57,7 +57,7 @@ class License extends React.Component {
     }
 
     updateLicense = () => {
-        
+
         this.setState({
             showModal: false,
             data: deepClone(initialState),
@@ -109,14 +109,18 @@ class License extends React.Component {
 
         return (
             <div className="data_container">
-                <div className="list_view_control_bar">
+               
 
                     <div className="list_view_control_bar">
                         <span className="icon_item search_panel">
-                            <input className="search_bar" type="text" placeholder="Search Here" name="search" /></span><br></br><br></br>
-                        <button className="button manage_user" onClick={this.toggleModal}> create License</button>
+                            <input type="text" className="search_bar" placeholder="Search Here" name="search" />
+                        </span>
+                        <span className="button_area">
+                            <button className="button create_btn" onClick={this.toggleModal}>Create License</button>
+                        </span>
                     </div>
-                </div>
+
+               
 
                 <div className="settings_list">
                     <table className="bordered_table">

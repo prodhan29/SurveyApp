@@ -70,16 +70,7 @@ export default class ProjectCreateModal extends React.Component {
                                     Section allowed
                                 </lable>
                             </div>
-                            <div className="form_row">
-                                <lable>
-                                    <input type="checkbox"
-                                        name="published"
-                                        checked={this.state.published}
-                                        onChange={this.booleanChange}
-                                    /> &nbsp;
-                                    publish
-                                </lable>
-                            </div>
+                            
                         </div>
                         <div className="popup-footer">
                             <div className="button-line">
