@@ -100,8 +100,8 @@ class ProjectUser extends React.Component {
                     </td>
                     <td className="text_center">{item.role.roleName}</td>
                     <td className="text_center">{item.accountInfo.age}</td>
-                    <td className="text_center">{item.accountInfo.presentAddress}</td>
-                    <td className="text_center">{item.accountInfo.permanentAddress}</td>
+                    <td className="text_center">{item.accountInfo.phone}</td>
+                    <td className="text_center">{item.email}</td>
                     <td>
                         <button className="button manage_user" onClick={() => ProjectUserAction.deleteProjectUser(item, index)} >Delete</button> &nbsp;
                         <button className="button manage_user" onClick={() => this.showEditableProjectUser(item, index)}> Edit</button>
@@ -131,8 +131,8 @@ class ProjectUser extends React.Component {
                                 <th className="text_left"> Name</th>
                                 <th className="text_center">Role</th>
                                 <th className="text_center">Age</th>
-                                <th className="text_center">Permanent Address</th>
-                                <th className="text_center">Present Address</th>
+                                <th className="text_center">Phone</th>
+                                <th className="text_center">Email Address</th>
                                 <th className="text_center"> </th>
                             </tr>
                         </thead>

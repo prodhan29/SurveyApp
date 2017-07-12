@@ -33,6 +33,7 @@ import User from './GeneralReducers/user.reducer';
 
 //All Projects
 import AllProject from './Projects/reducers/allProjects.reducer';
+import Sidebar from './GeneralReducers/sidebar.reducer';
 
 const rootReducer = combineReducers({
 
@@ -67,6 +68,9 @@ const rootReducer = combineReducers({
     ProjectUser,
     UserGroup,
     ProjectUserGroup,
+
+    //Sidebar
+    Sidebar,
 
 });
 

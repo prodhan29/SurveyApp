@@ -1,28 +1,30 @@
 import React from 'react';
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
 import Store from '../store';
 import { push, replace } from 'react-router-redux';
+import * as SidebarAction from '../GeneralActions/sidebar.action';
 
-export default class Sidebar extends React.Component {
+class Sidebar extends React.Component {
 
     constructor() {
         super();
-        this.state = {
-            active: 'projects',
-            navItems: ['dashboard', 'projects', 'user', 'result', 'setting']
-        }
     }
 
     redirect = (address) => {
         Store.dispatch(push(`/${address}`));
+        this.props.setSelectedPage(address);
     }
 
     clickTest = () => {
         console.log("click testing ");
     }
     getNavigationItems = () => {
-        return this.state.navItems.map((item, index) => {
+        let userRole = sessionStorage.getItem('roleName').replace(/ /g, '');
+        console.log(userRole);
+        return this.props.sidebar.featureAccess[userRole].map((item, index) => {
 
-            let status = (item === this.state.active) ? 'active' : '';
+            let status = (item === this.props.sidebar.active) ? 'active' : '';
             let clsName = `nav_item ${item} ${status}`
             return (
                 <li className={clsName} key={index} onClick={() => this.redirect(item)}>
@@ -42,5 +44,23 @@ export default class Sidebar extends React.Component {
         )
     }
 }
+
+function mapStateToProps(state) {
+    console.log('sidbar');
+    console.log(state.Sidebar);
+    return {
+        user: state.User,
+        sidebar: state.Sidebar,
+    };
+}
+
+function mapDispatchToProps(dispatch) {
+
+    return bindActionCreators({
+        setSelectedPage: SidebarAction.setSelectedPage
+    }, dispatch);
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(Sidebar);
 
 

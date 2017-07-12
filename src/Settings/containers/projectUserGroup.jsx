@@ -129,7 +129,7 @@ class ProjectUserGroup extends React.Component {
                         <b>{item.accountGroupList.length}</b> User Group
                     </td>
                     <td className="text_center">
-                        <button className="button manage_user" onClick={() => this.setEditable(project, item, index)}>Manage User</button>
+                        <button className="button manage_user" onClick={() => this.setEditable(project, item, index)}>Manage Users</button>
                         &nbsp; <button className="button manage_user" onClick={() => ProjectUserGroupAction.deleteGroup(project, index)}>Delete Group</button>
                     </td>
                 </tr>

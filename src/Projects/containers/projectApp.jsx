@@ -88,7 +88,7 @@ class Projects extends React.Component {
                 <section className="header">
                     <div className="logo"><img src={logo} /></div>
                     <div className="header_main">
-                        <h2 className="header_title">Proin Gravida Nibh Vel</h2>
+                        <h2 className="header_title">{this.props.sidebar.active}</h2>
                         <div className="user"><img src="styles/img/user.png" /></div>
                     </div>
                 </section>
@@ -127,7 +127,7 @@ class Projects extends React.Component {
                 </section>
                 {
                     !this.state.showCreateModal ? null : <ProjectCreateModal toggleModal={this.toggleModal}
-                        createProject={this.props.createProject} />
+                        createProject={ProjectAction.createProject} />
                 }
                 <ConfirmationModal project={this.state.project}
                     deleteProject={() => this.props.deleteProject(this.state.project.projectId, this.state.index)}
@@ -141,6 +141,7 @@ class Projects extends React.Component {
 
 function mapStateToProps(state) {
     return {
+        sidebar: state.Sidebar,
         projects: state.AllProject,
     };
 }

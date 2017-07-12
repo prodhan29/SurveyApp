@@ -99,6 +99,12 @@ export default function questions(state = question, action) {
             removeExtraQues(state, action.payload, action.index);
             break;
 
+        // Reset Actions
+        case 'FETCH_SECTIONS_FROM_SERVER':
+            state = deepClone(state);
+            refresh(state);
+            break;
+
         case 'CANCEL_FORM':
             state = deepClone(state);
             refresh(state);

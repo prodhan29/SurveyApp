@@ -33,7 +33,7 @@ class PickRule extends React.Component {
     }
 
     getSelectedQuestion = (question) => {
-        return (typeof question.name === 'undefined') ? 'select a question' : question.name;
+        return (typeof question.name === 'undefined') ? 'select a question' : question.caption;
     }
 
     getSelectedSection = (section) => {

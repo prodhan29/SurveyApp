@@ -56,13 +56,11 @@ export default function jumpRule(state = initialState, action) {
 
         // reset actions    
         case 'JUMP_RULE_DELETE_ALL_CONDITION':
-            state = deepClone(state);
-            state.nodes = [];
+            state = deepClone(initialState);
             break;
 
         case 'CREATE_QUESTION':
-            state = deepClone(state);
-            state = initialState;
+            state = deepClone(initialState);
             break;
 
         case 'SET_ACTIVE_QUESTION':
@@ -71,9 +69,12 @@ export default function jumpRule(state = initialState, action) {
             break;    
 
         case 'FIELD_CONFIG_PANEL_SELECT':
-            state = deepClone(state);
-            state = initialState;
-            break;            
+            state = deepClone(initialState);
+            break;
+
+        case 'CANCEL_FORM':
+            state = deepClone(initialState);
+            break;                
     }
     return state;
 }

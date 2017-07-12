@@ -17,7 +17,7 @@ var initialState = {
             fieldTypeId: 0,
             fieldId: 0,
             fieldTypeName: '',
-            exportValue: 0,
+            exportValue: true,
             indexField: false,
             blank: false,
             readOnly: false,

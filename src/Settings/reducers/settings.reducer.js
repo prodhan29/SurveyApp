@@ -5,7 +5,7 @@ var initialState = {
     tab: {
         active: '',
         SuperAdmin: ['License', 'Organization'],
-        Admin: ['User', 'User Group','Project User Group']
+        Admin: ['User', 'User Group','Manage Project Permissions']
     }
 }
 

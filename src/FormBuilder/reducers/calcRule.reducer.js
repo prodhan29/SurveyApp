@@ -17,7 +17,7 @@ let initialState = {
 }
 export default function calcRule(state = initialState, action) {
 
-    
+
     switch (action.type) {
 
         case 'CALC_RULE_NODE_CHANGE':
@@ -26,20 +26,23 @@ export default function calcRule(state = initialState, action) {
             state.result = makeExpression(state.nodes);
             break;
 
-        case 'CREATE_QUESTION':
-            state = deepClone(state);
-            state = initialState;
-            break;
-
         case 'FIELD_CONFIG_PANEL_SELECT':
-            state = deepClone(state);
-            state = initialState;
+            state = deepClone(initialState);
             break;
 
-       case 'SET_ACTIVE_QUESTION':
+        case 'SET_ACTIVE_QUESTION':
             state = deepClone(state);
             state = getRuleFromQuestion(action.payload.question.calculationRuleClient);
-            break;             
+            break;
+
+        // Reset Actions    
+        case 'CREATE_QUESTION':
+            state = deepClone(initialState);
+            break;
+
+        case 'CANCEL_FORM':
+            state = deepClone(initialState);
+            break;
 
         default:
             break;
@@ -49,7 +52,7 @@ export default function calcRule(state = initialState, action) {
 
 function getRuleFromQuestion(rule) {
     return (rule === null) ? initialState : JSON.parse(rule);
-} 
+}
 
 var makeExpression = function (nodes) {
     var ans = '';

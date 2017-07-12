@@ -42,7 +42,7 @@ class Settings extends React.Component {
             case 'User Group':
                 return <UserGroup />;
 
-            case 'Project User Group':
+            case 'Manage Project Permissions':
                 return <ProjectUserGroup />
                 break;
 
@@ -63,7 +63,7 @@ class Settings extends React.Component {
                 <section className="header">
                     <div className="logo"><img src={logo} /></div>
                     <div className="header_main">
-                        <h2 className="header_title">Proin Gravida Nibh Vel</h2>
+                        <h2 className="header_title">{this.props.sidebar.active}</h2>
                         <div className="user"><img src="styles/img/user.png" /></div>
                     </div>
                 </section>
@@ -86,6 +86,7 @@ class Settings extends React.Component {
 
 function mapStateToProps(state) {
     return {
+        sidebar: state.Sidebar,
         settings: state.Settings,
         license: state.License,
         organization: state.organization,

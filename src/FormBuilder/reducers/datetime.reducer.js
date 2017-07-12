@@ -27,11 +27,11 @@ var initialState = {
             fieldTypeId: 1,
             fieldId: 0,
             fieldTypeName: '',
-            exportValue: 0,
-            indexField: 1,
-            blank: true,
-            readOnly: true,
-            treatAsError: true,
+            exportValue: true,
+            indexField: false,
+            blank: false,
+            readOnly: false,
+            treatAsError: false,
             treatAsWarning: false
         }
     }

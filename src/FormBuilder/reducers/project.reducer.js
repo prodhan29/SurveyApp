@@ -14,6 +14,7 @@ const formBuilder = {
             index: null
         }
     },
+    showFormbuilder: false,
     cacheData: []
 }
 
@@ -31,11 +32,15 @@ export default function project(state = formBuilder, action) {
         case 'FETCH_SECTIONS_FROM_SERVER':
             state = deepClone(state);
             state.cacheData = action.payload.data;
+            if(action.payload.data.length > 0) {
+                state.showFormbuilder = true;
+            }
             break;
 
         case 'CREATE_SECTION':
             state = deepClone(state);
             state.cacheData.push(action.payload.data);
+            state.showFormbuilder = true;
             break;
 
         case 'COPY_SECTION':

@@ -104,6 +104,13 @@ class UserGroup extends React.Component {
         return count;
     }
 
+    makeSingularPlural=(num, name)=>{
+        console.log(num);
+        console.log(`name ${name}   & numbers ${num}--->`);
+        console.log((num > 1) ? `${name}s` : name);
+        return (num > 1) ? `${name}s` : name;
+    }
+
     getuserGroup = () => {
         if (typeof this.props.userGroup.list === 'undefined') return null;
 
@@ -117,7 +124,13 @@ class UserGroup extends React.Component {
                         </div>
                     </td>
                     <td className="user_group_details">
-                        <span className="text_bold user_count">{this.getTotalUser(item)} user </span>{`( ${item.totalEnumerators} Enumerator, ${item.totalFormDesigner} From Designer, ${item.totalSupervisor} Supervisor, ${item.totalResultUser} Result User )`}
+                        <span className="text_bold user_count">{this.getTotalUser(item)} {this.makeSingularPlural(this.getTotalUser(item), 'User')} </span>
+                        {
+                            `( ${item.totalEnumerators} ${this.makeSingularPlural(item.totalEnumerators, 'Enumerator')}, 
+                            ${item.totalFormDesigner} ${this.makeSingularPlural(item.totalFormDesigner, 'From Designer')}, 
+                            ${item.totalSupervisor} ${this.makeSingularPlural(item.totalSupervisor, 'Supervisor')}, 
+                            ${item.totalResultUser} ${this.makeSingularPlural(item.totalResultUser, 'Result User')} )`
+                        }
                     </td>
                     <td className="text_center">
                         <button className="button manage_user" onClick={() => UserGroupAction.readUserGroup(item.accountGroupId, index, this.setEditable)}>Manage User</button>

@@ -22,6 +22,7 @@ import AddFieldPanel from '../components/common/add_field.component';
 import Sidebar from '../../GeneralComponent/sidebar.component';
 import SectionAdd from '../components/section/sectionAdd.component';
 import SectionImport from '../components/section/sectionImport.component';
+import SectionInitial from '../components/section/sectionInitial.component';
 import { toastr } from 'react-redux-toastr';
 
 const AddFieldRow = (props) => (
@@ -62,6 +63,18 @@ class FormBuilderApp extends React.Component {
         };
     }
 
+    isFormbuilderVisible=(state)=>{
+        if(this.props.project.showFormbuilder && state === 'builder'){
+            return {display: 'block'}
+        }
+        else if(!this.props.project.showFormbuilder && state === 'sectionInitial'){
+            return {display: 'block'}
+        }
+        else {
+            return {display: 'none'}
+        }
+    }
+
     toggleAddFieldButton = (event) => {
         let _this = this;
         this.setState({
@@ -87,6 +100,11 @@ class FormBuilderApp extends React.Component {
         data.projectId = this.props.projectId;
         this.props.createSection(data);
         this.toggleSectionAdd();
+    }
+
+    firstSectionSubmit = (data) =>{
+        data.projectId = this.props.projectId;
+        this.props.createSection(data);
     }
 
     getSectionAddElement = (event) => {
@@ -175,14 +193,17 @@ class FormBuilderApp extends React.Component {
                 <section className="header">
                     <div className="logo"><img src={logo} /></div>
                     <div className="header_main">
-                        <h2 className="header_title">Proin Gravida Nibh Vel</h2>
+                        <h2 className="header_title">{this.props.sidebar.active}</h2>
                         <div className="user"><img src="styles/img/user.png" /></div>
                     </div>
                 </section>
-                <section className="content_body">
+                <section className="content_body" >
 
                     <Sidebar />
-                    <section className="content_panel builder_panel">
+                    <SectionInitial display={this.isFormbuilderVisible('sectionInitial')}
+                        submit={this.firstSectionSubmit}
+                    />
+                    <section className="content_panel builder_panel" style={this.isFormbuilderVisible('builder')}>
                         <section className="builder_content_wrapper">
                             <Sections />
                             <section className="builder_middle">
@@ -217,6 +238,7 @@ class FormBuilderApp extends React.Component {
 function mapStateToProps(state, ownProps) {
     return {
         parent: ownProps,
+        sidebar: state.Sidebar,
         project: state.Project,
         question: state.Question,
         text: state.Text,

@@ -10,12 +10,12 @@ const DragHandle = SortableHandle(() => <span><bold>::::::</bold></span>);
 
 const SortableItem = SortableElement((props) =>
     <div className={`${props.clsName} question-row`}
-        onClick={() => props.onClick(props.value)}>
+        onClick={(e) => {e.stopPropagation(); props.onClick(props.value)}}>
 
         <div className="form_row_actions">
             <DragHandle />
             <span className="fa fa-files-o" onClick={() => props.copyQues(props.value)}></span>
-            <span className="fa fa-trash" onClick={() => props.deleteQues(props.value)}></span>
+            <span className="fa fa-trash" onClick={(e) => {e.stopPropagation(); props.deleteQues(props.value)}}></span>
         </div>
         <span className="form_label"> {`${props.indexNumber + 1}) ${props.value.caption}`}</span>
         <span className="form_field">

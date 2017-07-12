@@ -11,14 +11,14 @@ var initialState = {
         caption: '',
         sectionId: 0,
         allowedValues: [],
-        caseNormalization: 2,
+        caseNormalization: 3,
         length: 32,
         oneWord: false,
         removeSpace: false,  // need to add this with api
         fieldType: {
             fieldId: 0,
             fieldTypeName: '',
-            exportValue: false,
+            exportValue: true,
             indexField: false,
             blank: false,
             readOnly: false,

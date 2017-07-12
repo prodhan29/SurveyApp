@@ -32,7 +32,7 @@ class Rules extends React.Component {
 
     getSelectedQuestion = (question) => {
         console.log(question);
-        return (typeof question.name === 'undefined') ? 'select a question' : question.name;
+        return (typeof question.name === 'undefined') ? 'select a question' : question.caption;
     }
 
     getSectionId = (section) => {
