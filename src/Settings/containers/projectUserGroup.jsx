@@ -97,12 +97,7 @@ class ProjectUserGroup extends React.Component {
     }
 
     updateProjectUserGroup = (project) => {
-
-
         let _this = this;
-
-        console.log(JSON.stringify(ProjectUserGroupAction.makeSendAble(_this.state.removeGroupIds)));
-        console.log(_this.state.removeGroupIds);
         let ob = {
             account_group_ids: ProjectUserGroupAction.makeSendAble(_this.state.selectedGroups),
             remove_ids: this.state.removeGroupIds
@@ -110,6 +105,10 @@ class ProjectUserGroup extends React.Component {
 
         ProjectUserGroupAction.updateProjectUserGroup(this.state.edit.index, project, ob);
         this.setState(deepClone(initialState));
+    }
+
+    makeSingularPlural=(num, name)=>{
+        return (num > 1) ? `${num} ${name}s` : `${num} ${name}`;
     }
 
     getProjectUserGroup = () => {
@@ -126,7 +125,7 @@ class ProjectUserGroup extends React.Component {
                         </div>
                     </td>
                     <td className="user_group_details">
-                        <b>{item.accountGroupList.length}</b> User Group
+                        <b> {this.makeSingularPlural(item.accountGroupList.length, 'User Group')}</b>
                     </td>
                     <td className="text_center">
                         <button className="button manage_user" onClick={() => this.setEditable(project, item, index)}>Manage Users</button>
@@ -152,7 +151,7 @@ class ProjectUserGroup extends React.Component {
                             <tr>
                                 <th>Project Name </th>
                                 <th>User Group Details</th>
-                                <th className="text_center">Manager User</th>
+                                <th className="text_center">Manage Users</th>
 
                             </tr>
                         </thead>

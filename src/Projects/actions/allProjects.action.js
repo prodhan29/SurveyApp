@@ -14,10 +14,8 @@ export function createProject(data) {
         })());
 
         let formbuilderLink = `/form-builder/${response.data.projectId}`;
-        Store.dispatch(push(formbuilderLink));
-        
+        Store.dispatch(push(formbuilderLink));  
     })
-
 }
 
 export function deleteProject(projectId, index) {

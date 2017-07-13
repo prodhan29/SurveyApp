@@ -17,16 +17,28 @@ class Settings extends React.Component {
 
     constructor(props) {
         super(props);
+        let userType = sessionStorage.getItem('roleName').replace(/ /g, '');
+        this.state = {
+            userType,
+            selectedTab: (userType === 'Admin') ? 'User' : 'License'
+        }
+    }
+
+    setActiveTab=(tabName)=>{
+        this.setState({
+            selectedTab: tabName
+        });
+        this.props.setActiveTab(tabName);
     }
 
     getSettingsTab = () => {
-        let userType = sessionStorage.getItem('roleName').replace(/ /g, '');
         
-        return this.props.settings.tab[userType].map((item, index) => {
+        console.log('settings selected tab '+ this.props.settings.tab.active)
+        return this.props.settings.tab[this.state.userType].map((item, index) => {
 
-            let clsName = (this.props.settings.tab.active === item) ? 'tab_nav_item active' : 'tab_nav_item';
+            let clsName = (this.state.selectedTab === item) ? 'tab_nav_item active' : 'tab_nav_item';
             return (
-                <li className={clsName} key={index} onClick={() => this.props.setActiveTab(item)}>
+                <li className={clsName} key={index} onClick={() => this.setActiveTab(item)}>
                     {item}
                 </li>
             )
@@ -75,7 +87,7 @@ class Settings extends React.Component {
                                 {this.getSettingsTab()}
                             </ul>
                         </div>
-                        {this.getActivePanel(this.props.settings.tab.active)}
+                        {this.getActivePanel(this.state.selectedTab)}
                     </section>
                 </section>
             </div>

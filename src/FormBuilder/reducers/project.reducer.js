@@ -3,6 +3,7 @@
 import { getSectionById, deepClone, changeFieldState } from '../actions/common.action';
 
 const formBuilder = {
+    ob: {},
     active: {
         panel: null,
         section: {
@@ -22,6 +23,13 @@ export default function project(state = formBuilder, action) {
 
 
     switch (action.type) {
+
+        case 'SET_ACTIVE_PROJECT':
+            console.log('------------------->>>> setting project');
+            console.log(action.payload.data);
+            state = deepClone(state);
+            state.ob = action.payload.data;
+            break;
 
         case 'FIELD_CONFIG_PANEL_SELECT':
             state = deepClone(state);

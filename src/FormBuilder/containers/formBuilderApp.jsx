@@ -57,6 +57,7 @@ class FormBuilderApp extends React.Component {
 
     componentDidMount() {
         console.log(" url params -- > " + JSON.stringify(this.props.projectId));
+        this.props.getProjectById(this.props.projectId);
         fetchSections(this.props.projectId);
         window.onerror = function (msg) {
             toastr.error('Error: ' + msg);
@@ -193,7 +194,7 @@ class FormBuilderApp extends React.Component {
                 <section className="header">
                     <div className="logo"><img src={logo} /></div>
                     <div className="header_main">
-                        <h2 className="header_title">{this.props.sidebar.active}</h2>
+                        <h2 className="header_title">{this.props.project.ob.name}</h2>
                         <div className="user"><img src="styles/img/user.png" /></div>
                     </div>
                 </section>
@@ -257,7 +258,7 @@ function mapStateToProps(state, ownProps) {
 function mapDispatchToProps(dispatch) {
 
     return bindActionCreators({
-
+        getProjectById: ProjectAction.getProjectById,
         fetchSections,
         createSection,
         cancelForm: ProjectAction.cancelForm,

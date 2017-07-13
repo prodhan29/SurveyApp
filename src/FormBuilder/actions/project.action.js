@@ -2,6 +2,14 @@ import axios from 'axios';
 import AppConfig from '../../application.config';
 import Store from '../../store';
 
+export function getProjectById(projectId){
+    let payload = axios.get(`${AppConfig.domain}/project/${projectId}`, AppConfig.ajaxConfig());
+    return {
+        type: 'SET_ACTIVE_PROJECT',
+        payload
+    }    
+}
+
 export function selectConfigPanel(payload) {
     return {
         type: 'FIELD_CONFIG_PANEL_SELECT',

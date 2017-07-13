@@ -2,6 +2,8 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import logo from '../../styles/img/logo.png';
+import { push, replace } from 'react-router-redux';
+import Store from '../../store';
 //components
 import Sidebar from '../../GeneralComponent/sidebar.component';
 import ProjectCreateModal from '../components/projectCreateModal';
@@ -40,9 +42,14 @@ class Projects extends React.Component {
         ProjectAction.updateProject(project, index);
     }
 
+    redirectToProject=(project)=>{
+        let link = `/form-builder/${project.projectId}`;
+        Store.dispatch(replace(link));
+        
+    }
+
     showAllProjects = () => {
         return this.props.projects.list.map((project, index) => {
-            let formbuilderLink = `/form-builder/${project.projectId}`;
             return (
 
 
@@ -50,7 +57,7 @@ class Projects extends React.Component {
                     <td>
                         <span className="project_avater"><img src="assets/img/project_icon.png" /><span className="pr_name">PG</span></span>
                         <div className="content_group project_info">
-                            <h4><a href={formbuilderLink}> {project.name}</a> </h4>
+                            <h4 onClick={()=>this.redirectToProject(project)}><a href=""> {project.name}</a> </h4>
                             <p className="info_p">{`${project.totalSection} Sections, Version: ${project.version}`}</p>
                         </div>
                     </td>

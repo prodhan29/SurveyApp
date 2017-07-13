@@ -105,9 +105,6 @@ class UserGroup extends React.Component {
     }
 
     makeSingularPlural=(num, name)=>{
-        console.log(num);
-        console.log(`name ${name}   & numbers ${num}--->`);
-        console.log((num > 1) ? `${name}s` : name);
         return (num > 1) ? `${name}s` : name;
     }
 
@@ -160,7 +157,7 @@ class UserGroup extends React.Component {
                             <tr>
                                 <th>User Group name </th>
                                 <th>Group Details</th>
-                                <th className="text_center">Manager User</th>
+                                <th className="text_center">Manage Users</th>
 
                             </tr>
                         </thead>
