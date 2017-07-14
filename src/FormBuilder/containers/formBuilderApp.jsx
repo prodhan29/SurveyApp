@@ -52,7 +52,6 @@ class FormBuilderApp extends React.Component {
             showAddSection: false,
             showImportSection: false,
         }
-
     }
 
     componentDidMount() {
@@ -65,10 +64,10 @@ class FormBuilderApp extends React.Component {
     }
 
     isFormbuilderVisible=(state)=>{
-        if(this.props.project.showFormbuilder && state === 'builder'){
+        if(this.props.project.showFormbuilder === 1 && state === 'builder'){
             return {display: 'block'}
         }
-        else if(!this.props.project.showFormbuilder && state === 'sectionInitial'){
+        else if(this.props.project.showFormbuilder === 0 && state === 'sectionInitial'){
             return {display: 'block'}
         }
         else {

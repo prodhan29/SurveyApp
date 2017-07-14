@@ -128,7 +128,7 @@ class ProjectUserGroup extends React.Component {
                         <b> {this.makeSingularPlural(item.accountGroupList.length, 'User Group')}</b>
                     </td>
                     <td className="text_center">
-                        <button className="button manage_user" onClick={() => this.setEditable(project, item, index)}>Manage Users</button>
+                        <button className="button manage_user" onClick={() => this.setEditable(project, item, index)}>Manage User Groups</button>
                         &nbsp; <button className="button manage_user" onClick={() => ProjectUserGroupAction.deleteGroup(project, index)}>Delete Group</button>
                     </td>
                 </tr>
@@ -151,7 +151,7 @@ class ProjectUserGroup extends React.Component {
                             <tr>
                                 <th>Project Name </th>
                                 <th>User Group Details</th>
-                                <th className="text_center">Manage Users</th>
+                                <th className="text_center">Manage User Groups</th>
 
                             </tr>
                         </thead>

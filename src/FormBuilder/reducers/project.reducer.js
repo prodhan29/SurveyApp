@@ -15,7 +15,11 @@ const formBuilder = {
             index: null
         }
     },
-    showFormbuilder: false,
+    // this key will have three properties 0,1,2
+    // 0 = show section_create in the middle
+    // 1 = show formbuilder
+    // 2 = show null (need to show null coz when it is taking too much time to load sections section_create appears in the middle) 
+    showFormbuilder: 2, 
     cacheData: []
 }
 
@@ -29,6 +33,12 @@ export default function project(state = formBuilder, action) {
             console.log(action.payload.data);
             state = deepClone(state);
             state.ob = action.payload.data;
+            if(action.payload.data.totalSection > 0) {
+                state.showFormbuilder = 1;
+            }
+            else {
+                state.showFormbuilder = 0;
+            }
             break;
 
         case 'FIELD_CONFIG_PANEL_SELECT':
@@ -40,9 +50,6 @@ export default function project(state = formBuilder, action) {
         case 'FETCH_SECTIONS_FROM_SERVER':
             state = deepClone(state);
             state.cacheData = action.payload.data;
-            if(action.payload.data.length > 0) {
-                state.showFormbuilder = true;
-            }
             break;
 
         case 'CREATE_SECTION':
@@ -120,11 +127,16 @@ export default function project(state = formBuilder, action) {
             state = deepClone(state);
             state.cacheData[state.active.section.index].child.splice(action.payload.index, 1);
             break;
-
+        
+        // reset actions
         case 'CANCEL_FORM':
             state = deepClone(state);
             refresh(state);
             break;
+
+        case 'FETCH_ALL_PROJECTS':
+            state = deepClone(formBuilder);
+            break;    
 
         default:
             state;
