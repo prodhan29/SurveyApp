@@ -24,15 +24,19 @@ export default function textField(state = initialState, action) {
             }
             break;
 
+        case 'SET_ACTIVE_QUESTION':
+            state = deepClone(state);
+            state = getRuleFromQuestion(action.payload.question.pickAndSuggestRuleClient);
+            break;
+
         // reset actions    
         case 'CREATE_QUESTION':
             state = deepClone(initialState);
             break;
 
-        case 'SET_ACTIVE_QUESTION':
-            state = deepClone(state);
-            state = getRuleFromQuestion(action.payload.question.pickAndSuggestRuleClient);
-            break;
+        case 'UPDATE_QUESTION':
+            state = deepClone(initialState);
+            break;    
 
         case 'FIELD_CONFIG_PANEL_SELECT':
             state = deepClone(initialState);

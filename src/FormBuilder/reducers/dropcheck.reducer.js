@@ -66,7 +66,11 @@ export default function dropCheckField(state = initialState, action) {
         case 'CREATE_QUESTION':
             state = deepClone(state);
             state = initialState;
-            break;  
+            break;
+
+        case 'UPDATE_QUESTION':
+            state = deepClone(initialState);
+            break;      
 
         case 'CANCEL_FORM':
             state = deepClone(state);

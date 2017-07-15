@@ -36,7 +36,7 @@ export default function questions(state = question, action) {
             state.pendingQues = false;
             state.list.pop();
             state.list.push(action.payload.data);
-            state.toastrMsg = 'question created successfully';
+            state.toastrMsg = 'question CREATED successfully';
             break;
 
         case 'COPY_QUESTION':
@@ -50,7 +50,8 @@ export default function questions(state = question, action) {
             state.pendingQues = false;
             state.edit.isRunning = false;
             state.list[action.payload.index] = action.payload.data;
-            state.toastrMsg = 'question updated successfully';
+            refresh(state);
+            state.toastrMsg = 'question UPDATED successfully';
             break;
 
         case 'QUESTIONS_CHANGE':
@@ -141,7 +142,7 @@ function refresh(state) {
         };
     }
     if (state.pendingQues) {
-        state.list.pop();
+        state.list.pop(); // if the question is not in edit mode it will delete the ongoing question
         state.pendingQues = false;
     }
     state.active.question = {

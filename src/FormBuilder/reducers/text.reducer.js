@@ -47,12 +47,17 @@ export default function textField(state = initialState, action) {
             setEditMode(state, action.payload);
             break;
 
+        // reset actions    
         case 'FIELD_CONFIG_PANEL_SELECT':
             state = JSON.parse(JSON.stringify(initialState));
             break;
 
         case 'CREATE_QUESTION':
-            state = JSON.parse(JSON.stringify(initialState));
+            state = deepClone(initialState);
+            break;
+
+        case 'UPDATE_QUESTION':
+            state = deepClone(initialState);
             break;
 
         case 'CANCEL_FORM':

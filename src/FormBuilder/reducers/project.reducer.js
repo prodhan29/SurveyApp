@@ -102,6 +102,7 @@ export default function project(state = formBuilder, action) {
         case 'UPDATE_QUESTION':
             state = deepClone(state);
             state.cacheData[state.active.section.index].child[action.payload.index] = action.payload.data;
+            refresh(state);
             break;
 
         case 'QUESTION_FETCH_AND_CACHE':

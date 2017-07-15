@@ -63,6 +63,10 @@ export default function groupDropField(state = initialState, action) {
             state = initialState;
             break;
 
+        case 'UPDATE_QUESTION':
+            state = deepClone(initialState);
+            break;    
+
         case 'CANCEL_FORM':
             state = deepClone(state);
             state = initialState;

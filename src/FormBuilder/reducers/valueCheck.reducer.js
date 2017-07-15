@@ -33,6 +33,10 @@ export default function textField(state = initialState, action) {
             state = deepClone(initialState);
             break;
 
+        case 'UPDATE_QUESTION':
+            state = deepClone(initialState);
+            break;    
+
         case 'SET_ACTIVE_QUESTION':
             state = deepClone(state);
             state = getRuleFromQuestion(action.payload.question.valueCheckRuleClient);

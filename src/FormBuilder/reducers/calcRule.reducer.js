@@ -39,6 +39,10 @@ export default function calcRule(state = initialState, action) {
         case 'CREATE_QUESTION':
             state = deepClone(initialState);
             break;
+            
+        case 'UPDATE_QUESTION':
+            state = deepClone(initialState);
+            break;    
 
         case 'CANCEL_FORM':
             state = deepClone(initialState);

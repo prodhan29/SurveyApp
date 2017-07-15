@@ -25,6 +25,13 @@ export default class AllowedValues extends React.Component {
         }
     }
 
+    componentWillMount() {
+        if(this.props.data ===null){
+            this.state.ob.target.value = [];
+            this.props.dataChange(this.state.ob);
+        }
+    }
+
     nameChange = (e) => {
         this.setState({
             name: e.target.value
@@ -112,6 +119,11 @@ export default class AllowedValues extends React.Component {
         }
     }
 
+    removeAll=(e)=>{
+        this.state.ob.target.value = [];
+        this.props.dataChange(this.state.ob);
+    }
+
     uploadOption = (e) => {
         var file = e.target.files[0];
         let reader = new FileReader();
@@ -132,12 +144,16 @@ export default class AllowedValues extends React.Component {
         reader.readAsText(file);
     }
 
-    render() {
-        var _this = this;
-        const optionELements = this.props.data.map(function (value, index) {
-            return _this.getOption(value, index);
+    getOptionELements=(e)=>{
+        if(this.props.data === null) {
+            return null;
+        }
+        return this.props.data.map((value, index)=>{
+            return this.getOption(value, index);
         })
+    }
 
+    render() {
         return (
             <div>
                   <div className="segment_title segment_title_with_action">Set Allowed Values
@@ -145,7 +161,7 @@ export default class AllowedValues extends React.Component {
                         <i className="material-icons" data-toggle="dropdown">more_vert</i>
                         <div className="dropdown_panel action_dropdown dropdown-menu">
                             <ul>
-                                <li>Remove All</li>
+                                <li onClick={this.removeAll}>Remove All</li>
                                 <li><input id='file-upload' type='file' onChange={this.uploadOption} /> </li>
                             </ul>
                         </div>
@@ -169,7 +185,7 @@ export default class AllowedValues extends React.Component {
                             </tr>
                         </thead>
                         <tbody>
-                            {optionELements}
+                            {this.getOptionELements()}
                         </tbody>
                     </table>
                 </div>
