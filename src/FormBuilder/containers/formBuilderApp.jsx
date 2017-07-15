@@ -63,6 +63,10 @@ class FormBuilderApp extends React.Component {
         };
     }
 
+    quesSavingAction=()=>{
+        return (this.props.project.active.panel === null) ? {display:'none'} : {display:'block'};
+    }
+
     isFormbuilderVisible=(state)=>{
         if(this.props.project.showFormbuilder === 1 && state === 'builder'){
             return {display: 'block'}
@@ -209,7 +213,6 @@ class FormBuilderApp extends React.Component {
                             <section className="builder_middle">
                                 <div className="builder_form_title"><h3>Fields</h3></div>
                                 <Questions />
-                                {this.getAddFieldElement()}
                             </section>
                             <section className="builder_right">
                                 {this.fieldConfigPanel('element')}
@@ -223,9 +226,11 @@ class FormBuilderApp extends React.Component {
                                 
                             </div>
                             <div className="b_c_action_right grand_action">
-                                <button className="button cancel_btn" onClick={this.props.cancelForm}>Cancel</button>
-                                <button className="button black_btn" onClick={this.saveQuestion}>Save Question</button>
-
+                                {this.getAddFieldElement()}
+                                <div className="ques_saving_action" style={this.quesSavingAction()}>
+                                    <button className="button cancel_btn" onClick={this.props.cancelForm}>Cancel</button>
+                                    <button className="button black_btn" onClick={this.saveQuestion}>Save Question</button>
+                                </div>
                             </div>
                         </section>
                     </section>

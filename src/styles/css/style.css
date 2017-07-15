@@ -256,6 +256,7 @@ p.login-form-switcher a {
 .form_row input[type=text],
 .form_row input[type=password],
 .form_row input[type=email],
+.form_row input[type=date],
 .form_row input[type=number] {
     width: 100%;
     line-height: 38px;
@@ -366,6 +367,7 @@ button {
     color: #8b929b;
     line-height: 24px;
     padding: 0 10px;
+    position: relative;
 }
 .button.cancel_btn {
     background-color: transparent;
@@ -445,15 +447,21 @@ button.red_btn {
     -webkit-flex: 1;
     -ms-flex: 1;
     flex: 1;
-    padding: 25px 20px;
+    padding: 25px 0px 0px;
+    overflow: hidden;
 }
 .builder_content_wrapper .builder_right {
     -webkit-flex-basis: 350px;
     -ms-flex-basis: 350px;
     flex-basis: 350px;
+}
+
+.builder_right_inner {
     background-color: #fff;
     border-left: 1px solid #c3c6c6;
     box-shadow: -2px 0 5px rgba(0, 0, 0, 0.07);
+    height: calc(100vh - 141px);
+    overflow: scroll;
 }
 .builder_content_action_bar {
     display: -webkit-flex;
@@ -531,7 +539,7 @@ button.red_btn {
     color: #fff;
 }
 .builder_form_title {
-    padding: 0 10px;
+    padding: 0 30px;
 }
 .builder_form_wrapper .form_row {
     padding: 10px;
@@ -560,7 +568,7 @@ button.red_btn {
 }
 .builder_form_wrapper .form_row input:disabled,
 .builder_form_wrapper .form_row textarea:disabled {
-    background-color: #fff;
+    background-color: #e1e1e1;
     box-shadow: 0 200px 0 0 #fff inset;
 }
 .builder_form_wrapper .form_row:hover {
@@ -574,9 +582,12 @@ button.red_btn {
     box-shadow: 0 0 15px 0 rgba(0, 0, 0, 0.05);
 }
 .add_field_row {
-    margin-top: 40px;
+    margin-top: 0px;
     border-top: 1px solid #cfd6d8;
     position: relative;
+    background-color: #fff;
+    width: calc(100vw - 960px);
+    float: left;
 }
 .add_field_row button {
     border: none;
@@ -595,12 +606,46 @@ button.red_btn {
     color: #b92d2d;
     box-shadow: none;
 }
+.user_search_field {
+    position: relative;
+    display: block;
+}
+.user_search_field .dropdown_panel {
+    top: 40px;
+    width: 100%;
+}
 .dropdown_panel {
     border: 1px solid #bec5d1;
     box-shadow: 0 0 35px rgba(0, 0, 0, 0.07);
     border-radius: 3px;
     background-color: #fff;
     position: absolute;
+    top: 100%;
+    z-index: 9;
+    min-width: 200px;
+    right: 0;
+}
+ul.user_list {
+    padding: 10px 0px;
+    max-height: 150px;
+    overflow: auto;
+}
+ul.user_list li {
+    text-align: left;
+    display: block;
+    line-height: 16px;
+    padding: 5px 20px;
+}
+
+ul.user_list li:hover {
+    background-color: #f2f2f2;
+}
+ul.user_list li input {
+    margin-right: 7px;
+}
+.add_section_dropdown.dropdown_panel {
+    top: inherit;
+    right: auto;
     bottom: 100%;
     z-index: 10;
     left: 50%;
@@ -608,6 +653,8 @@ button.red_btn {
 }
 .add_field_row .dropdown_panel {
     width: 450px;
+    top: auto;
+    bottom: 100%;
 }
 .compact_nav {
     background-color: #f1f4f5;
@@ -639,7 +686,7 @@ button.red_btn {
 .tab_nav_item.active {
     color: #222;
     background-color: #fff;
-    box-shadow: 0 2px 0 0 #fff;
+    box-shadow: 0 2px 0 0 #fff, 0 3px 0 #b92d2d inset;
 }
 .tab_nav_item:last-child {
     border-right: none;
@@ -742,12 +789,9 @@ ul.tab_nav.compact_nav {
     border-bottom: 1px solid #d5dcdf;
     margin-bottom: 12px;
 }
-.tab_content.rules_content {
-    padding: 0;
-}
 .rules_content .rules_block {
     border-top: 1px solid #d5dcdf;
-    padding: 20px;
+    padding: 0px;
 }
 .rules_content .rules_block:first-child {
     border-top: none;
@@ -1014,6 +1058,23 @@ ul.tab_nav.compact_nav {
     font-size: 14px;
     font-weight: 600;
 }
+.form_field_with_info .info_tag .rule_relation_type {
+    line-height: 38px;
+}
+.form_field_with_info .info_tag .rule_relation_type .dropdown {
+    height: 38px;
+    line-height: 38px;
+}
+.form_field_with_info .info_tag .rule_relation_type .dropdown .dropdown-toggle {
+    height: 38px;
+    line-height: 38px;
+    padding: 0;
+}
+.form_field_with_info .info_tag .rule_relation_type .dropdown .dropdown-menu {
+    top: 39px;
+    width: 100%;
+    margin: 0;
+}
 .each_jumping_condition {
     background-color: #f1f4f5;
     padding: 20px 20px 5px;
@@ -1183,13 +1244,15 @@ table.value_table td  .material-icons {
 table.value_table tr.edit_row {
     background-color: #fff;
 }
-.add_section_dropdown.dropdown_panel {
+.section_action .dropdown_panel {
     width: 310px;
     margin-bottom: 5px;
     left: 5px;
     transform: translateX(0);
     text-align: left;
     line-height: 20px;
+    top: auto;
+    bottom: 100%;
 }
 .add_section_dropdown.dropdown_panel .add_section_form {
     border: none;
@@ -1741,7 +1804,6 @@ form.node_edit_form .field.action_node .fa.fa-close {
     padding: 15px 0 25px;
 }
 .data_container_top {
-    border-bottom: 1px solid #dae0e7;
     display: -webkit-flex;
     display: flex;
     -webkit-box-align: center;
@@ -2083,7 +2145,7 @@ form.node_edit_form .field.action_node .fa.fa-close {
     margin-bottom: -15px;
 }
 
-.question-row {
+/*.question-row {
     position: relative;
     width: 100%;
     display: block;
@@ -2092,15 +2154,22 @@ form.node_edit_form .field.action_node .fa.fa-close {
     border-bottom: 1px solid #EFEFEF;
     box-sizing: border-box;
     margin-bottom: 5px;
-}
+}*/
 
 .question-container {
-    width: 80%;
+    background-color: #f3f3f3;
+    max-height: calc(100vh - 244px);
+    overflow: auto;
+    padding: 0 20px;
+    /*width: 80%;
     height: 80vh;
     max-width: 500px;
     margin: 0 auto;
     overflow: auto;
-    background-color: #f3f3f3;
+    
     border: 1px solid #EFEFEF;
-    border-radius: 3;
+    border-radius: 3;*/
+}
+.import_section_dropdown {
+    padding: 30px;
 }

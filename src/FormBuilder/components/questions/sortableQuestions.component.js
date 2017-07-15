@@ -14,7 +14,7 @@ const SortableItem = SortableElement((props) =>
 
         <div className="form_row_actions">
             <DragHandle />
-            <span className="fa fa-files-o" onClick={() => props.copyQues(props.value)}></span>
+            <span className="fa fa-files-o" onClick={(e) =>{e.stopPropagation(); props.copyQues(props.value)}}></span>
             <span className="fa fa-trash" onClick={(e) => {e.stopPropagation(); props.deleteQues(props.value)}}></span>
         </div>
         <span className="form_label"> {`${props.indexNumber + 1}) ${props.value.caption}`}</span>

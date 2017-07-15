@@ -77,9 +77,9 @@ class JumpRule extends React.Component {
                     <div className="rules_block">
                         <div className="segment_title">Jumping Rules<span onClick={()=>this.props.deleteAllCondition()} className="remove">Remove</span></div>
                     </div>
-
-                    {this.getConditions()}
-
+                    <div className="segment_content">
+                        {this.getConditions()}
+                    </div>
                     <div className="each_jumping_condition new_jumping_condition">
                         <a className="add_jumping_condition" onClick={this.props.addCondition}>+Add Condition</a>
                     </div>

@@ -60,10 +60,10 @@ export default class AddSection extends React.Component {
                     <div className="btn_row flex_btn_row">
                         <button onClick={() => this.props.submit(this.state)}>
                             Add
-                    </button>
+                        </button>
                         <button onClick={this.props.close}>
                             Cancel
-                    </button>
+                        </button>
                     </div>
                 </div>
             </div>

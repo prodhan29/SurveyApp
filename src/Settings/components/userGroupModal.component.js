@@ -7,6 +7,7 @@ export default class UserGroupModal extends React.Component {
 
         console.log(JSON.stringify(this.props.edit));
         this.state = {
+            userWindow: false,
             grpName: this.props.edit.enable ? this.props.edit.grpName : '',
             searchName: '',
             users: this.props.allUsers,
@@ -18,6 +19,18 @@ export default class UserGroupModal extends React.Component {
         this.setState({
             [e.target.name]: e.target.value
         })
+    }
+
+    toggleUserWindow = (e) => {
+        e.stopPropagation();
+        let _this = this;
+        this.setState({
+            userWindow: !_this.state.userWindow
+        })
+    }
+
+    showUserList = () => {
+        return (this.state.userWindow) ? { display: 'block' } : { display: 'none' };
     }
 
     getRandomString = () => {
@@ -123,24 +136,29 @@ export default class UserGroupModal extends React.Component {
                             </div>
                             <div className="user_data_container">
                                 <div className="data_container_top">
+                                    
                                     <span className="title">Users</span>
-                                    <button id="sectionAdd" className="button add_user action_item">Add User</button>
+                                    
+                                    
 
                                 </div>
-
-                                <div className="form_row">
-                                    <span className="form_label"> Search User</span>
-                                    <span className="form_field">
+                                <div className="form_row user_search_field">
+<div className="form_field">
                                         <input type="text"
                                             name="searchName"
                                             value={this.state.searchName}
                                             onChange={this.userFilter}
+                                            placeholder="Search user"
                                         />
-                                    </span>
-                                    <ul>
-                                        {this.getFilteredUser()}
-                                    </ul>
-                                </div>
+                                        <div className="dropdown_panel multi_selection_dropdown">
+                                            
+                                            <ul className="user_list">
+                                                {this.getFilteredUser()}
+                                            </ul>
+                                        </div>
+                                    </div>
+                                    </div>
+
                                 {this.showSelectedUsers()}
                             </div>
                         </div>

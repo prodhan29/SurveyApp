@@ -26,7 +26,7 @@ export default class Rules extends React.Component {
             );
         });
         return (
-            <div> {fieldRules} </div>
+            <div className="rules_content"> {fieldRules} </div>
         );
     }
 }

@@ -55,7 +55,7 @@ export default function project(state = formBuilder, action) {
         case 'CREATE_SECTION':
             state = deepClone(state);
             state.cacheData.push(action.payload.data);
-            state.showFormbuilder = true;
+            state.showFormbuilder = 1;
             break;
 
         case 'COPY_SECTION':
@@ -71,6 +71,7 @@ export default function project(state = formBuilder, action) {
         case 'UPDATE_SECTION':
             state = deepClone(state);
             sectionUpdate(state, action.payload, action.index);
+            
             break;
 
         case 'SECTION_CHANGE':
@@ -92,6 +93,7 @@ export default function project(state = formBuilder, action) {
         case 'CREATE_QUESTION':
             state = deepClone(state);
             state.cacheData[state.active.section.index].child.push(action.payload.data);
+            refresh(state);
             break;
 
         case 'COPY_QUESTION':
@@ -153,6 +155,7 @@ function sectionUpdate(state, payload, index) {
 }
 
 function refresh(state) {
+    state.active.panel = null;
     state.active.question = {
         data: {},
         index: null

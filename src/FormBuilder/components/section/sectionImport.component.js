@@ -14,7 +14,7 @@ export default class AddSection extends React.Component {
     render() {
         return (
             <div id="sectionAdd" className="action_item" onClick = {this.toggleWindow}>Import Section
-                <div className="add_section_dropdown dropdown_panel">
+                <div className="import_section_dropdown dropdown_panel">
                     <input id="import-section" type="file" onChange={this.submit} />
                 </div>
             </div>

@@ -177,9 +177,9 @@ export function quesTypeElement(ques) {
     }
 
     else if (ques.fieldType.fieldTypeName.toLowerCase() == 'date' || ques.fieldType.fieldTypeName.toLowerCase() == 'time') {
-        return (<input type="date" />);
+        return (<input type="date" disabled/>);
     }
-    return (<input type="text" />);
+    return (<input type="text" disabled/>);
 }
 
 export function hybridQues() {

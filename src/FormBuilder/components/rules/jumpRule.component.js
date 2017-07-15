@@ -1,6 +1,7 @@
 import React from 'react';
 import Dropdown from './dropdown.component';
 import QuestionBank from './questionBank.component';
+import Operators from './operator.component';
 
 export default class JumpRule extends React.Component {
 
@@ -53,44 +54,46 @@ export default class JumpRule extends React.Component {
 
     render() {
         return (
-            <div className="segment_content">
-                <div className="each_jumping_condition">
-                    <div className="form_row">
-                        <i className="material-icons pull-right"
-                            onClick={this.props.deleteCondition}>close</i>
+            <div className="each_jumping_condition">
+                <div className="form_row">
+                    <i className="material-icons pull-right"
+                        onClick={this.props.deleteCondition}>close</i>
 
-                        <span className="form_label"><span className="condition_flag">IF</span> value </span>
-                        <span className="form_field form_field_with_info">
-                            <span className="info_tag">=</span>
-                            <input className="info_field"
-                                type="text"
-                                name="value"
-                                value={this.props.data.value}
-                                onChange={this.props.changeData} />
+                    <span className="form_label"><span className="condition_flag">IF</span> value </span>
+                    <span className="form_field form_field_with_info">
+                        <span className="info_tag"> 
+                            <Operators items={['+', '-', '/', 'X', '()']}
+                saveOperator={this.props.onOperatorClick}
+                data={'='} />
                         </span>
-                    </div>
-                    <div className="form_row">
-                        <span className="form_label">
-                            <span className="condition_flag skip">Skip</span>
-                            <span className="">
-                                <label>
-                                    <input type="radio"
-                                        checked={this.getChecked('Question')}
-                                        onChange={this.props.changeData} /> &nbsp; Question &nbsp;
-                                </label>
-                            </span>
-                            <span className="">
-                                <label>
-                                    <input type="radio"
-                                        checked={this.getChecked('Section')}
-                                        onChange={this.props.changeData} />&nbsp; Section
-                                </label>
-                            </span>
+                        <input className="info_field"
+                            type="text"
+                            name="value"
+                            value={this.props.data.value}
+                            onChange={this.props.changeData} />
+                    </span>
+                </div>
+                <div className="form_row">
+                    <span className="form_label">
+                        <span className="condition_flag skip">Skip</span>
+                        <span className="">
+                            <label>
+                                <input type="radio"
+                                    checked={this.getChecked('Question')}
+                                    onChange={this.props.changeData} /> &nbsp; Question &nbsp;
+                            </label>
                         </span>
+                        <span className="">
+                            <label>
+                                <input type="radio"
+                                    checked={this.getChecked('Section')}
+                                    onChange={this.props.changeData} />&nbsp; Section
+                            </label>
+                        </span>
+                    </span>
 
-                        {this.getSectionsOrQues()}
-                        <a className="add_jumping_option" onClick={this.props.addDropdown}>+Add {this.getButtonName()}</a>
-                    </div>
+                    {this.getSectionsOrQues()}
+                    <a className="add_jumping_option" onClick={this.props.addDropdown}>+Add {this.getButtonName()}</a>
                 </div>
             </div>
         );
