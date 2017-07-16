@@ -10,6 +10,22 @@ export default class AddSection extends React.Component {
             repetitive: false
         }
     }
+    detectOutside = (e) => {
+        if (e.target != null && document.getElementById('sectionAdd').contains(e.target)) {
+            
+        } else if (e.target.id != 'add_2nd_button') {
+            // Clicked outside the box
+            this.props.close();
+        }
+    }
+
+    componentDidMount() {
+        window.addEventListener('click', this.detectOutside);
+    }
+
+    componentWillUnmount() {
+        window.removeEventListener('click', this.detectOutside, false);
+    }
 
     handleChange = (e) => {
         var ob = {};
@@ -23,8 +39,8 @@ export default class AddSection extends React.Component {
 
     render() {
         return (
-            <div id="sectionAdd" className="action_item">Add Section
-            <div className="add_section_dropdown dropdown_panel">
+            <div className="action_item">Add Section
+                <div className="add_section_dropdown dropdown_panel" >
                     <div className="add_section_form">
                         <div className="form_row">
                             <span className="form_label">Section Name</span>

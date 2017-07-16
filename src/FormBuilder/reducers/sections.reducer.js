@@ -15,6 +15,13 @@ export default function sections(state = sec, action) {
             state.list = (typeof action.payload.data === 'undefined') ? ([]) : action.payload.data;
             break;
 
+        case 'SECTION_ORDER_CHANGE':
+            state = deepClone(state);
+            let sec = state.list.splice(action.oldIndex, 1);
+            state.list.splice(action.newIndex, 0, sec[0]);
+            state.toastrMsg = "section ORDER CHANGED successfulyl";
+            break;    
+
         case 'CREATE_SECTION':
             state = deepClone(state);
             state.list.push(action.payload.data);

@@ -46,22 +46,22 @@ class JumpRule extends React.Component {
     }
 
     getConditions = () => {
-
-        let _this = this;
-        return this.props.data.nodes.map(function (value, index) {
+        return this.props.data.nodes.map((value, index)=> {
 
             return (
                 <Rules key={index}
+                    operator={this.props.data.operator}
+                    onOperatorClick={(e)=>this.props.onOperatorClick(index, e)}
                     data={value}
-                    project={_this.props.project}
-                    changeData={(e) => _this.props.jumpRuleDataChange(index, e)}
-                    addDropdown={() => _this.props.addDropdown(index)}
-                    toggleQuesBank={(valueIndex) => _this.props.toggleQuesBank(index, valueIndex)}
-                    changeSection={(data, valueIndex) => _this.props.changeSection(index, valueIndex, data)}
-                    fetchAndCache={_this.props.fetchAndCache}
-                    saveQuestion={(valueIndex, info) => _this.props.saveQuestion(index, valueIndex, info)}
-                    deleteNode={(nodeType, valueIndex) => _this.props.deleteNode(index, valueIndex, nodeType)}
-                    deleteCondition={() => _this.props.deleteCondition(index)} />
+                    project={this.props.project}
+                    changeData={(e) => this.props.jumpRuleDataChange(index, e)}
+                    addDropdown={() => this.props.addDropdown(index)}
+                    toggleQuesBank={(valueIndex) => this.props.toggleQuesBank(index, valueIndex)}
+                    changeSection={(data, valueIndex) => this.props.changeSection(index, valueIndex, data)}
+                    fetchAndCache={this.props.fetchAndCache}
+                    saveQuestion={(valueIndex, info) => this.props.saveQuestion(index, valueIndex, info)}
+                    deleteNode={(nodeType, valueIndex) => this.props.deleteNode(index, valueIndex, nodeType)}
+                    deleteCondition={() => this.props.deleteCondition(index)} />
             );
         });
     }
@@ -111,6 +111,7 @@ function mapDispatchToProps(dispatch) {
         addDropdown: RuleAction.addDropdown,
         changeSection: RuleAction.jumpRuleChangeSection,
         addCondition: RuleAction.jumpRuleAddCondition,
+        onOperatorClick: RuleAction.jumpRuleOperatorChange,
 
     }, dispatch);
 

@@ -20,7 +20,7 @@ const formBuilder = {
     // 0 = show section_create in the middle
     // 1 = show formbuilder
     // 2 = show null (need to show null coz when it is taking too much time to load sections section_create appears in the middle) 
-    showFormbuilder: 2, 
+    showFormbuilder: 2,
     cacheData: []
 }
 
@@ -30,11 +30,9 @@ export default function project(state = formBuilder, action) {
     switch (action.type) {
 
         case 'SET_ACTIVE_PROJECT':
-            console.log('------------------->>>> setting project');
-            console.log(action.payload.data);
             state = deepClone(state);
             state.ob = action.payload.data;
-            if(action.payload.data.totalSection > 0) {
+            if (action.payload.data.totalSection > 0) {
                 state.showFormbuilder = 1;
             }
             else {
@@ -45,7 +43,7 @@ export default function project(state = formBuilder, action) {
         case 'SHOW_WARNING_MODAL':
             state = deepClone(state);
             state.warningModal = !state.warningModal;
-            break;    
+            break;
 
         case 'FIELD_CONFIG_PANEL_SELECT':
             state = deepClone(state);
@@ -58,19 +56,23 @@ export default function project(state = formBuilder, action) {
             state.cacheData = action.payload.data;
             break;
 
-        case 'CREATE_SECTION':
+        case 'SECTION_ORDER_CHANGE':
             state = deepClone(state);
-            state.cacheData.push(action.payload.data);
-            state.showFormbuilder = 1;
+            let sec = state.cacheData.splice(action.oldIndex, 1);
+            state.cacheData.splice(action.newIndex, 0, sec[0]);
+            break;
+
+        case 'CREATE_SECTION':
+            state = createSection(state, action);
             break;
 
         case 'DELETE_SECTION':
             state = deepClone(state)
             state.cacheData.splice(action.index, 1);
-            if(state.cacheData.length == 0){
+            if (state.cacheData.length == 0) {
                 state.showFormbuilder = 0;
             }
-            break;    
+            break;
 
         case 'COPY_SECTION':
             state = deepClone(state);
@@ -85,7 +87,7 @@ export default function project(state = formBuilder, action) {
         case 'UPDATE_SECTION':
             state = deepClone(state);
             sectionUpdate(state, action.payload, action.index);
-            
+
             break;
 
         case 'SECTION_CHANGE':
@@ -113,7 +115,7 @@ export default function project(state = formBuilder, action) {
         case 'COPY_QUESTION':
             state = deepClone(state);
             state.cacheData[state.active.section.index].child.push(action.payload.data);
-            break;     
+            break;
 
         case 'UPDATE_QUESTION':
             state = deepClone(state);
@@ -144,7 +146,7 @@ export default function project(state = formBuilder, action) {
             state = deepClone(state);
             state.cacheData[state.active.section.index].child.splice(action.payload.index, 1);
             break;
-        
+
         // reset actions
         case 'CANCEL_FORM':
             state = deepClone(state);
@@ -153,11 +155,24 @@ export default function project(state = formBuilder, action) {
 
         case 'FETCH_ALL_PROJECTS':
             state = deepClone(formBuilder);
-            break;    
+            break;
 
         default:
             state;
     }
+    return state;
+}
+
+function createSection(state, action) {
+    state = deepClone(state);
+    state.cacheData.push(action.payload.data);
+
+    // this condition will work only at the beging of section creation from sectionIninitial Div 
+    if(state.cacheData.length == 1) {
+        state.active.section.data = state.cacheData[0];
+        state.active.section.index = 0;
+    }
+    state.showFormbuilder = 1;
     return state;
 }
 

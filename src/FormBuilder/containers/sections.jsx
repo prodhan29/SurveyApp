@@ -60,7 +60,7 @@ class Sections extends React.Component {
     // checking if the section has questions in cacheData if not then fetch from server`
     fetchQuestions = (section, index) => {
 
-        
+
         if (!this.props.question.pendingQues || (this.props.question.edit.isRunning &&
             (JSON.stringify(this.props.question.edit.quesOldState) === JSON.stringify(this.fieldConfigPanel().data)))) {
 
@@ -78,7 +78,7 @@ class Sections extends React.Component {
             }
         }
         else {
-             this.props.showWarningModal();
+            this.props.showWarningModal();
         }
     }
 
@@ -115,6 +115,9 @@ class Sections extends React.Component {
         e.stopPropagation();
         fetchQuesForExport(section, SectionAction.exportSection);
     }
+    sectionSequenceChange = (index, upDown) => {
+        this.props.sectionSequenceChange(this.props.project.ob.projectId, this.props.section.list, index, (index + upDown))
+    }
 
     render() {
         var _this = this;
@@ -137,6 +140,8 @@ class Sections extends React.Component {
                                 <li onClick={(e) => { e.stopPropagation(); _this.copySection(val) }}>Copy</li>
                                 <li onClick={(e) => { e.stopPropagation(); SectionAction.deleteSection(val.sectionId, index) }}>Delete</li>
                                 <li onClick={(e) => { e.stopPropagation(); _this.exportSection(e, val) }} >Export</li>
+                                <li onClick={(e)=>{e.stopPropagation(); _this.sectionSequenceChange(index, -1)}}> Move Up </li>
+                                <li onClick={(e)=>{e.stopPropagation(); _this.sectionSequenceChange(index, 1)}}> Move Down </li>
                             </ul>
                         </div>
                     </span>
@@ -177,6 +182,7 @@ function mapDispatchToProps(dispatch) {
         questionsChange,
         resetToastrMsg: SectionAction.resetToastrMsg,
         sectionChange: SectionAction.change,
+        sectionSequenceChange: SectionAction.sectionSequenceChange,
         showWarningModal,
 
     }, dispatch);

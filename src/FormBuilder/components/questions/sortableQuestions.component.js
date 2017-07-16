@@ -10,7 +10,7 @@ const DragHandle = SortableHandle(() => <span><bold>::::::</bold></span>);
 
 const SortableItem = SortableElement((props) =>
     <div className={`${props.clsName} question-row`}
-        onClick={(e) => {e.stopPropagation(); props.onClick(props.value)}}>
+        onClick={(e) => {props.onClick(props.value)}}>
 
         <div className="form_row_actions">
             <DragHandle />

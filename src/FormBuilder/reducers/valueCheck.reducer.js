@@ -1,10 +1,10 @@
 import { deepClone } from '../actions/common.action';
 
 var initialState = {
-    operator: '...',
+    operator: '==',
     argument: {
-        second_section: {},
-        second_question: {}
+        section: null,
+        question: null
     }
 }
 
@@ -54,15 +54,13 @@ export default function textField(state = initialState, action) {
 }
 
 function dataChange(state, action) {
-    if ( action.payload.name === 'second_section') {
-        let section = deepClone(action.payload.data);
+    
+        let section = deepClone(action.payload.section);
         delete section.child;
         delete section.project;
-        state.argument[action.payload.name] = section;
-    }
-    if (action.payload.name === 'second_question') {
-        state.argument[action.payload.name] = optimizeQues(action.payload.data);
-    }
+        state.argument.section = section;
+        state.argument.question = optimizeQues(action.payload.question);
+    
 }
 
 function optimizeQues(ques) {

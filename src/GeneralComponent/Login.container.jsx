@@ -4,6 +4,7 @@ import { bindActionCreators } from 'redux';
 import { signin, signinSuccess } from '../GeneralActions/auth.action';
 import { push, replace } from 'react-router-redux';
 import Store from '../store';
+import Logo from '../styles/img/logo.png';
 
 class Login extends React.Component {
 
@@ -39,7 +40,7 @@ class Login extends React.Component {
                 <div className="login-content-wrapper">
                     <div className="form" >
                         <div className="login-header header-primary text-center">
-                            <img src="styles/img/logo-login.png" />
+                            <img src={Logo} />
                             <h4>Welcome to ZuZu</h4>
                             <p>Sign In to continue</p>
                         </div>

@@ -143,9 +143,11 @@ export function precessQuesForCopy(ques) {
 // this function returns element based on question types 
 export function quesTypeElement(ques) {
 
-    console.log('selection question');
-    console.log(ques);
     if (ques.fieldType.fieldTypeName.toLowerCase() == 'checkbox') {
+        if(ques.optionValues.length === 0) {
+            return null;
+        }
+
         return ques.optionValues.map((item, index) => {
             return (
                 <label key={index}>
@@ -162,7 +164,7 @@ export function quesTypeElement(ques) {
             <div className="dropdown">
                 <a href="#" className="dropdown-toggle" data-toggle="dropdown">select a value<i className="fa fa-chevron-down"></i></a>
                 <ul className="dropdown-menu">
-                    {
+                    {/*{
                         ques.optionValues.map(function (item, index) {
                             return (
                                 <li key={index}>
@@ -170,7 +172,7 @@ export function quesTypeElement(ques) {
                                 </li>
                             );
                         })
-                    }
+                    }*/}
                 </ul>
             </div>
         );

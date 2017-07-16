@@ -1,10 +1,7 @@
-export function dataChangeInValueCheck(data, name) {
+export function dataChangeInValueCheck(payload) {
     return {
         type: 'DATA_CHANGE_IN_VALUE_CHECK',
-        payload: {
-            data,
-            name
-        }
+        payload,
     }
 }
 
@@ -21,12 +18,10 @@ export function deleteValueCheckRule() {
     }
 }
 
-export function dataChangeInPickRule(value, name) {
+export function dataChangeInPickRule(payload) {
     return {
         type: 'DATA_CHANGE_IN_PICK_RULE',
-        payload: {
-            value, name
-        }
+        payload,
     }
 }
 
@@ -55,6 +50,14 @@ export function addDropdown(nodeIndex) {
     return {
         type: 'JUMP_RULE_ADD_DROPDOWN',
         nodeIndex
+    }
+}
+
+export function jumpRuleOperatorChange(index, payload) {
+    return {
+        type: 'JUMP_RULE_OPERATOR_CHANGE',
+        payload,
+        index
     }
 }
 
@@ -125,11 +128,15 @@ export function getSectionIndexByID(sectionId, sectionList) {
 
 export function createValueChecklRule(project) {
     let checkRule = project.valueCheck.argument;
-    let ques = checkRule.second_question;
-    let sec = checkRule.second_section;
+    let ques = checkRule.question;
+    let sec = checkRule.section;
 
-    let secIndex = (typeof sec.sectionId === 'undefined') ? null : getSectionIndexByID(sec.sectionId, project.project.cacheData);
-    let quesIndex = (typeof ques.questionId === 'undefined') ? null : getQuestionIndexByID(ques.questionId, project.project.cacheData[secIndex].child);
+    if( sec === null && ques === null){
+        return "";
+    }
+
+    let secIndex = getSectionIndexByID(sec.sectionId, project.project.cacheData);
+    let quesIndex = getQuestionIndexByID(ques.questionId, project.project.cacheData[secIndex].child);
     
     return `this question ${project.valueCheck.operator} ${secIndex}_${quesIndex}`;
 }
@@ -137,13 +144,19 @@ export function createValueChecklRule(project) {
 export function createPickAndSuggestRule(project) {
     let ques = project.pickRule.question;
     let sec = project.pickRule.section;
-    let secIndex = (typeof sec.sectionId === 'undefined') ? null : getSectionIndexByID(sec.sectionId, project.project.cacheData);
-    let quesIndex = (typeof ques.questionId === 'undefined') ? null : getQuestionIndexByID(ques.questionId, project.project.cacheData[secIndex].child);
+    
+    if(sec === null && ques === null) {
+        return "";
+    }
+    console.log("------- pick rules");
+    console.log(project.pickRule)
+    let secIndex = getSectionIndexByID(sec.sectionId, project.project.cacheData);
+    let quesIndex = getQuestionIndexByID(ques.questionId, project.project.cacheData[secIndex].child);
     return `${secIndex}_${quesIndex}`; 
 }
 
 export function createCalculationRule() {
-
+    return  " mobile er jonno akhono implement kora hoy nai ";
 }
 
 export function createJumpRule(project) {

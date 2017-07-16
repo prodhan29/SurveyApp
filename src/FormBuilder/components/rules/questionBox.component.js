@@ -8,8 +8,13 @@ export default class QuestionBox extends React.Component {
     saveInfo = (question, section) => {
         let _this = this;
         var ob = {
-            section,
             question,
+            section: {
+                sectionId: section.sectionId,
+                name: section.name,
+                description: section.description,
+                repetitive: section.repetitive,
+            }
         }
         this.props.saveNode(ob);
         this.props.toggleQuesBank();
@@ -20,15 +25,6 @@ export default class QuestionBox extends React.Component {
         if (!questionExist(section)) {
             this.props.fetchAndCache(section);
         }
-
-        this.setState({
-            activeSection: {
-                sectionId: section.sectionId,
-                name: section.name,
-                description: section.description,
-                repetitive: section.repetitive,
-            }
-        });
     }
 
     getSections = () => {

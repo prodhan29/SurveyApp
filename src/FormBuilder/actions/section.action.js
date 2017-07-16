@@ -33,6 +33,17 @@ export function createSection(data) {
     }
 }
 
+export function sectionSequenceChange(projectId, sections, oldIndex, newIndex) {
+
+    let secIds = getSectionNewSequence(sections, oldIndex, newIndex);
+    axios.post(`${AppConfig.domain}/section/order?projectId=${projectId}`, secIds, AppConfig.ajaxConfig());
+    return {
+        type: 'SECTION_ORDER_CHANGE',
+        oldIndex,
+        newIndex,
+    }
+}
+
 export function copySection(data) {
     processSectionForCopy(data);
     axios.post(`${AppConfig.domain}/section/${data.sectionId}/copy`, data, AppConfig.ajaxConfig()).then((response) => {
@@ -135,6 +146,18 @@ export function importSection(e, projectId) {
         importSectionToServer(projectId, file);
     }
     reader.readAsText(file);
+}
+
+function getSectionNewSequence(sections, oldIndex, newIndex) {
+    sections = JSON.parse(JSON.stringify(sections));
+    let sectionIds = [];
+    let sec = sections.splice(oldIndex, 1);
+    sections.splice(newIndex, 0, sec[0]);
+
+    for (let i = 0; i < sections.length; i++) {
+        sectionIds.push(sections[i].sectionId);
+    }
+    return sectionIds;
 }
 
 // method is called when exporting and copy section

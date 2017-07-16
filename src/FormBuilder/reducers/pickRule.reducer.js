@@ -2,8 +2,8 @@
 import { deepClone } from '../actions/common.action';
 
 var initialState = {
-    section: {},
-    question: {}
+    section: null,
+    question: null,
 }
 
 export default function textField(state = initialState, action) {
@@ -14,14 +14,11 @@ export default function textField(state = initialState, action) {
         case 'DATA_CHANGE_IN_PICK_RULE':
             state = deepClone(state);
             // to avoid copy questions;
-            if (action.payload.name === 'section') {
-                let section = deepClone(action.payload.value);
-                delete section.child
-                state['section'] = section;
-            }
-            else {
-                state['question'] = optimizeQues(action.payload.value);
-            }
+            let section = deepClone(action.payload.section);
+            delete section.child;
+            state['section'] = section;
+            state['question'] = optimizeQues(action.payload.question);
+           
             break;
 
         case 'SET_ACTIVE_QUESTION':

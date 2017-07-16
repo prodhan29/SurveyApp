@@ -1,7 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import logo from '../../styles/img/logo.png'
 // Actions
 import { fetchSections } from '../actions/section.action';
 import { createSection, importSection } from '../actions/section.action';
@@ -20,6 +19,7 @@ import GroupDrop from './groupDropdown';
 // components
 import AddFieldPanel from '../components/common/add_field.component';
 import Sidebar from '../../GeneralComponent/sidebar.component';
+import Header from '../../GeneralComponent/header.component';
 import SectionAdd from '../components/section/sectionAdd.component';
 import SectionImport from '../components/section/sectionImport.component';
 import SectionInitial from '../components/section/sectionInitial.component';
@@ -28,18 +28,18 @@ import ModalBasic from '../components/common/warningModal.component';
 
 const AddFieldRow = (props) => (
     <div className="add_field_row">
-        <button id= "field-type" onClick={props.onClick} >Add Field</button>
+        <button id="field-type" onClick={props.onClick} >Add Field</button>
     </div>
 );
 
 const SectionAddButton = (props) => (
-    <div className="action_item" onClick={props.toggle}>
+    <div id="add_2nd_button" className="action_item" onClick={props.toggle}>
         Add Section
     </div>
 )
 
 const SectionImportButton = (props) => (
-    <div className="action_item" onClick={props.toggle}>
+    <div id="import_2nd_button" className="action_item" onClick={props.toggle}>
         Import Section
     </div>
 )
@@ -65,19 +65,19 @@ class FormBuilderApp extends React.Component {
         };
     }
 
-    quesSavingAction=()=>{
-        return (this.props.project.active.panel === null) ? {display:'none'} : {display:'block'};
+    quesSavingAction = () => {
+        return (this.props.project.active.panel === null) ? { display: 'none' } : { display: 'block' };
     }
 
-    isFormbuilderVisible=(state)=>{
-        if(this.props.project.showFormbuilder === 1 && state === 'builder'){
-            return {display: 'block'}
+    isFormbuilderVisible = (state) => {
+        if (this.props.project.showFormbuilder === 1 && state === 'builder') {
+            return { display: 'block' }
         }
-        else if(this.props.project.showFormbuilder === 0 && state === 'sectionInitial'){
-            return {display: 'block'}
+        else if (this.props.project.showFormbuilder === 0 && state === 'sectionInitial') {
+            return { display: 'block' }
         }
         else {
-            return {display: 'none'}
+            return { display: 'none' }
         }
     }
 
@@ -108,7 +108,7 @@ class FormBuilderApp extends React.Component {
         this.toggleSectionAdd();
     }
 
-    firstSectionSubmit = (data) =>{
+    firstSectionSubmit = (data) => {
         data.projectId = this.props.projectId;
         this.props.createSection(data);
     }
@@ -126,22 +126,22 @@ class FormBuilderApp extends React.Component {
         return (
             this.state.showImportSection ?
                 <SectionImport close={this.toggleSectionImport}
-                    submit={(e)=>{importSection(e, this.props.projectId)}} />
+                    submit={(e) => { importSection(e, this.props.projectId) }} />
                 : <SectionImportButton toggle={this.toggleSectionImport} />
         )
     }
 
-    selectConfigPanel = (e) =>{
-        if(!this.props.question.pendingQues || (this.props.question.edit.isRunning && 
-            (JSON.stringify(this.props.question.edit.quesOldState) === JSON.stringify(this.fieldConfigPanel().data))) ){
+    selectConfigPanel = (e) => {
+        if (!this.props.question.pendingQues || (this.props.question.edit.isRunning &&
+            (JSON.stringify(this.props.question.edit.quesOldState) === JSON.stringify(this.fieldConfigPanel().data)))) {
 
-            this.props.cancelForm();    
+            this.props.cancelForm();
             this.props.selectConfigPanel(e);
         }
         else {
             this.props.showWarningModal();
-        }  
-    } 
+        }
+    }
 
     getAddFieldElement = () => {
         return this.state.showAddFieldPanel ? <AddFieldPanel onClick={this.toggleAddFieldButton}
@@ -181,7 +181,7 @@ class FormBuilderApp extends React.Component {
         if (this.props.project.active.panel !== '') {
 
             let field = this.fieldConfigPanel('object');
-            this.props.showWarningModal();
+
             field.data.sectionId = this.props.project.active.section.data.sectionId;
             field.data.fieldType.fieldTypeName = ProjectAction.capitalize(this.props.project.active.panel);
             saveRule(this.props, preprocess(field.data));
@@ -200,20 +200,15 @@ class FormBuilderApp extends React.Component {
 
         return (
             <div className="main_container">
-                <ModalBasic 
-                modalOpen={this.props.project.warningModal}
-                cancel = {(e)=>{ this.setState({showWarningModal: false}); this.props.cancelForm()}}
-                save = {this.saveQuestion}
+                <ModalBasic
+                    modalOpen={this.props.project.warningModal}
+                    cancel={(e) => { this.setState({ showWarningModal: false }); this.props.cancelForm() }}
+                    save={this.saveQuestion}
                 />
-                <section className="header">
-                    <div className="logo"><img src={logo} /></div>
-                    <div className="header_main">
-                        <h2 className="header_title">{this.props.project.ob.name}</h2>
-                        <div className="user"><img src="styles/img/user.png" /></div>
-                    </div>
-                </section>
+                <Header name={this.props.project.ob.name}
+                />
                 <section className="content_body" >
-                    
+
                     <Sidebar />
                     <SectionInitial display={this.isFormbuilderVisible('sectionInitial')}
                         submit={this.firstSectionSubmit}
@@ -232,9 +227,13 @@ class FormBuilderApp extends React.Component {
                         </section>
                         <section className="builder_content_action_bar">
                             <div className="b_c_action_left section_action">
-                                {this.getSectionAddElement()}
-                                {this.getSectionImportElement()}
-                                
+                                <div id="sectionAdd">
+                                    {this.getSectionAddElement()}
+                                </div>
+                                <div id="sectionImport">
+                                    {this.getSectionImportElement()}
+                                </div>
+
                             </div>
                             <div className="b_c_action_right grand_action">
                                 {this.getAddFieldElement()}
@@ -243,12 +242,12 @@ class FormBuilderApp extends React.Component {
                                     <button className="button black_btn" onClick={this.saveQuestion}>Save Question</button>
                                 </div>
                             </div>
-                            
+
                         </section>
                     </section>
                 </section>
-                
-                
+
+
             </div>
         );
     }

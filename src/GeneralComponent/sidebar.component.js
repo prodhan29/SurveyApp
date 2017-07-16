@@ -46,8 +46,6 @@ class Sidebar extends React.Component {
 }
 
 function mapStateToProps(state) {
-    console.log('sidbar');
-    console.log(state.Sidebar);
     return {
         user: state.User,
         sidebar: state.Sidebar,

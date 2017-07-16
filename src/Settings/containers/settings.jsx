@@ -2,10 +2,13 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import logo from '../../styles/img/logo.png'
+
 //components
 import Sidebar from '../../GeneralComponent/sidebar.component';
+import Header from '../../GeneralComponent/header.component';
 //actions
 import * as SettingsAction from '../actions/settings.action';
+
 //containers
 import License from './license';
 import Organization from './organization';
@@ -72,13 +75,7 @@ class Settings extends React.Component {
         return (
             <div className="main_container">
 
-                <section className="header">
-                    <div className="logo"><img src={logo} /></div>
-                    <div className="header_main">
-                        <h2 className="header_title">{this.props.sidebar.active}</h2>
-                        <div className="user"><img src="styles/img/user.png" /></div>
-                    </div>
-                </section>
+                <Header name={this.props.sidebar.active}/>
                 <section className="content_body">
                     <Sidebar />
                     <section className="content_panel settings_content">

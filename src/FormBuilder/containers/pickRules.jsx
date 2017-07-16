@@ -2,7 +2,8 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import Dropdown from '../components/rules/dropdown.component';
+import QuestionBank from '../components/rules/questionBank.component';
+
 // Actions
 import { questionExist, getQuestionsBySectionId } from '../actions/common.action';
 import { fetchAndCache } from '../actions/project.action';
@@ -12,9 +13,9 @@ class PickRule extends React.Component {
 
     constructor(props) {
         super(props);
-        let _this = this;
         this.state = {
-            show: !(typeof _this.props.data.section.sectionId == 'undefined')
+            show: !(this.props.data.section == null),
+            showQuestionBank: false,
         }
     }
 
@@ -32,33 +33,38 @@ class PickRule extends React.Component {
         this.setState({ show: !_this.state.show });
     }
 
-    getSelectedQuestion = (question) => {
-        return (typeof question.name === 'undefined') ? 'select a question' : question.caption;
-    }
-
-    getSelectedSection = (section) => {
-        return (typeof section.name === 'undefined') ? 'select a sectionn' : section.name;
-    }
-
-    getQuestionList = (section) => {
-        var ar = getQuestionsBySectionId(this.props.project.cacheData, section.sectionId);
-        return (typeof ar === 'undefined') ? ([]) : ar;
-    }
-
-    saveQuestion = (question, index, name) => {
-        this.props.dataChangeInPickRule(question, name);
-    }
-
-    getQuestions = (section, index, name) => {
-        if (!questionExist(section)) {
-            this.props.fetchAndCache(section, index);
-        }
-        this.props.dataChangeInPickRule(section, name);
+    saveQuestion = (info) => {
+        this.props.dataChangeInPickRule(info);
     }
 
     deleteRule = () => {
         this.toggle();
         this.props.deletePickRule();
+    }
+
+    toggleQuesBank = () =>{
+        this.setState({showQuestionBank: !this.state.showQuestionBank});
+    }
+
+    getQuestion = () => {
+        let data = {
+            section: this.props.data.section,
+            question: this.props.data.question,
+            showQuestions: this.state.showQuestionBank,
+        }
+        console.log('loading question box');
+        console.log(data);
+        return (
+            <span className="form_field rule_cell">
+                <i className="material-icons close_rule">close</i>
+                <QuestionBank data={data}
+                    saveNode={this.saveQuestion}
+                    project={this.props.project}
+                    toggleQuesBank={this.toggleQuesBank}
+                    fetchAndCache={this.props.fetchAndCache}
+                    />
+            </span>
+        )
     }
 
     render() {
@@ -75,22 +81,7 @@ class PickRule extends React.Component {
                     </div>
                     <div className="segment_content">
                         <div className="rules_condition">
-                            <div className="rule_cell">
-                                <i className="material-icons close_rule">close</i>
-                                <Dropdown name='section'
-                                    items={this.props.project.cacheData}
-                                    onClick={this.getQuestions}
-                                    selectedData={this.getSelectedSection(this.props.data.section)} />
-                            </div>
-
-                            <br />
-                            <div className="rule_cell">
-                                <i className="material-icons close_rule">close</i>
-                                <Dropdown name='question'
-                                    items={this.getQuestionList(this.props.data.section)}
-                                    onClick={this.saveQuestion}
-                                    selectedData={this.getSelectedQuestion(this.props.data.question)} />
-                            </div>
+                            {this.getQuestion()}
                         </div>
                     </div>
                 </div>

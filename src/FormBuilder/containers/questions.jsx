@@ -4,7 +4,7 @@ import { bindActionCreators } from 'redux';
 import SortableQuestions from '../components/questions/sortableQuestions.component';
 import { toastr } from 'react-redux-toastr';
 // Actions
-import {showWarningModal} from '../actions/project.action';
+import { showWarningModal } from '../actions/project.action';
 import {
     onQuestionClick,
     quesSequenceChange,
@@ -19,7 +19,7 @@ class Questions extends React.Component {
 
     fieldConfigPanel = () => {
         var panel = this.props.project.active.panel;
-        
+
         if (panel === 'text' || panel === 'suggestion' || panel === 'barcode') {
             return this.props.text;
         }
@@ -37,30 +37,30 @@ class Questions extends React.Component {
         }
 
         else if (panel === 'time' || panel === 'date') {
-             return this.props.dateTime;
+            return this.props.dateTime;
         }
         else if (panel === 'groupdrop') {
-             return this.props.groupDrop;
+            return this.props.groupDrop;
         }
         return null;
     }
 
     onQuestionClick = (data, index) => {
-        if(!this.props.question.pendingQues || (this.props.question.edit.isRunning && 
-            (JSON.stringify(this.props.question.edit.quesOldState) === JSON.stringify(this.fieldConfigPanel().data))) ) {
+        if (!this.props.question.pendingQues || (this.props.question.edit.isRunning &&
+            (JSON.stringify(this.props.question.edit.quesOldState) === JSON.stringify(this.fieldConfigPanel().data)))) {
             this.props.selectConfigPanel(data.fieldType.fieldTypeName.toLowerCase());
             this.props.setActiveQuestion(data, index);
             this.props.onQuestionClick(data);
             this.props.removeExtraQues(data, index);
-        } else{
+        } else {
             this.props.showWarningModal();
         }
     }
 
     componentDidUpdate(prevProps, prevState) {
         let _this = this;
-        if(this.props.question.toastrMsg!= ''){
-            toastr.success('boo',this.props.question.toastrMsg,{
+        if (this.props.question.toastrMsg != '') {
+            toastr.success('boo', this.props.question.toastrMsg, {
                 onHideComplete: _this.props.resetToastrMsg
             });
         }
@@ -71,10 +71,11 @@ class Questions extends React.Component {
             <SortableQuestions question={this.props.question}
                 onClick={this.onQuestionClick}
                 project={this.props.project}
-                sequenceChange={(oldIndex, newIndex)=>quesSequenceChange(this.props.project.active.section.data.sectionId, this.props.question, oldIndex, newIndex)}
+                sequenceChange={(oldIndex, newIndex) => quesSequenceChange(this.props.project.active.section.data.sectionId, this.props.question, oldIndex, newIndex)}
                 deleteQues={deleteQues}
                 copyQues={this.props.copyQues}
-                showWarningModal = {this.props.showWarningModal} />
+                showWarningModal={this.props.showWarningModal}
+            />
         );
     }
 }

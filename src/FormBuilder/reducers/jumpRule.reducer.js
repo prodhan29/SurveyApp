@@ -19,6 +19,11 @@ export default function jumpRule(state = initialState, action) {
             }
             break;
 
+        case 'JUMP_RULE_OPERATOR_CHANGE':
+            state = deepClone(state);
+            state.nodes[action.index].condition = action.payload;
+            break;    
+
         case 'JUMP_RULE_CHANGE_SECTION':
             state = deepClone(state);
             nodeSectionChange(state, action.payload);
@@ -87,8 +92,9 @@ function nodeSectionChange(state, payload) {
 
     let node = state.nodes[payload.nodeIndex];
     if (node.skip === 'Section') {
-        payload.data.child = [];
-        node.sectionList[payload.valueIndex] = payload.data;
+        let sec = deepClone(payload.data);
+        delete sec.child
+        node.sectionList[payload.valueIndex] = sec;
     }
 }
 
@@ -108,7 +114,7 @@ function addDropdown(state, nodeIndex) {
 
 function addCondition(state) {
     state.nodes.push({
-        condition: '',
+        condition: '=',
         skip: 'Section',
         value: '',
         sectionList: [{}],
