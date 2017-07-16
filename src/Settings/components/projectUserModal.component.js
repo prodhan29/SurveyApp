@@ -27,7 +27,7 @@ export default class ProjectUserModal extends React.Component {
                 <div className="popup open">
                     <div className="popup-header">
                         <span className="title">{this.props.edit.enable ? 'Update User' : 'Create User'}</span>
-                        <span className="popup-close"><button className="button close_btn" onClick={this.props.toggleModal}>Close</button></span>
+                        <span className="popup-close"><button className="button close_btn" onClick={this.props.cancelUserModal}>Close</button></span>
                     </div>
                     <div className="popup_content">
                         <div className="popup-body scrollable">
@@ -121,7 +121,7 @@ export default class ProjectUserModal extends React.Component {
                         </div>
                         <div className="popup-footer">
                             <div className="button-line">
-                                <button className="button cancel_btn" onClick={this.props.toggleModal}><span className="icon_cross"><i className="fa fa-times" aria-hidden="true"></i></span>Cancel</button>
+                                <button className="button cancel_btn" onClick={this.props.cancelUserModal}><span className="icon_cross"><i className="fa fa-times" aria-hidden="true"></i></span>Cancel</button>
                                 {this.props.edit.enable ? <button className="button create_btn" onClick={this.props.updateOrganization}>Update</button> : <button className="button create_btn" onClick={this.props.submit}>Create</button>}
                             </div>
                         </div>

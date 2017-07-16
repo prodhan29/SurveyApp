@@ -24,6 +24,12 @@ export function saveRule(payload) {
     }
 }
 
+export function showWarningModal() {
+    return {
+        type: 'SHOW_WARNING_MODAL'
+    }
+}
+
 export function createQuestion(data) {
     let payload = axios.post(`${AppConfig.domain}/question`, data, AppConfig.ajaxConfig());
     return {

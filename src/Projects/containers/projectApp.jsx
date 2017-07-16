@@ -1,15 +1,18 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import logo from '../../styles/img/logo.png';
 import { push, replace } from 'react-router-redux';
 import Store from '../../store';
+// icons
+import projectIcon from '../../styles/img/excel.png';
+import logo from '../../styles/img/logo.png';
 //components
 import Sidebar from '../../GeneralComponent/sidebar.component';
 import ProjectCreateModal from '../components/projectCreateModal';
 import ConfirmationModal from '../components/confirmationModal';
 //actions
 import * as ProjectAction from '../actions/allProjects.action';
+
 
 class Projects extends React.Component {
 
@@ -55,7 +58,7 @@ class Projects extends React.Component {
 
                 <tr key={index}>
                     <td>
-                        <span className="project_avater"><img src="assets/img/project_icon.png" /><span className="pr_name">PG</span></span>
+                        <span className="project_avater"><img src={projectIcon} /><span className="pr_name">PG</span></span>
                         <div className="content_group project_info">
                             <h4 onClick={()=>this.redirectToProject(project)}><a href=""> {project.name}</a> </h4>
                             <p className="info_p">{`${project.totalSection} Sections, Version: ${project.version}`}</p>

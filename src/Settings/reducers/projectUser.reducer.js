@@ -48,6 +48,10 @@ export default function projectUser(state = initialState, action) {
             state = deepClone(state);
             state.list.splice(action.index, 1, action.payload);
             break;
+
+        case 'RESET_USER_MODAL':
+            state = deepClone(initialState);
+            break;    
     }
     return state;
 }

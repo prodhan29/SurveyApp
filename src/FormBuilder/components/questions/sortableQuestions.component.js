@@ -46,7 +46,12 @@ const SortableList = SortableContainer((props) => {
 export default class SortableQuestions extends React.Component {
 
     onSortEnd = ({ oldIndex, newIndex }) => {
-        this.props.sequenceChange(oldIndex, newIndex);
+        if(!this.props.question.pendingQues) {
+            this.props.sequenceChange(oldIndex, newIndex);
+        }
+        else {
+            this.props.showWarningModal();
+        }
     };
 
     handleChange = (question, index) => {

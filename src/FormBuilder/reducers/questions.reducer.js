@@ -22,6 +22,11 @@ export default function questions(state = question, action) {
 
     switch (action.type) {
 
+        case 'DELETE_SECTION':
+            state = deepClone(state);
+            state.list = [];
+            break;
+
         case 'FETCH_QUESTIONS_FROM_SERVER':
             state = deepClone(state);
             if (typeof action.payload.data === 'undefined') {

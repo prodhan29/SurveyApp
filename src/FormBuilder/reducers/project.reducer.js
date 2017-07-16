@@ -4,6 +4,7 @@ import { getSectionById, deepClone, changeFieldState } from '../actions/common.a
 
 const formBuilder = {
     ob: {},
+    warningModal: false,
     active: {
         panel: null,
         section: {
@@ -41,6 +42,11 @@ export default function project(state = formBuilder, action) {
             }
             break;
 
+        case 'SHOW_WARNING_MODAL':
+            state = deepClone(state);
+            state.warningModal = !state.warningModal;
+            break;    
+
         case 'FIELD_CONFIG_PANEL_SELECT':
             state = deepClone(state);
             state.active.panel = action.payload;
@@ -57,6 +63,14 @@ export default function project(state = formBuilder, action) {
             state.cacheData.push(action.payload.data);
             state.showFormbuilder = 1;
             break;
+
+        case 'DELETE_SECTION':
+            state = deepClone(state)
+            state.cacheData.splice(action.index, 1);
+            if(state.cacheData.length == 0){
+                state.showFormbuilder = 0;
+            }
+            break;    
 
         case 'COPY_SECTION':
             state = deepClone(state);
@@ -156,6 +170,7 @@ function sectionUpdate(state, payload, index) {
 
 function refresh(state) {
     state.active.panel = null;
+    state.warningModal = false;
     state.active.question = {
         data: {},
         index: null

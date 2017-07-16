@@ -24,6 +24,7 @@ import SectionAdd from '../components/section/sectionAdd.component';
 import SectionImport from '../components/section/sectionImport.component';
 import SectionInitial from '../components/section/sectionInitial.component';
 import { toastr } from 'react-redux-toastr';
+import ModalBasic from '../components/common/warningModal.component';
 
 const AddFieldRow = (props) => (
     <div className="add_field_row">
@@ -48,6 +49,7 @@ class FormBuilderApp extends React.Component {
     constructor() {
         super();
         this.state = {
+            showWarningModal: false,
             showAddFieldPanel: false,
             showAddSection: false,
             showImportSection: false,
@@ -130,11 +132,14 @@ class FormBuilderApp extends React.Component {
     }
 
     selectConfigPanel = (e) =>{
-        if(!this.props.question.pendingQues){
+        if(!this.props.question.pendingQues || (this.props.question.edit.isRunning && 
+            (JSON.stringify(this.props.question.edit.quesOldState) === JSON.stringify(this.fieldConfigPanel().data))) ){
+
+            this.props.cancelForm();    
             this.props.selectConfigPanel(e);
         }
         else {
-            alert('save or cancel the ongoing quesiton');
+            this.props.showWarningModal();
         }  
     } 
 
@@ -176,6 +181,7 @@ class FormBuilderApp extends React.Component {
         if (this.props.project.active.panel !== '') {
 
             let field = this.fieldConfigPanel('object');
+            this.props.showWarningModal();
             field.data.sectionId = this.props.project.active.section.data.sectionId;
             field.data.fieldType.fieldTypeName = ProjectAction.capitalize(this.props.project.active.panel);
             saveRule(this.props, preprocess(field.data));
@@ -194,6 +200,11 @@ class FormBuilderApp extends React.Component {
 
         return (
             <div className="main_container">
+                <ModalBasic 
+                modalOpen={this.props.project.warningModal}
+                cancel = {(e)=>{ this.setState({showWarningModal: false}); this.props.cancelForm()}}
+                save = {this.saveQuestion}
+                />
                 <section className="header">
                     <div className="logo"><img src={logo} /></div>
                     <div className="header_main">
@@ -202,7 +213,7 @@ class FormBuilderApp extends React.Component {
                     </div>
                 </section>
                 <section className="content_body" >
-
+                    
                     <Sidebar />
                     <SectionInitial display={this.isFormbuilderVisible('sectionInitial')}
                         submit={this.firstSectionSubmit}
@@ -232,9 +243,12 @@ class FormBuilderApp extends React.Component {
                                     <button className="button black_btn" onClick={this.saveQuestion}>Save Question</button>
                                 </div>
                             </div>
+                            
                         </section>
                     </section>
                 </section>
+                
+                
             </div>
         );
     }
@@ -268,7 +282,8 @@ function mapDispatchToProps(dispatch) {
         cancelForm: ProjectAction.cancelForm,
         saveRule: ProjectAction.saveRule,
         createQuestion: ProjectAction.createQuestion,
-        selectConfigPanel: ProjectAction.selectConfigPanel
+        selectConfigPanel: ProjectAction.selectConfigPanel,
+        showWarningModal: ProjectAction.showWarningModal,
 
     }, dispatch);
 }

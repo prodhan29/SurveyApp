@@ -5,6 +5,7 @@ import { bindActionCreators } from 'redux';
 import SectionEditView from '../components/section/sectionEdit.component';
 import { toastr } from 'react-redux-toastr';
 // Actions
+import { showWarningModal } from '../actions/project.action';
 import * as SectionAction from '../actions/section.action';
 import { fetchQuestions, questionsChange, fetchQuesForExport } from '../actions/question.action';
 import { questionExist, getQuestionsBySectionId } from '../actions/common.action';
@@ -28,24 +29,56 @@ class Sections extends React.Component {
         }
     }
 
+    fieldConfigPanel = () => {
+        var panel = this.props.project.active.panel;
+
+        if (panel === 'text' || panel === 'suggestion' || panel === 'barcode') {
+            return this.props.text;
+        }
+
+        else if (panel === 'image' || panel === 'signature' || panel === 'gprs') {
+            return this.props.otherField;
+        }
+
+        else if (panel === 'number' || panel === 'float') {
+            return this.props.number;
+        }
+
+        else if (panel === 'dropdown' || panel === 'checkbox') {
+            return this.props.dropCheck;
+        }
+
+        else if (panel === 'time' || panel === 'date') {
+            return this.props.dateTime;
+        }
+        else if (panel === 'groupdrop') {
+            return this.props.groupDrop;
+        }
+        return null;
+    }
+
     // checking if the section has questions in cacheData if not then fetch from server`
     fetchQuestions = (section, index) => {
 
-        if(this.props.question.pendingQues) {
-            alert('save or cancel the ongoing question to continue');
-            return;
-        }
-        // prevent section change when child event is clicked on;
-        if (section.sectionId === this.state.editSection.sectionId) return;
+        
+        if (!this.props.question.pendingQues || (this.props.question.edit.isRunning &&
+            (JSON.stringify(this.props.question.edit.quesOldState) === JSON.stringify(this.fieldConfigPanel().data)))) {
 
-        this.props.sectionChange(section, index);
-        var cachedSection = this.props.project.cacheData[index];
-        if (!questionExist(cachedSection)) {
-            this.props.fetchQuestions(section);
+            // prevent section change when child event is clicked on;
+            if (section.sectionId === this.state.editSection.sectionId) return;
+
+            this.props.sectionChange(section, index);
+            var cachedSection = this.props.project.cacheData[index];
+            if (!questionExist(cachedSection)) {
+                this.props.fetchQuestions(section);
+            }
+            else {
+                var questions = getQuestionsBySectionId(this.props.project.cacheData, section.sectionId);
+                this.props.questionsChange(questions);
+            }
         }
         else {
-            var questions = getQuestionsBySectionId(this.props.project.cacheData, section.sectionId);
-            this.props.questionsChange(questions);
+             this.props.showWarningModal();
         }
     }
 
@@ -127,6 +160,12 @@ function mapStateToProps(state) {
         section: state.Section,
         project: state.Project,
         question: state.Question,
+        text: state.Text,
+        number: state.Number,
+        dateTime: state.DateTime,
+        dropCheck: state.DropCheck,
+        otherField: state.OtherField,
+        groupDrop: state.GroupDrop,
     };
 }
 
@@ -137,7 +176,8 @@ function mapDispatchToProps(dispatch) {
         fetchQuestions,
         questionsChange,
         resetToastrMsg: SectionAction.resetToastrMsg,
-        sectionChange: SectionAction.change
+        sectionChange: SectionAction.change,
+        showWarningModal,
 
     }, dispatch);
 }

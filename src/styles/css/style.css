@@ -1334,6 +1334,7 @@ table.value_table tr.edit_row {
     margin: 1px 0 0;
     padding: 0px;
     left: 0;
+    transform: translate(0);
     z-index: 10;
     cursor: auto;
     box-shadow: 0 0 35px rgba(0, 0, 0, 0.07), 0 3px 5px rgba(0, 0, 0, 0.3);
@@ -2071,12 +2072,16 @@ form.node_edit_form .field.action_node .fa.fa-close {
     font-weight: 300;
     position: relative;
 }
+.list_view_table td .project_avater img {
+    width: 30px;
+}
 .list_view_table td .project_avater span {
     position: absolute;
     top: 0;
     left: 0;
     right: 0;
     z-index: 1;
+    line-height: 44px;
 }
 .list_view_table td .content_group {
     margin-left: 50px;
@@ -2116,6 +2121,8 @@ form.node_edit_form .field.action_node .fa.fa-close {
 }
 .action_col .dropdown i {
     color: #999;
+    display: block;
+    text-align: center;
 }
 .action_col .dropdown:hover i,
 .action_col .dropdown.open i {
@@ -2172,4 +2179,11 @@ form.node_edit_form .field.action_node .fa.fa-close {
 }
 .import_section_dropdown {
     padding: 30px;
+}
+.ques_select_accordion {
+    position: absolute;
+    background-color: #eee;
+    width: 100%;
+    margin-top: 8%;
+    z-index: 90;
 }

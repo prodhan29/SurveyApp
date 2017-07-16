@@ -16,6 +16,7 @@ import Setting from './Settings/containers/settings';
 import Store from './store';
 
 // styles
+import 'semantic-ui-css/semantic.min.css';
 import './styles/css/bootstrap.min.css';
 import './styles/css/material-kit.css';
 import './styles/css/style.css';

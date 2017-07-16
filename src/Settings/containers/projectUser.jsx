@@ -53,6 +53,13 @@ class ProjectUser extends React.Component {
         this.setState({ showModal: !_this.state.showModal });
     }
 
+    cancelUserModal =()=> {
+        this.setState({
+            showModal: false,
+            data: deepClone(initialState)
+        });
+    }
+
     createProjectUser = () => {
         this.props.submit(this.state.data);
         this.setState({
@@ -151,6 +158,7 @@ class ProjectUser extends React.Component {
                             edit={this.state.edit}
                             updateOrganization={this.updateProjectUser}
                             selectUserRole={this.selectUserRole}
+                            cancelUserModal={this.cancelUserModal}
                         /> : null
                 }
             </div>
@@ -170,7 +178,8 @@ function mapDispatchToProps(dispatch) {
 
     return bindActionCreators({
         submit: ProjectUserAction.createProjectUser,
-        fetchAllProjectUser: ProjectUserAction.fetchAllProjectUser
+        fetchAllProjectUser: ProjectUserAction.fetchAllProjectUser,
+        cancelUserModal: ProjectUserAction.cancelUserModal,
     }, dispatch);
 }
 

@@ -4,6 +4,7 @@ import { bindActionCreators } from 'redux';
 import SortableQuestions from '../components/questions/sortableQuestions.component';
 import { toastr } from 'react-redux-toastr';
 // Actions
+import {showWarningModal} from '../actions/project.action';
 import {
     onQuestionClick,
     quesSequenceChange,
@@ -16,14 +17,43 @@ import { selectConfigPanel, setActiveQuestion, resetToastrMsg } from '../actions
 
 class Questions extends React.Component {
 
+    fieldConfigPanel = () => {
+        var panel = this.props.project.active.panel;
+        
+        if (panel === 'text' || panel === 'suggestion' || panel === 'barcode') {
+            return this.props.text;
+        }
+
+        else if (panel === 'image' || panel === 'signature' || panel === 'gprs') {
+            return this.props.otherField;
+        }
+
+        else if (panel === 'number' || panel === 'float') {
+            return this.props.number;
+        }
+
+        else if (panel === 'dropdown' || panel === 'checkbox') {
+            return this.props.dropCheck;
+        }
+
+        else if (panel === 'time' || panel === 'date') {
+             return this.props.dateTime;
+        }
+        else if (panel === 'groupdrop') {
+             return this.props.groupDrop;
+        }
+        return null;
+    }
+
     onQuestionClick = (data, index) => {
-        if(!this.props.question.pendingQues) {
+        if(!this.props.question.pendingQues || (this.props.question.edit.isRunning && 
+            (JSON.stringify(this.props.question.edit.quesOldState) === JSON.stringify(this.fieldConfigPanel().data))) ) {
             this.props.selectConfigPanel(data.fieldType.fieldTypeName.toLowerCase());
             this.props.setActiveQuestion(data, index);
             this.props.onQuestionClick(data);
             this.props.removeExtraQues(data, index);
-        } else {
-            alert('save or cancel the existing question');
+        } else{
+            this.props.showWarningModal();
         }
     }
 
@@ -43,7 +73,8 @@ class Questions extends React.Component {
                 project={this.props.project}
                 sequenceChange={(oldIndex, newIndex)=>quesSequenceChange(this.props.project.active.section.data.sectionId, this.props.question, oldIndex, newIndex)}
                 deleteQues={deleteQues}
-                copyQues={this.props.copyQues} />
+                copyQues={this.props.copyQues}
+                showWarningModal = {this.props.showWarningModal} />
         );
     }
 }
@@ -51,7 +82,13 @@ class Questions extends React.Component {
 function mapStateToProps(state) {
     return {
         project: state.Project,
-        question: state.Question
+        question: state.Question,
+        text: state.Text,
+        number: state.Number,
+        dateTime: state.DateTime,
+        dropCheck: state.DropCheck,
+        otherField: state.OtherField,
+        groupDrop: state.GroupDrop,
     };
 }
 
@@ -64,6 +101,7 @@ function mapDispatchToProps(dispatch) {
         resetToastrMsg,
         copyQues,
         removeExtraQues,
+        showWarningModal,
     }, dispatch);
 }
 

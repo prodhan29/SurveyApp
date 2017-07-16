@@ -18,7 +18,7 @@ export default function sections(state = sec, action) {
         case 'CREATE_SECTION':
             state = deepClone(state);
             state.list.push(action.payload.data);
-            state.toastrMsg = "section created successfully"
+            state.toastrMsg = "section created successfully";
             break;
 
         case 'COPY_SECTION':
@@ -42,12 +42,12 @@ export default function sections(state = sec, action) {
         case 'DELETE_SECTION':
             state = deepClone(state)
             state.list.splice(action.index, 1);
-            state.toastrMsg = 'section DELETED successfully'
+            state.toastrMsg = 'section DELETED successfully';
             break;
 
         case 'RESET_SECTION_TOASTR_MSG':
             state.toastrMsg = '';
-            break;
+            break;    
     }
     return state;
 }

@@ -20,6 +20,12 @@ export function createProjectUser(data) {
     }
 }
 
+export function cancelUserModal() {
+    return {
+        type: 'RESET_USER_MODAL',
+    }
+}
+
 export function updateProjectUser(account, index) {
     account.age = parseInt(account.age);
     console.log(JSON.stringify(account));

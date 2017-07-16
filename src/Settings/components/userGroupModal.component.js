@@ -8,6 +8,7 @@ export default class UserGroupModal extends React.Component {
         console.log(JSON.stringify(this.props.edit));
         this.state = {
             userWindow: false,
+            userListDropdown: false,
             grpName: this.props.edit.enable ? this.props.edit.grpName : '',
             searchName: '',
             users: this.props.allUsers,
@@ -113,6 +114,10 @@ export default class UserGroupModal extends React.Component {
             )
         })
     }
+    showUserList = () => {
+        let _this = this;
+        this.setState({ userListDropdown: !_this.state.userListDropdown });
+    }
 
     render() {
         return (
@@ -136,28 +141,26 @@ export default class UserGroupModal extends React.Component {
                             </div>
                             <div className="user_data_container">
                                 <div className="data_container_top">
-                                    
                                     <span className="title">Users</span>
-                                    
-                                    
-
                                 </div>
                                 <div className="form_row user_search_field">
-<div className="form_field">
+                                    <div className="form_field">
                                         <input type="text"
                                             name="searchName"
                                             value={this.state.searchName}
                                             onChange={this.userFilter}
                                             placeholder="Search user"
+                                            onClick={this.showUserList}
                                         />
-                                        <div className="dropdown_panel multi_selection_dropdown">
-                                            
-                                            <ul className="user_list">
-                                                {this.getFilteredUser()}
-                                            </ul>
-                                        </div>
+                                        {
+                                            !this.state.userListDropdown ? null : (<div className="dropdown_panel multi_selection_dropdown">
+                                                <ul className="user_list">
+                                                    {this.getFilteredUser()}
+                                                </ul>
+                                            </div>)
+                                        }
                                     </div>
-                                    </div>
+                                </div>
 
                                 {this.showSelectedUsers()}
                             </div>
