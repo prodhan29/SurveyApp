@@ -515,7 +515,6 @@ button.red_btn {
     padding: 0 0px 0 30px;
     text-align: right;
     height: 40px;
-    overflow: hidden;
 }
 .builder_left h3 {
     padding: 0 30px;
@@ -1202,7 +1201,7 @@ a.add_jumping_option {
     width: 40px;
     text-align: center;
     right: 0;
-    top: 14px;
+    top: 0;
 }
 .condition_summary {
     padding-top: 20px;
