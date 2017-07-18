@@ -3,6 +3,14 @@ import axios from 'axios';
 import AppConfig from '../../application.config';
 import Store from '../../store';
 
+
+export function questionLoader() {
+    Store.dispatch((() => {
+        return {
+            type: 'LOADER_FOR_QUESTOINS',
+        }
+    })());
+}
 export function fetchQuestions(data) {
 
     const url = `${AppConfig.domain}/question?sectionId=${data.sectionId}`;
@@ -144,7 +152,7 @@ export function precessQuesForCopy(ques) {
 export function quesTypeElement(ques) {
 
     if (ques.fieldType.fieldTypeName.toLowerCase() == 'checkbox') {
-        if(ques.optionValues.length === 0) {
+        if (ques.optionValues.length === 0) {
             return null;
         }
 
@@ -179,9 +187,9 @@ export function quesTypeElement(ques) {
     }
 
     else if (ques.fieldType.fieldTypeName.toLowerCase() == 'date' || ques.fieldType.fieldTypeName.toLowerCase() == 'time') {
-        return (<input type="date" disabled/>);
+        return (<input type="date" disabled />);
     }
-    return (<input type="text" disabled/>);
+    return (<input type="text" disabled />);
 }
 
 export function hybridQues() {

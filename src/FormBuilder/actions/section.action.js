@@ -2,6 +2,15 @@ import axios from 'axios'
 import AppConfig from '../../application.config';
 import Store from '../../store';
 
+
+export function sectionLoader() {
+    Store.dispatch((() => {
+            return {
+                type: 'LOADER_FOR_SECTION',
+            }
+        })());
+}
+
 export function change(data, index) {
     return {
         type: 'SECTION_CHANGE',
@@ -112,6 +121,13 @@ function fetchQuesForAllSection(sections) {
                 })());
             })
         })(sec, i);
+    }
+}
+
+export function setToastrMsg(msgType, msg) {
+    return {
+        type: 'SET_TOASTR_MESSAGE',
+        msgType, msg,
     }
 }
 

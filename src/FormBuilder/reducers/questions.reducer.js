@@ -14,13 +14,23 @@ const question = {
             index: null
         }
     },
-    list: []
+    list: [],
+    loader:{
+        loading: false,
+        paragraphs: 1,
+        loadingText: 'loading questions',
+    }
 };
 
 export default function questions(state = question, action) {
 
 
     switch (action.type) {
+
+        case 'LOADER_FOR_QUESTOINS':
+            state = deepClone(state);
+            state.loader.loading =true;
+            break;
 
         case 'DELETE_SECTION':
             state = deepClone(state);
@@ -122,7 +132,8 @@ export default function questions(state = question, action) {
 function setBuilderInitialState(state, action) {
     state = deepClone(state);
     if (action.index == '0') {
-        state.list = action.payload.data
+        state.list = action.payload.data;
+        state.loader.loading = false;
     }
     return state;
 }

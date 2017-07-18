@@ -75,6 +75,7 @@ class Questions extends React.Component {
                 deleteQues={deleteQues}
                 copyQues={this.props.copyQues}
                 showWarningModal={this.props.showWarningModal}
+                loader={this.props.question.loader}
             />
         );
     }

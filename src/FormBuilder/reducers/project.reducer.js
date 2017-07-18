@@ -21,7 +21,10 @@ const formBuilder = {
     // 1 = show formbuilder
     // 2 = show null (need to show null coz when it is taking too much time to load sections section_create appears in the middle) 
     showFormbuilder: 2,
-    cacheData: []
+    cacheData: [],
+    loader: {
+        
+    }
 }
 
 export default function project(state = formBuilder, action) {

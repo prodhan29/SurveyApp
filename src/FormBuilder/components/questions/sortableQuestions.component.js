@@ -1,6 +1,7 @@
 import React from 'react';
 import { SortableContainer, SortableElement, SortableHandle, arrayMove } from 'react-sortable-hoc';
 import {quesTypeElement} from '../../actions/question.action';
+import Loader from '../../../GeneralComponent/loader.container';
 
 var getActiveclassName = function (id, activeId) {
     return (id === activeId) ? "form_row active" : "form_row";
@@ -66,6 +67,8 @@ export default class SortableQuestions extends React.Component {
 
     render() {
         return (
+            <section >
+            <Loader loader={this.props.loader}/>
             <SortableList items={this.props.question.list}
                 onClick={this.handleChange}
                 onSortEnd={this.onSortEnd}
@@ -74,6 +77,7 @@ export default class SortableQuestions extends React.Component {
                 deleteQues={this.props.deleteQues}
                 copyQues={this.props.copyQues}
             />
+            </section>
         );
     }
 }

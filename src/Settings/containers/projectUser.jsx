@@ -23,6 +23,7 @@ class ProjectUser extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
+            searchText: '',
             showModal: false,
             edit: {
                 enable: false,
@@ -53,7 +54,7 @@ class ProjectUser extends React.Component {
         this.setState({ showModal: !_this.state.showModal });
     }
 
-    cancelUserModal =()=> {
+    cancelUserModal = () => {
         this.setState({
             showModal: false,
             data: deepClone(initialState)
@@ -91,8 +92,19 @@ class ProjectUser extends React.Component {
         });
     }
 
+    filteredUser = () => {
+        let users = [];
+        for (let i = 0; i < this.props.projectUser.list.length; i++) {
+            let name = `${this.props.projectUser.list[i].accountInfo.firstName} ${this.props.projectUser.list[i].accountInfo.lastName}`;
+            if (name.toLowerCase().indexOf(this.state.searchText) > -1) {
+                users.push(this.props.projectUser.list[i]);
+            }
+        }
+        return users;
+    }
+
     getProjectUser = () => {
-        return this.props.projectUser.list.map((item, index) => {
+        return this.filteredUser().map((item, index) => {
 
             return (
                 <tr key={index}>
@@ -124,7 +136,12 @@ class ProjectUser extends React.Component {
             <div className="data_container">
                 <div className="list_view_control_bar">
                     <span className="icon_item search_panel">
-                        <input type="text" className="search_bar" placeholder="Search Here" name="search" />
+                        <input type="text"
+                            className="search_bar"
+                            placeholder="Search Here"
+                            name="search"
+                            onChange={(e) => this.setState({ searchText: e.target.value })}
+                        />
                     </span>
                     <span className="button_area">
                         <button className="button create_btn" onClick={this.toggleModal} >Create User</button>

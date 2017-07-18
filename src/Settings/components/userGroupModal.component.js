@@ -1,5 +1,5 @@
 import React from 'react';
-
+import closeImg from '../../styles/img/close.png';
 export default class UserGroupModal extends React.Component {
 
     constructor(props) {
@@ -109,7 +109,7 @@ export default class UserGroupModal extends React.Component {
                 <div className="user_data_list" key={index}>
                     <div className={`user_avatar ${this.getRandomString()}`}> {this.shortName(name)}</div>
                     <div className="user_name">{name}<span className="user_role">{item.role.roleName}</span></div>
-                    <div className="close_action" onClick={() => this.props.removeFromSelectedUsers(index)}><a href="#"><img src="styles/img/close.png" /></a></div>
+                    <div className="close_action" onClick={() => this.props.removeFromSelectedUsers(index)}><a href="#"><img src={closeImg} /></a></div>
                 </div>
             )
         })

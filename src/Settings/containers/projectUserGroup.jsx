@@ -10,6 +10,7 @@ import * as UserGroupAction from '../actions/userGroup.action';
 import * as ProjectUserGroupAction from '../actions/projectUserGroup.action';
 
 var initialState = {
+    searchText: '',
     showModal: false,
     selectedGroups: [],
     removeGroupIds: [],
@@ -107,14 +108,25 @@ class ProjectUserGroup extends React.Component {
         this.setState(deepClone(initialState));
     }
 
-    makeSingularPlural=(num, name)=>{
+    makeSingularPlural = (num, name) => {
         return (num > 1) ? `${num} ${name}s` : `${num} ${name}`;
+    }
+
+    filterProject = () => {
+        let filtered = [];
+        for (let i = 0; i < this.props.projectUserGroup.list.length; i++) {
+            let project = ProjectUserGroupAction.getProjectbyId(this.props.projectUserGroup.list[i].projectId, this.props.projects.list)
+            if (project.name.toLowerCase().indexOf(this.state.searchText) > -1) {
+                filtered.push(this.props.projectUserGroup.list[i]);
+            }
+        }
+        return filtered;
     }
 
     getProjectUserGroup = () => {
         if (typeof this.props.projectUserGroup.list === 'undefined') return null;
 
-        return this.props.projectUserGroup.list.map((item, index) => {
+        return this.filterProject().map((item, index) => {
 
             let project = ProjectUserGroupAction.getProjectbyId(item.projectId, this.props.projects.list);
             return (
@@ -142,7 +154,12 @@ class ProjectUserGroup extends React.Component {
             <div className="data_container">
                 <div className="list_view_control_bar">
                     <span className="icon_item search_panel">
-                        <input className="search_bar" type="text" placeholder="Search Here " name="search" />
+                        <input type="text"
+                            className="search_bar"
+                            placeholder="Search Here"
+                            name="search"
+                            onChange={(e) => this.setState({ searchText: e.target.value })}
+                        />
                     </span>
                 </div>
                 <div className="settings_list">

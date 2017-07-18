@@ -6,11 +6,14 @@ import Store from '../../store';
 // icons
 import projectIcon from '../../styles/img/excel.png';
 import logo from '../../styles/img/logo.png';
+import userImg from '../../styles/img/user.png';
+import shortParagraph from '../../styles/img/short-paragraph.png'
 //components
 import Sidebar from '../../GeneralComponent/sidebar.component';
 import Header from '../../GeneralComponent/header.component';
 import ProjectCreateModal from '../components/projectCreateModal';
 import ConfirmationModal from '../components/confirmationModal';
+import Loader from '../../GeneralComponent/loader.container';
 //actions
 import * as ProjectAction from '../actions/allProjects.action';
 
@@ -20,6 +23,7 @@ class Projects extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
+            searchText: '',
             showCreateModal: false,
             project: null,
             index: -1
@@ -27,7 +31,8 @@ class Projects extends React.Component {
     }
 
     componentDidMount() {
-        this.props.fetchAllProjects();
+        ProjectAction.loaderForProject();
+        ProjectAction.fetchAllProjects();
     }
 
     toggleModal = () => {
@@ -46,38 +51,47 @@ class Projects extends React.Component {
         ProjectAction.updateProject(project, index);
     }
 
-    redirectToProject=(project)=>{
+    redirectToProject = (project) => {
         let link = `/form-builder/${project.projectId}`;
         Store.dispatch(replace(link));
-        
+
+    }
+
+    filterProject = () => {
+        let filtered = [];
+        for (let i = 0; i < this.props.projects.list.length; i++) {
+            if (this.props.projects.list[i].name.toLowerCase().indexOf(this.state.searchText) > -1) {
+                filtered.push(this.props.projects.list[i]);
+            }
+        }
+        return filtered;
     }
 
     showAllProjects = () => {
-        return this.props.projects.list.map((project, index) => {
+        return this.filterProject().map((project, index) => {
             return (
 
                 <tr key={index}>
                     <td>
-                        <span className="project_avater"><img src={projectIcon} /><span className="pr_name">PG</span></span>
+                        <span className="project_avater"><img src={projectIcon} /><span className="pr_name">{project.name.substring(0, 2).toUpperCase()}</span></span>
                         <div className="content_group project_info">
-                            <h4 onClick={()=>this.redirectToProject(project)}><a href=""> {project.name}</a> </h4>
+                            <h4 onClick={() => this.redirectToProject(project)}><a href=""> {project.name}</a> </h4>
                             <p className="info_p">{`${project.totalSection} Sections, Version: ${project.version}`}</p>
                         </div>
                     </td>
                     <td>
-                        <span className="user_avater"><img src="assets/img/user.png" /> </span>
+                        <span className="user_avater"><img src={userImg} /> </span>
                         <div className="content_group">
                             <p>{project.createdBy}</p>
                             <p className="info_p">{project.lastModifiedDate}</p>
                         </div>
                     </td>
-                    <td> {project.published ? <span className="label label-success"> Published</span> : <span className="label label-default">in progress</span>} </td>
+                    <td> {project.published ? <span className="label label-success" onClick={() => this.publish(project, index)}> Published</span> : <span className="tag in_progress" onClick={() => this.publish(project, index)}>in progress</span>} </td>
                     <td className="action_col">
                         <span className="dropdown">
                             <i className="fa fa-ellipsis-v " data-toggle="dropdown" aria-expanded="true"></i>
                             <div className="dropdown_panel action_dropdown dropdown-menu">
                                 <ul>
-                                    <li onClick={() => this.publish(project, index)} >Publish</li>    
                                     <li>Edit</li>
                                     <li>Copy</li>
                                     <li onClick={() => this.setProject(project, index)} data-toggle="modal" data-target="#myModal"  >Delete</li>
@@ -91,26 +105,32 @@ class Projects extends React.Component {
     }
 
     render() {
-        
+
         return (
             <div className="main_container">
-
                 
-                <Header name={this.props.sidebar.active}/>
+
+                <Header name={this.props.sidebar.active} />
                 <section className="content_body">
 
                     <Sidebar />
                     <section className="content_panel list_view_panel project_list">
+                        
                         <div className="data_container">
                             <div className="list_view_control_bar">
                                 <span className="icon_item search_panel">
-                                    <input type="text" className="search_bar" placeholder="Search Here" name="search" />
+                                    <input type="text"
+                                        className="search_bar"
+                                        placeholder="Search Here"
+                                        name="search"
+                                        onChange={(e) => this.setState({ searchText: e.target.value })}
+                                    />
                                 </span>
                                 <span className="button_area">
                                     <button className="button create_btn" onClick={this.toggleModal}>Create project</button>
                                 </span>
                             </div>
-
+                            
                             <div className="list_view_table_content">
                                 <table className="list_view_table">
                                     <thead>
@@ -126,6 +146,7 @@ class Projects extends React.Component {
                                     </tbody>
                                 </table>
                             </div>
+                            <Loader loader={this.props.projects.loader}/>
                         </div>
                     </section>
 
@@ -156,7 +177,7 @@ function mapDispatchToProps(dispatch) {
     return bindActionCreators({
         createProject: ProjectAction.createProject,
         deleteProject: ProjectAction.deleteProject,
-        fetchAllProjects: ProjectAction.fetchAllProjects
+        fetchAllProjects: ProjectAction.fetchAllProjects,
     }, dispatch);
 }
 

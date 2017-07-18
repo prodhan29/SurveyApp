@@ -7,6 +7,11 @@ var initialState = {
         published: false,
         sectionAllowed: true,
         version: '1.00'
+    },
+    loader:{
+        loading: false,
+        paragraphs: 5,
+        loadingText: 'loading projects',
     }
 }
 
@@ -30,8 +35,14 @@ export default function allProjects(state = initialState, action) {
 
         case 'FETCH_ALL_PROJECTS':
             state = deepClone(state);
-            state.list = action.payload.data;            
+            state.list = action.payload.data;
+            state.loader.loading = false;            
             break;
+
+        case 'SET_LOADER_FOR_PROJECT':
+            state = deepClone(state);
+            state.loader.loading = true;
+            break;    
 
         default:
             return state;

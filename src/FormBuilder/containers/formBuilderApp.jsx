@@ -2,10 +2,10 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 // Actions
-import { fetchSections } from '../actions/section.action';
+import { fetchSections, sectionLoader } from '../actions/section.action';
 import { createSection, importSection } from '../actions/section.action';
 import * as ProjectAction from '../actions/project.action';
-import { updateQuestion, preprocess } from '../actions/question.action';
+import { updateQuestion, preprocess, questionLoader } from '../actions/question.action';
 import { saveRule } from '../actions/common.action';
 // Containers
 import Sections from './sections';
@@ -25,6 +25,7 @@ import SectionImport from '../components/section/sectionImport.component';
 import SectionInitial from '../components/section/sectionInitial.component';
 import { toastr } from 'react-redux-toastr';
 import ModalBasic from '../components/common/warningModal.component';
+import Loader from '../../GeneralComponent/loader.container';
 
 const AddFieldRow = (props) => (
     <div className="add_field_row">
@@ -57,6 +58,8 @@ class FormBuilderApp extends React.Component {
     }
 
     componentDidMount() {
+        questionLoader();
+        
         console.log(" url params -- > " + JSON.stringify(this.props.projectId));
         this.props.getProjectById(this.props.projectId);
         fetchSections(this.props.projectId);
@@ -210,6 +213,7 @@ class FormBuilderApp extends React.Component {
                 <section className="content_body" >
 
                     <Sidebar />
+                    <Loader loader={this.props.section.loader}/>
                     <SectionInitial display={this.isFormbuilderVisible('sectionInitial')}
                         submit={this.firstSectionSubmit}
                     />
@@ -257,6 +261,7 @@ function mapStateToProps(state, ownProps) {
     return {
         parent: ownProps,
         sidebar: state.Sidebar,
+        section: state.Section,
         project: state.Project,
         question: state.Question,
         text: state.Text,

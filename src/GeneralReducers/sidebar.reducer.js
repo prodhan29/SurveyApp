@@ -5,7 +5,7 @@ var initialState = {
     active: 'Dashboard',
     featureAccess:{
         SuperAdmin: ['dashboard', 'setting'],
-        Admin:['dashboard', 'projects', 'user', 'result', 'setting'] 
+        Admin:['dashboard', 'projects', 'result', 'setting'] 
     }   
 }
 

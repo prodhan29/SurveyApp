@@ -48,7 +48,6 @@ export default function groupDropField(state = initialState, action) {
                 
         case 'TREE_VIEW_CHANGE':
             state = deepClone(state);
-            console.log('grp dropdown -->'+ JSON.stringify(action.payload));
             state.data.groupOptionValues = action.payload;  
             break;
 

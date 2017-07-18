@@ -3,6 +3,15 @@ import AppConfig from '../../application.config';
 import Store from '../../store';
 import { push, replace } from 'react-router-redux';
 
+
+export function loaderForProject(text, paragraphs) {
+    Store.dispatch((() => {
+        return {
+            type: 'SET_LOADER_FOR_PROJECT',
+        }
+    })());
+}
+
 export function createProject(data) {
 
     let payload = axios.post(`${AppConfig.domain}/project`, data, AppConfig.ajaxConfig()).then((response) => {
@@ -14,7 +23,7 @@ export function createProject(data) {
         })());
 
         let formbuilderLink = `/form-builder/${response.data.projectId}`;
-        Store.dispatch(push(formbuilderLink));  
+        Store.dispatch(push(formbuilderLink));
     })
 }
 
@@ -28,11 +37,14 @@ export function deleteProject(projectId, index) {
 }
 
 export function fetchAllProjects() {
-    let payload = axios.get(`${AppConfig.domain}/project`, AppConfig.ajaxConfig());
-    return {
-        type: 'FETCH_ALL_PROJECTS',
-        payload
-    }
+    let payload = axios.get(`${AppConfig.domain}/project`, AppConfig.ajaxConfig()).then((response) => {
+        Store.dispatch((() => {
+            return {
+                type: 'FETCH_ALL_PROJECTS',
+                payload: response,
+            }
+        })());
+    });
 }
 
 export function updateProject(project, index) {

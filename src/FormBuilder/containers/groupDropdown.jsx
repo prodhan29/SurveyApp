@@ -48,9 +48,7 @@ class GroupDropdown extends React.Component {
     }
 
     getActivePanel = () => {
-
         switch (this.props.groupDrop.activePanel) {
-
             case "Validation":
                 return <Validation data='treatValidation'
                     ans={this.getValidationAns()}
@@ -103,7 +101,8 @@ function mapDispatchToProps(dispatch) {
     return bindActionCreators({
         treeViewChange: GroupDropAction.treeViewChange,
         dataChange: GroupDropAction.dataChange,
-        changeConfigPanel: GroupDropAction.configPanelChange
+        changeConfigPanel: GroupDropAction.configPanelChange,
+        questionLiveUpdate,
     }, dispatch);
 
 }

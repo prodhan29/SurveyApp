@@ -4,6 +4,7 @@ import { bindActionCreators } from 'redux';
 //Component
 import SectionEditView from '../components/section/sectionEdit.component';
 import { toastr } from 'react-redux-toastr';
+import Loader from '../../GeneralComponent/loader.container';
 // Actions
 import { showWarningModal } from '../actions/project.action';
 import * as SectionAction from '../actions/section.action';
@@ -19,11 +20,10 @@ class Sections extends React.Component {
             editForCopy: false,
         }
     }
-
     componentDidUpdate() {
         let _this = this;
-        if (this.props.section.toastrMsg != '') {
-            toastr.success('Success', this.props.section.toastrMsg, {
+        if (this.props.section.toastr.msg != '') {
+            toastr[this.props.section.toastr.type](this.props.section.toastr.type, this.props.section.toastr.msg, {
                 onHideComplete: _this.props.resetToastrMsg
             });
         }
@@ -60,7 +60,7 @@ class Sections extends React.Component {
     // checking if the section has questions in cacheData if not then fetch from server`
     fetchQuestions = (section, index) => {
 
-
+        // if any question is in edit mode and modified or question is in creation process app will avoid other operations. 
         if (!this.props.question.pendingQues || (this.props.question.edit.isRunning &&
             (JSON.stringify(this.props.question.edit.quesOldState) === JSON.stringify(this.fieldConfigPanel().data)))) {
 
@@ -116,6 +116,11 @@ class Sections extends React.Component {
         fetchQuesForExport(section, SectionAction.exportSection);
     }
     sectionSequenceChange = (index, upDown) => {
+        if(parseInt(index + upDown) < 0) {
+            this.props.setToastrMsg('warning', 'not valid move');
+            return;
+        }
+
         this.props.sectionSequenceChange(this.props.project.ob.projectId, this.props.section.list, index, (index + upDown))
     }
 
@@ -153,7 +158,9 @@ class Sections extends React.Component {
             <section className="builder_left">
                 <h3>Sections</h3>
                 <ul className="section_nav">
+                    <Loader loader={this.props.section.loader}/>
                     {sectionList}
+                
                 </ul>
             </section>
         );
@@ -184,6 +191,7 @@ function mapDispatchToProps(dispatch) {
         sectionChange: SectionAction.change,
         sectionSequenceChange: SectionAction.sectionSequenceChange,
         showWarningModal,
+        setToastrMsg : SectionAction.setToastrMsg,
 
     }, dispatch);
 }

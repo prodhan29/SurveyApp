@@ -10,6 +10,7 @@ import { deepClone } from '../../GeneralActions/action';
 
 
 var initialState = {
+    searchText: '',
     showModal: false,
     selectedUsers: [],
     removeAccountIds: [],
@@ -35,6 +36,7 @@ class UserGroup extends React.Component {
     toggleModal = () => {
         let _this = this;
         this.setState({
+            searchText: '',
             showModal: !_this.state.showModal,
             selectedUsers: [],
             removeAccountIds: [],
@@ -104,14 +106,24 @@ class UserGroup extends React.Component {
         return count;
     }
 
-    makeSingularPlural=(num, name)=>{
+    makeSingularPlural = (num, name) => {
         return (num > 1) ? `${name}s` : name;
+    }
+
+    filteredGroup = () => {
+        let groups = [];
+        for (let i = 0; i < this.props.userGroup.list.length; i++) {
+            if (this.props.userGroup.list[i].name.toLowerCase().indexOf(this.state.searchText) > -1) {
+                groups.push(this.props.userGroup.list[i]);
+            }
+        }
+        return groups;
     }
 
     getuserGroup = () => {
         if (typeof this.props.userGroup.list === 'undefined') return null;
 
-        return this.props.userGroup.list.map((item, index) => {
+        return this.filteredGroup().map((item, index) => {
 
             return (
                 <tr key={index}>
@@ -144,7 +156,12 @@ class UserGroup extends React.Component {
             <div className="data_container">
                 <div className="list_view_control_bar">
                     <span className="icon_item search_panel">
-                        <input type="text" className="search_bar" placeholder="Search Here" name="search" />
+                        <input type="text"
+                            className="search_bar"
+                            placeholder="Search Here"
+                            name="search"
+                            onChange={(e) => this.setState({ searchText: e.target.value })}
+                        />
                     </span>
                     <span className="button_area">
                         <button className="button create_btn" onClick={this.toggleModal} >create User Group</button>
