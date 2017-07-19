@@ -560,7 +560,7 @@ button.red_btn {
     padding: 25px 30px 15px;
 }
 .builder_form_wrapper .form_row {
-    padding: 10px;
+    padding: 10px 10px 10px 80px;
     border-radius: 3px;
     border: 1px solid #d5dbe6;
     width: 100%;
@@ -571,6 +571,39 @@ button.red_btn {
     box-shadow: 0 0 15px 0 rgba(0, 0, 0, 0.05);
     min-height: 88px;
     min-width: 400px;
+}
+.builder_form_wrapper .form_row:before {
+    content: "";
+    display: inline-block;
+    position: absolute;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    width: 70px;
+    border-radius: 3px 0 0 3px;
+    border-right: 1px solid #d5dbe6;
+    background-color: #f1f5f8;
+}
+.builder_form_wrapper .form_row:hover:before {
+    background-color: #d5dbe6;
+}
+.builder_form_wrapper .form_row .field_type {
+    border: none;
+    width: 50px;
+    height: 50px;
+    background-color: transparent;
+    position: absolute;
+    left: 10px;
+    top: 50%;
+    -moz-transform: translateY(-50%);
+    -webkit-transform: translateY(-50%);
+    -o-transform: translateY(-50%);
+    -ms-transform: translateY(-50%);
+    transform: translateY(-50%);
+}
+.form_row .field_type .field_type_icon {
+    margin: 0;
+    cursor: default;
 }
 .builder_form_wrapper:hover .form_row {
     opacity: .5;
@@ -2266,15 +2299,22 @@ form.node_edit_form .field.action_node .fa.fa-close {
 .project_list .action_col .dropdown {
     top: 8px;
 }
-.list_view_table td .tag {
+.list_view_table td .tag,
+.list_view_table td .label {
     display: inline-block;
     line-height: 22px;
-    padding: 0 10px;
+    padding: 0;
     background: #ef9945;
     border-radius: 2px;
     color: #fff;
-    font-size: 13px;
-    font-weight: 300;
+    font-size: 10px;
+    font-weight: 500;
+    text-transform: uppercase;
+    width: 80px;
+    text-align: center;
+}
+.list_view_table td .label.label-success {
+    background-color: #4acd7e;
 }
 .project_list .list_view_table td .tag {
     margin-top: 9px;

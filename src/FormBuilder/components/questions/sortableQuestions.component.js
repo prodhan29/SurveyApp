@@ -10,7 +10,9 @@ const DragHandle = SortableHandle(() =><span> <i className="fa fa-arrows" aria-h
 const SortableItem = SortableElement((props) =>
     <div className={`${props.clsName} question-row`}
         onClick={(e) => {props.onClick(props.value)}}>
-
+        <div className="field_type text">
+            <span className="field_type_icon"></span>
+        </div>
         <div className="form_row_actions">
             <DragHandle />
             <span className="fa fa-files-o" onClick={(e) =>{e.stopPropagation(); props.copyQues(props.value)}}></span>
