@@ -37,6 +37,11 @@ export default function questions(state = question, action) {
             state.list = [];
             break;
 
+        case 'FETCH_ALL_PROJECTS':
+            state = deepClone(state);
+            state.list = [];
+            break;    
+
         case 'FETCH_QUESTIONS_FROM_SERVER':
             state = deepClone(state);
             if (typeof action.payload.data === 'undefined') {

@@ -53,7 +53,7 @@ export default class AddField extends React.Component {
         const fieldItems = this.state[this.state.activePanel].map(function (val, index) {
 
             return (
-                <div className="field_type date" key={index} onClick={() => _this.selectPanel(val)}>
+                <div className={`field_type ${val}`} key={index} onClick={() => _this.selectPanel(val)}>
                     <span className="field_type_icon"></span>
                     <span className="field_type_text"> {val} </span>
                 </div>

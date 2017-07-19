@@ -224,7 +224,7 @@ class FormBuilderApp extends React.Component {
                                 <div className="builder_form_title"><h3>Fields</h3></div>
                                 <Questions />
                             </section>
-                            <section className="builder_right">
+                            <section className={(this.props.project.active.panel !== null) ? 'builder_right field_selected' : 'builder_right'}>
                                 {this.fieldConfigPanel('element')}
                             </section>
 

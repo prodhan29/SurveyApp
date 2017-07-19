@@ -55,7 +55,7 @@ class PickRule extends React.Component {
         console.log('loading question box');
         console.log(data);
         return (
-            <span className="form_field rule_cell">
+            <span className="form_field rule_cell" id="questionBank">
                 <i className="material-icons close_rule">close</i>
                 <QuestionBank data={data}
                     saveNode={this.saveQuestion}
@@ -71,7 +71,7 @@ class PickRule extends React.Component {
 
         return (
             <section>
-                <div className="rules_block" style={this.getStyle('add')}>
+                <div className="rules_block pick_rule" style={this.getStyle('add')}>
                     <div className="segment_title">Pick and suggest Rule<span className="add" onClick={this.toggle}>+ Add</span></div>
                     <div className="segment_content no_content">No Rules Added yet</div>
                 </div>

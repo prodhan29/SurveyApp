@@ -30,7 +30,7 @@ class ProjectUserGroup extends React.Component {
     }
 
     componentDidMount() {
-        this.props.fetchAllProjects();
+        fetchAllProjects();
         this.props.fetchAllUserGroup();
         this.props.fetchAllProjectUserGroup();
     }

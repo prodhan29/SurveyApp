@@ -31,7 +31,7 @@ export default class JumpRule extends React.Component {
         let _this = this;
         return this.props.data.questionList.map(function (value, index) {
             return (
-                <span className="form_field rule_cell" key={index}>
+                <span className="form_field rule_cell" key={index} id="questionBank">
                     <i className="material-icons close_rule">close</i>
                     <QuestionBank data={value}
                         saveNode={(info) => _this.props.saveQuestion(index, info)}

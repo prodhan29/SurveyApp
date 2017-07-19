@@ -48,7 +48,7 @@ export default class QuestionBox extends React.Component {
         let question = this.props.data.info.question;
         let section = this.props.data.info.section;
         return (
-            <div>
+            <div id="questionBank">
                 <Accordion />
                 <div className="rule_cell">
                     <i className="material-icons close_rule"
