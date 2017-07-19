@@ -2224,6 +2224,13 @@ form.node_edit_form .field.action_node .fa.fa-close {
     font-weight: 500;
     font-size: 15px;
 }
+.list_view_table td .content_group h4 a {
+    color: #000;
+}
+.list_view_table td .content_group h4 a:hover {
+    color: #b92d2d;
+    text-decoration: none;
+}
 .list_view_table td .user_avater {
     display: inline-block;
     width: 40px;
@@ -2248,6 +2255,7 @@ form.node_edit_form .field.action_node .fa.fa-close {
 .action_col .dropdown {
     padding: 0 10px;
     cursor: pointer;
+    display: inline-block;
 }
 .action_col .dropdown i {
     color: #999;
