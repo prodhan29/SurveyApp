@@ -40,7 +40,7 @@ export default class Rules extends React.Component {
 
     render() {
         return (
-            <div className="rules_block">
+            <div className="rules_block value_check_rule">
                 <div className="segment_title">Value Check Rules
                     <span className="remove" onClick={this.props.toggle}>Remove</span>
                 </div>

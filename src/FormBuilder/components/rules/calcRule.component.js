@@ -60,7 +60,7 @@ export default class CalcRule extends React.Component {
 
         console.log(this.props.data.length);
         return (
-            <div className="rules_block">
+            <div className="rules_block calc_rule">
                 <div className="segment_title">Calculation Rules
                     <span className="remove" onClick={()=>this.props.toggleRule('remove')}>+ Remove</span></div>
                 <div className="segment_content no_content">
