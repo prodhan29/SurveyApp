@@ -7,6 +7,29 @@ import { getQuestionsBySectionId, questionExist } from '../../actions/common.act
 
 export default class AccordionStyled extends React.Component {
 
+    detectOutside = (e) => {
+        if (e.target != null && document.getElementById('questionBank').contains(e.target)) {
+            
+        } else if (e.target.id != 'questionBank') {
+            // Clicked outside the box
+            console.log('----');
+            console.log(typeof this.props.toggleQuesBank);
+            if( typeof this.props.toggleQuesBank != 'undefined'){
+            this.props.toggleQuesBank();
+            }
+        }
+    }
+
+    componentDidMount() {
+        console.log('questionbox mounted')
+        window.addEventListener('click', this.detectOutside);
+    }
+
+    componentWillUnmount() {
+        console.log('accordion is unmounting');
+        window.removeEventListener('click', this.detectOutside, false);
+    }
+
     getQuestions = (value) => {
         let _this = this;
         console.log()

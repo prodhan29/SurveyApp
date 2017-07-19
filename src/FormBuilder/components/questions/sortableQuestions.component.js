@@ -3,11 +3,9 @@ import { SortableContainer, SortableElement, SortableHandle, arrayMove } from 'r
 import {quesTypeElement} from '../../actions/question.action';
 import Loader from '../../../GeneralComponent/loader.container';
 
-var getActiveclassName = function (id, activeId) {
-    return (id === activeId) ? "form_row active" : "form_row";
-}
 
-const DragHandle = SortableHandle(() => <span><bold>::::::</bold></span>);
+
+const DragHandle = SortableHandle(() =><span> <i className="fa fa-arrows" aria-hidden="true"></i></span>);
 
 const SortableItem = SortableElement((props) =>
     <div className={`${props.clsName} question-row`}
@@ -35,7 +33,7 @@ const SortableList = SortableContainer((props) => {
                     index={index}
                     value={value}
                     onClick={(data) => props.onClick(data, index)}
-                    clsName={getActiveclassName(value.questionId, props.active)}
+                    clsName={(value.questionId === props.active) ? "form_row active" : "form_row"}
                     deleteQues={(data) => props.deleteQues(data, index)}
                     copyQues={(data) => props.copyQues(data, index)}
                 />

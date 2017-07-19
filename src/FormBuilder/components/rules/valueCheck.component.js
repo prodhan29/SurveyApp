@@ -25,7 +25,7 @@ export default class Rules extends React.Component {
         console.log('loading question box');
         console.log(data);
         return (
-            <span className="form_field rule_cell">
+            <span className="form_field rule_cell" id="questionBank">
                 <i className="material-icons close_rule">close</i>
                 <QuestionBank data={data}
                     saveNode={this.props.saveQuestion}
