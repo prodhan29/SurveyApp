@@ -2388,9 +2388,8 @@ form.node_edit_form .field.action_node .fa.fa-close {
     font-family: 'Montserrat', sans-serif;
 }
 .ques_saving_action button:hover {
-    color: #000;
+    color: #000000;
 }
-
 
 /*------------------------ !transition -----------------------------*/
 .builder_content_wrapper .builder_right,
