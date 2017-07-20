@@ -1,8 +1,12 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
+
+// Components
 import SortableQuestions from '../components/questions/sortableQuestions.component';
 import { toastr } from 'react-redux-toastr';
+import AddFieldPanel from '../components/common/add_field.component';
+
 // Actions
 import { showWarningModal } from '../actions/project.action';
 import {
@@ -68,15 +72,25 @@ class Questions extends React.Component {
 
     render() {
         return (
-            <SortableQuestions question={this.props.question}
-                onClick={this.onQuestionClick}
-                project={this.props.project}
-                sequenceChange={(oldIndex, newIndex) => quesSequenceChange(this.props.project.active.section.data.sectionId, this.props.question, oldIndex, newIndex)}
-                deleteQues={deleteQues}
-                copyQues={this.props.copyQues}
-                showWarningModal={this.props.showWarningModal}
-                loader={this.props.question.loader}
-            />
+            <div>
+                {/*<div style={this.props.question.list.length === 0 ? { display: 'block' } : { display: 'none' }}>
+                    <AddFieldPanel onClick={()=>{}}
+                        selectConfigPanel={this.props.selectConfigPanel}
+                    />
+                </div>*/}
+                <div >
+                    <SortableQuestions question={this.props.question}
+                        onClick={this.onQuestionClick}
+                        project={this.props.project}
+                        sequenceChange={(oldIndex, newIndex) => quesSequenceChange(this.props.project.active.section.data.sectionId, this.props.question, oldIndex, newIndex)}
+                        deleteQues={deleteQues}
+                        copyQues={this.props.copyQues}
+                        showWarningModal={this.props.showWarningModal}
+                        loader={this.props.question.loader}
+                        msg={this.props.question.toastrMsg}
+                    />
+                </div>
+            </div>
         );
     }
 }

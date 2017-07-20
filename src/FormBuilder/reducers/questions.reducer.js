@@ -56,7 +56,7 @@ export default function questions(state = question, action) {
             state.pendingQues = false;
             state.list.pop();
             state.list.push(action.payload.data);
-            state.toastrMsg = 'question CREATED successfully';
+            state.toastrMsg = 'question CREATED successfully';  // this same message is added in sortablecomponet to drag the question list to bottom
             break;
 
         case 'COPY_QUESTION':
