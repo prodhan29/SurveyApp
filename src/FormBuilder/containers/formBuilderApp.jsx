@@ -5,8 +5,9 @@ import { bindActionCreators } from 'redux';
 import { fetchSections, sectionLoader } from '../actions/section.action';
 import { createSection, importSection } from '../actions/section.action';
 import * as ProjectAction from '../actions/project.action';
-import { updateQuestion, preprocess, questionLoader } from '../actions/question.action';
+import { updateQuestion, preprocess, questionLoader, showValidationMsg } from '../actions/question.action';
 import { saveRule } from '../actions/common.action';
+import { questionValidation } from '../actions/questionValidation.action';
 // Containers
 import Sections from './sections';
 import Questions from './questions';
@@ -59,7 +60,7 @@ class FormBuilderApp extends React.Component {
 
     componentDidMount() {
         questionLoader();
-        
+
         console.log(" url params -- > " + JSON.stringify(this.props.projectId));
         this.props.getProjectById(this.props.projectId);
         fetchSections(this.props.projectId);
@@ -184,6 +185,11 @@ class FormBuilderApp extends React.Component {
         if (this.props.project.active.panel !== '') {
 
             let field = this.fieldConfigPanel('object');
+            let validation = questionValidation(this.props.project.active.panel, field.data, this.props.project);
+            if(!validation.status){
+                this.props.showValidationMsg(validation.msg);
+                return;
+            }
 
             field.data.sectionId = this.props.project.active.section.data.sectionId;
             field.data.fieldType.fieldTypeName = ProjectAction.capitalize(this.props.project.active.panel);
@@ -213,7 +219,7 @@ class FormBuilderApp extends React.Component {
                 <section className="content_body" >
 
                     <Sidebar />
-                    <Loader loader={this.props.section.loader}/>
+                    <Loader loader={this.props.section.loader} />
                     <SectionInitial display={this.isFormbuilderVisible('sectionInitial')}
                         submit={this.firstSectionSubmit}
                     />
@@ -280,9 +286,10 @@ function mapStateToProps(state, ownProps) {
 function mapDispatchToProps(dispatch) {
 
     return bindActionCreators({
-        getProjectById: ProjectAction.getProjectById,
         fetchSections,
         createSection,
+        showValidationMsg,
+        getProjectById: ProjectAction.getProjectById,
         cancelForm: ProjectAction.cancelForm,
         saveRule: ProjectAction.saveRule,
         createQuestion: ProjectAction.createQuestion,

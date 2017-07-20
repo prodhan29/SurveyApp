@@ -111,6 +111,13 @@ export function deleteQues(data, index) {
         })());
     });
 }
+
+export function showValidationMsg(payload) {
+    return {
+        type: 'SHOW_VALIDATION_MESSAGE',
+        payload
+    }
+}
 // ---------- this actions are not related to server -----------------
 // --------------------------------------------------------------------
 
@@ -194,6 +201,7 @@ export function quesTypeElement(ques) {
 
 export function hybridQues() {
     let ob = {
+        questionId: 0,
         name: '',
         caption: '',
         sectionId: null,
@@ -213,7 +221,7 @@ export function hybridQues() {
         optionValues: [],
         groupOptionValues: [],
         fieldType: {
-            fieldTypeName: 'GroupDrop',
+            fieldTypeName: '',
             exportValue: 1,
             indexField: 2,
             blank: true,

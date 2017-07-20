@@ -63,8 +63,8 @@ class Questions extends React.Component {
 
     componentDidUpdate(prevProps, prevState) {
         let _this = this;
-        if (this.props.question.toastrMsg != '') {
-            toastr.success('boo', this.props.question.toastrMsg, {
+        if (this.props.question.toastr.msg != '') {
+            toastr[this.props.question.toastr.type]( this.props.question.toastr.msg, '', {
                 onHideComplete: _this.props.resetToastrMsg
             });
         }

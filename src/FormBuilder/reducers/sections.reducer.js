@@ -3,11 +3,11 @@ import { deepClone } from '../actions/common.action';
 const sec = {
 
     list: [],
-    toastr:{
+    toastr: {
         msg: '',
         type: '',
     },
-    loader:{
+    loader: {
         loading: false,
         paragraphs: 2,
         loadingText: 'loading sections',
@@ -35,13 +35,10 @@ export default function sections(state = sec, action) {
             state.list.splice(action.newIndex, 0, sec[0]);
             state.toastr.msg = 'section ORDER CHANGED successfulyl';
             state.toastr.type = 'success';
-            break;    
+            break;
 
         case 'CREATE_SECTION':
-            state = deepClone(state);
-            state.list.push(action.payload.data);
-            state.toastr.msg = 'section created successfully';
-            state.toastr.type = 'success';
+            state = createSection(state, action);
             break;
 
         case 'COPY_SECTION':
@@ -75,14 +72,30 @@ export default function sections(state = sec, action) {
         case 'RESET_SECTION_TOASTR_MSG':
             state.toastr.msg = '';
             state.toastr.type = '';
-            break;    
+            break;
 
-         case 'SET_TOASTR_MESSAGE':
+        case 'SET_TOASTR_MESSAGE':
             state = deepClone(state);
             state.toastr.msg = action.msg;
             state.toastr.type = action.msgType;
-            break;   
+            break;
     }
+    return state;
+}
+
+function createSection(state, action) {
+    state = deepClone(state);
+    console.log(action);
+    if (action.error) {
+        state.toastr.msg = 'section name can not be duplicate';
+        state.toastr.type = 'error'
+    }
+    else {
+        state.list.push(action.payload.data);
+        state.toastr.msg = 'section created successfully';
+        state.toastr.type = 'success';
+    }
+
     return state;
 }
 

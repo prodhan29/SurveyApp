@@ -51,7 +51,7 @@ export default function project(state = formBuilder, action) {
         case 'FIELD_CONFIG_PANEL_SELECT':
             state = deepClone(state);
             state.active.panel = action.payload;
-            break;
+            break;  
 
         // Section Operations    
         case 'FETCH_SECTIONS_FROM_SERVER':
@@ -168,7 +168,13 @@ export default function project(state = formBuilder, action) {
 
 function createSection(state, action) {
     state = deepClone(state);
-    state.cacheData.push(action.payload.data);
+    if(typeof action.payload.data != 'undefined'){
+        state.cacheData.push(action.payload.data);
+    }
+    else {
+        
+    }
+    
 
     // this condition will work only at the beging of section creation from sectionIninitial Div 
     if(state.cacheData.length == 1) {

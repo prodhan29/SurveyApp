@@ -18,7 +18,12 @@ const SortableItem = SortableElement((props) =>
             <span className="fa fa-files-o" onClick={(e) => { e.stopPropagation(); props.copyQues(props.value) }}></span>
             <span className="fa fa-trash" onClick={(e) => { e.stopPropagation(); props.deleteQues(props.value) }}></span>
         </div>
-        <span className="form_label"> {`${props.indexNumber + 1}) ${props.value.caption}`}</span>
+        <span className="form_label">
+             
+            {`${props.indexNumber + 1}) ${props.value.caption}`}
+            <span className="ques-name" style={{color:'#90A4AE'}}> <i> ({props.value.name})</i></span>
+
+            </span>
         <span className="form_field">
             {quesTypeElement(props.value)}
         </span>

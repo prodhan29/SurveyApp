@@ -23,7 +23,7 @@ class Sections extends React.Component {
     componentDidUpdate() {
         let _this = this;
         if (this.props.section.toastr.msg != '') {
-            toastr[this.props.section.toastr.type](this.props.section.toastr.type, this.props.section.toastr.msg, {
+            toastr[this.props.section.toastr.type](this.props.section.toastr.msg,'', {
                 onHideComplete: _this.props.resetToastrMsg
             });
         }

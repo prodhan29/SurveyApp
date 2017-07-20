@@ -2,7 +2,10 @@ import { changeFieldState, deepClone } from '../actions/common.action';
 import { hybridQues } from '../actions/question.action';
 
 const question = {
-    toastrMsg: '',
+    toastr:{
+        msg: '',
+        type: 'success',
+    },  
     pendingQues: false, // to trace if any question is in the middle of construction
     edit: {
         isRunning: false,
@@ -56,13 +59,13 @@ export default function questions(state = question, action) {
             state.pendingQues = false;
             state.list.pop();
             state.list.push(action.payload.data);
-            state.toastrMsg = 'question CREATED successfully';  // this same message is added in sortablecomponet to drag the question list to bottom
+            state.toastr.msg = 'question CREATED successfully';  // this same message is added in sortablecomponet to drag the question list to bottom
             break;
 
         case 'COPY_QUESTION':
             state = deepClone(state);
             state.list.push(action.payload.data);
-            state.toastrMsg = 'question COPIED successfully';
+            state.toastr.msg = 'question COPIED successfully';
             break;
 
         case 'UPDATE_QUESTION':
@@ -71,7 +74,7 @@ export default function questions(state = question, action) {
             state.edit.isRunning = false;
             state.list[action.payload.index] = action.payload.data;
             refresh(state);
-            state.toastrMsg = 'question UPDATED successfully';
+            state.toastr.msg = 'question UPDATED successfully';
             break;
 
         case 'QUESTIONS_CHANGE':
@@ -88,11 +91,13 @@ export default function questions(state = question, action) {
         case 'QUESTION_DELETE':
             state = deepClone(state);
             state.list.splice(action.payload.index, 1);
-            state.toastrMsg = 'question delete successfully';
+            state.toastr.msg = 'question delete successfully';
             break;
 
         case 'RESET_TOASTR_MSG':
-            state.toastrMsg = '';
+            state = deepClone(state);
+            state.toastr.msg ='';
+            state.toastr.type = 'success';
             break;
 
         case 'FETCH_QUESTIONS_FOR_ALL_SECTIONS_INITIALLY':
@@ -118,6 +123,12 @@ export default function questions(state = question, action) {
         case 'REMOVE_EXTRA_QUES':
             state = deepClone(state);
             removeExtraQues(state, action.payload, action.index);
+            break;
+
+        case 'SHOW_VALIDATION_MESSAGE':
+            state = deepClone(state);
+            state.toastr.msg = action.payload;
+            state.toastr.type = 'error';
             break;
 
         // Reset Actions
