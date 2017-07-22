@@ -105,9 +105,12 @@ export function fetchSections(projectId) {
 }
 
 function fetchQuesForAllSection(sections) {
-    console.log(sections);
-    stopQuestionLoading();
     let secLen = sections.length;
+    if(secLen === 0) {
+        stopSectionLoading();
+        return;
+    }
+    
     for (let i = 0; i < secLen; i++) {
         var sec = sections[i];
 
@@ -128,10 +131,10 @@ function fetchQuesForAllSection(sections) {
     }
 }
 
-export function stopQuestionLoading() {
+export function stopSectionLoading() {
     Store.dispatch((() => {
         return {
-            type: 'STOP_LOADING_FOR_QUESTIONS',
+            type: 'STOP_LOADING_SECTION',
         }
     })());
 }

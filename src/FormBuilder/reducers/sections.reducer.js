@@ -25,9 +25,14 @@ export default function sections(state = sec, action) {
             state.loader.loadingText = 'loading sections';
             break;
 
+        case 'STOP_LOADING_SECTION':
+            state = deepClone(state);
+            state.loader.loading = false;
+            state.loader.loadingText = '';
+            break;    
+
         case 'FETCH_QUESTIONS_FOR_ALL_SECTIONS_INITIALLY':
             state = deepClone(state);
-            
             state.loader.loadedSection += 1; 
             console.log(state.loader.loadedSection + '  '+action.secLen);
             console.log(!(state.loader.loadedSection === action.secLen));
