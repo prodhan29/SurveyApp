@@ -60,7 +60,7 @@ class CalculationRule extends React.Component {
 
     deleteNode = (parent, index) => {
         // if user delete the last node calculation rules get crashed
-        if(parent.length > 1) {
+        if(this.state.nodes.length > 1) {
             parent.splice(index, 1);
             this.setState({ parent });
             this.props.dataChangeInCalcRule(this.state.nodes);

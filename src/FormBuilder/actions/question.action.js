@@ -7,10 +7,19 @@ import Store from '../../store';
 export function questionLoader() {
     Store.dispatch((() => {
         return {
-            type: 'LOADER_FOR_QUESTOINS',
+            type: 'START_LOADING_FOR_QUESTIONS',
         }
     })());
 }
+
+export function stopQuestionLoading() {
+    Store.dispatch((() => {
+        return {
+            type: 'STOP_LOADING_FOR_QUESTIONS',
+        }
+    })());
+}
+
 export function fetchQuestions(data) {
 
     const url = `${AppConfig.domain}/question?sectionId=${data.sectionId}`;
@@ -89,14 +98,13 @@ export function removeExtraQues(payload, index) {
 export function quesSequenceChange(sectionId, questions, oldIndex, newIndex) {
     let questionIds = getQuestionIds(questions.list, oldIndex, newIndex);
     console.log(questionIds);
-
-    axios.post(`${AppConfig.domain}/question/order?sectionId=${sectionId}`, questionIds, AppConfig.ajaxConfig()).then((response) => {
-        Store.dispatch((() => {
+    Store.dispatch((() => {
             return {
                 type: 'QUES_SEQUENCE_CHANGE',
                 payload: { oldIndex, newIndex }
             }
         })());
+    axios.post(`${AppConfig.domain}/question/order?sectionId=${sectionId}`, questionIds, AppConfig.ajaxConfig()).then((response) => {
     });
 }
 

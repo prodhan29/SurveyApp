@@ -59,7 +59,7 @@ class FormBuilderApp extends React.Component {
     }
 
     componentDidMount() {
-        questionLoader();
+        sectionLoader();
 
         console.log(" url params -- > " + JSON.stringify(this.props.projectId));
         this.props.getProjectById(this.props.projectId);
@@ -219,7 +219,7 @@ class FormBuilderApp extends React.Component {
                 <section className="content_body" >
 
                     <Sidebar />
-                    <Loader loader={this.props.section.loader} />
+                    {/*<Loader loader={this.props.section.loader} />*/}
                     <SectionInitial display={this.isFormbuilderVisible('sectionInitial')}
                         submit={this.firstSectionSubmit}
                     />

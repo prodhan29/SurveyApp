@@ -1,6 +1,7 @@
 'use strict'
 
 import { getSectionById, deepClone, changeFieldState } from '../actions/common.action';
+import { hybridQues } from '../actions/question.action';
 
 const formBuilder = {
     ob: {},
@@ -51,6 +52,7 @@ export default function project(state = formBuilder, action) {
         case 'FIELD_CONFIG_PANEL_SELECT':
             state = deepClone(state);
             state.active.panel = action.payload;
+            state.active.question.data.questionId = 0; // 
             break;  
 
         // Section Operations    
@@ -170,9 +172,7 @@ function createSection(state, action) {
     state = deepClone(state);
     if(typeof action.payload.data != 'undefined'){
         state.cacheData.push(action.payload.data);
-    }
-    else {
-        
+        state.cacheData[state.cacheData.length-1].child = [];
     }
     
 

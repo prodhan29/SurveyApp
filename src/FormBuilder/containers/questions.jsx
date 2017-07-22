@@ -8,7 +8,7 @@ import { toastr } from 'react-redux-toastr';
 import AddFieldPanel from '../components/common/add_field.component';
 
 // Actions
-import { showWarningModal } from '../actions/project.action';
+import {getSelectedFieldReducer } from '../actions/common.action';
 import {
     onQuestionClick,
     quesSequenceChange,
@@ -17,41 +17,17 @@ import {
     removeExtraQues
 } from '../actions/question.action';
 
-import { selectConfigPanel, setActiveQuestion, resetToastrMsg } from '../actions/project.action';
+import { selectConfigPanel, setActiveQuestion, resetToastrMsg, showWarningModal } from '../actions/project.action';
 
 class Questions extends React.Component {
 
-    fieldConfigPanel = () => {
-        var panel = this.props.project.active.panel;
-
-        if (panel === 'text' || panel === 'suggestion' || panel === 'barcode') {
-            return this.props.text;
-        }
-
-        else if (panel === 'image' || panel === 'signature' || panel === 'gprs') {
-            return this.props.otherField;
-        }
-
-        else if (panel === 'number' || panel === 'float') {
-            return this.props.number;
-        }
-
-        else if (panel === 'dropdown' || panel === 'checkbox') {
-            return this.props.dropCheck;
-        }
-
-        else if (panel === 'time' || panel === 'date') {
-            return this.props.dateTime;
-        }
-        else if (panel === 'groupdrop') {
-            return this.props.groupDrop;
-        }
-        return null;
-    }
-
     onQuestionClick = (data, index) => {
+        if(data.questionId == this.props.question.active.question.data.questionId){
+            return;
+        }
+
         if (!this.props.question.pendingQues || (this.props.question.edit.isRunning &&
-            (JSON.stringify(this.props.question.edit.quesOldState) === JSON.stringify(this.fieldConfigPanel().data)))) {
+            (JSON.stringify(this.props.question.edit.quesOldState) === JSON.stringify(getSelectedFieldReducer(this.props).data)))) {
             this.props.selectConfigPanel(data.fieldType.fieldTypeName.toLowerCase());
             this.props.setActiveQuestion(data, index);
             this.props.onQuestionClick(data);
@@ -87,7 +63,7 @@ class Questions extends React.Component {
                         copyQues={this.props.copyQues}
                         showWarningModal={this.props.showWarningModal}
                         loader={this.props.question.loader}
-                        msg={this.props.question.toastrMsg}
+                        msg={this.props.question.toastr.msg}
                     />
                 </div>
             </div>

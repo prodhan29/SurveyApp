@@ -30,10 +30,21 @@ export default function questions(state = question, action) {
 
     switch (action.type) {
 
-        case 'LOADER_FOR_QUESTOINS':
+        case 'START_LOADING_FOR_QUESTIONS':
             state = deepClone(state);
             state.loader.loading =true;
             break;
+
+        case 'STOP_LOADING_FOR_QUESTIONS':
+            state = deepClone(state);
+            state.loader.loading =false;
+            break;
+
+        case 'SECTION_CHANGE':
+            console.log('-------------cleaned section list');
+            state = deepClone(question);
+
+            break;        
 
         case 'DELETE_SECTION':
             state = deepClone(state);
@@ -47,6 +58,7 @@ export default function questions(state = question, action) {
 
         case 'FETCH_QUESTIONS_FROM_SERVER':
             state = deepClone(state);
+            console.log('fetch questions from server');
             if (typeof action.payload.data === 'undefined') {
                 state.list = [];
             } else {
@@ -79,6 +91,9 @@ export default function questions(state = question, action) {
 
         case 'QUESTIONS_CHANGE':
             state = deepClone(state);
+            state.list = [];
+            console.log(' question list changed ');
+            console.log(state);
             state.list = action.payload;
             break;
 
@@ -117,7 +132,9 @@ export default function questions(state = question, action) {
 
         case 'FIELD_CONFIG_PANEL_SELECT':
             state = deepClone(state);
-            setQuesForLiveUpdate(state, action);
+            console.log('setting ----- question for liveUpdate');
+            console.log(state);
+            state = setQuesForLiveUpdate(state, action);
             break;
 
         case 'REMOVE_EXTRA_QUES':
@@ -142,6 +159,7 @@ export default function questions(state = question, action) {
             refresh(state);
             break;
     }
+
     return state;
 }
 
@@ -149,8 +167,8 @@ function setBuilderInitialState(state, action) {
     state = deepClone(state);
     if (action.index == '0') {
         state.list = action.payload.data;
-        state.loader.loading = false;
     }
+    state.loader.loading = false;
     return state;
 }
 
@@ -201,4 +219,5 @@ function setQuesForLiveUpdate(state, action) {
         index: state.list.length
     }
     state.list.push(pendingQues);
+    return state;
 }

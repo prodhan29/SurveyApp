@@ -66,9 +66,9 @@ export default class SortableQuestions extends React.Component {
 
     componentDidUpdate(prevProps, prevState) {
         // drag the question list to the bottom to see newly created question;
-        if (this.props.msg === 'question CREATED successfully') { 
+
+;        if (this.props.msg === 'question CREATED successfully') { 
             let elem = document.getElementById('questions');
-            console.log(document.getElementById('questions').scrollHeight);
             elem.scrollTop = elem.scrollHeight;
         }
     }

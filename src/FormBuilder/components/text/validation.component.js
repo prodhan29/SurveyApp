@@ -14,10 +14,10 @@ class OtherValidation extends React.Component {
                     <div className="">
                         <label>
                             <input type="checkbox"
-                                name="removeSpace"
+                                name="removeAccessSpace"
                                 data=''
                                 onChange={this.props.onchange}
-                                checked={this.props.data.removeSpace} />
+                                checked={this.props.data.removeAccessSpace} />
                             &nbsp; Remove Access Space
                             </label>
                     </div>
@@ -58,7 +58,7 @@ export default class TextValidation extends React.Component {
         return (
             <div>
                 <div className="form_row">
-                    <span className="form_label">Lenth</span>
+                    <span className="form_label">Length</span>
                     <span className="form_field">
                         <input type="number"
                             name="length"

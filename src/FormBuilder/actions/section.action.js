@@ -6,7 +6,7 @@ import Store from '../../store';
 export function sectionLoader() {
     Store.dispatch((() => {
             return {
-                type: 'LOADER_FOR_SECTION',
+                type: 'START_LOADING_FOR_SECTION',
             }
         })());
 }
@@ -106,9 +106,12 @@ export function fetchSections(projectId) {
 
 function fetchQuesForAllSection(sections) {
     console.log(sections);
-    for (let i = 0; i < sections.length; i++) {
+    stopQuestionLoading();
+    let secLen = sections.length;
+    for (let i = 0; i < secLen; i++) {
         var sec = sections[i];
-        (function (sec, index) {
+
+        (function (sec, index, secLen) {
             const url = `${AppConfig.domain}/question?sectionId=${sec.sectionId}`;
             axios.get(url, AppConfig.ajaxConfig()).then((response) => {
 
@@ -117,11 +120,20 @@ function fetchQuesForAllSection(sections) {
                         type: 'FETCH_QUESTIONS_FOR_ALL_SECTIONS_INITIALLY',
                         payload: response,
                         index,
+                        secLen
                     }
                 })());
             })
-        })(sec, i);
+        })(sec, i, secLen);
     }
+}
+
+export function stopQuestionLoading() {
+    Store.dispatch((() => {
+        return {
+            type: 'STOP_LOADING_FOR_QUESTIONS',
+        }
+    })());
 }
 
 export function setToastrMsg(msgType, msg) {

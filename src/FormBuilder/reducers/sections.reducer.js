@@ -9,8 +9,9 @@ const sec = {
     },
     loader: {
         loading: false,
-        paragraphs: 2,
-        loadingText: 'loading sections',
+        paragraphs: 30,
+        loadingText: '',
+        loadedSection: 0
     }
 };
 
@@ -18,15 +19,25 @@ export default function sections(state = sec, action) {
 
     switch (action.type) {
 
-        case 'LOADER_FOR_SECTION':
+        case 'START_LOADING_FOR_SECTION':
             state = deepClone(state);
             state.loader.loading = true;
+            state.loader.loadingText = 'loading sections';
+            break;
+
+        case 'FETCH_QUESTIONS_FOR_ALL_SECTIONS_INITIALLY':
+            state = deepClone(state);
+            
+            state.loader.loadedSection += 1; 
+            console.log(state.loader.loadedSection + '  '+action.secLen);
+            console.log(!(state.loader.loadedSection === action.secLen));
+            state.loader.loading = !(state.loader.loadedSection === action.secLen);
+            state.loader.loadingText = `section loaded ${state.loader.loadedSection} of ${action.secLen}`;
             break;
 
         case 'FETCH_SECTIONS_FROM_SERVER':
             state = deepClone(state);
             state.list = (typeof action.payload.data === 'undefined') ? ([]) : action.payload.data;
-            state.loader.loading = false;
             break;
 
         case 'SECTION_ORDER_CHANGE':

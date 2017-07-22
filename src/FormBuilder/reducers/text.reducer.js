@@ -14,7 +14,7 @@ var initialState = {
         caseNormalization: 3,
         length: 32,
         oneWord: false,
-        removeSpace: false,  // need to add this with api
+        removeAccessSpace: false,  // need to add this with api
         fieldType: {
             fieldId: 0,
             fieldTypeName: '',

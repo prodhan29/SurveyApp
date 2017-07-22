@@ -26,11 +26,14 @@ export default class ModalExampleControlled extends React.Component {
                     <h3 style={{color: 'white'}}>Do you want to save the ongoing question ?</h3>
                 </Modal.Content>
                 <Modal.Actions>
-                    <Button basic color='red' onClick={this.props.cancel} inverted>
-                        <Icon name='remove' /> No
+                    <Button color='green' onClick={this.handleClose} onClick={this.props.save} inverted>
+                        <Icon name='checkmark' /> Continue
                     </Button>
                     <Button color='green' onClick={this.handleClose} onClick={this.props.save} inverted>
                         <Icon name='checkmark' /> Save
+                    </Button>
+                    <Button basic color='red' onClick={this.props.cancel} inverted>
+                        <Icon name='remove' /> No
                     </Button>
                 </Modal.Actions>
             </Modal>

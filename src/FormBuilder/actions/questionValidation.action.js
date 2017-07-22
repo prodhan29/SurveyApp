@@ -1,6 +1,6 @@
 var builder = {
     sections: [],
-    questions: [],  
+    questions: [],
 }
 
 export function questionValidation(type, ques, projectData) {
@@ -8,11 +8,11 @@ export function questionValidation(type, ques, projectData) {
     builder.sections = projectData.cacheData;
     builder.questions = projectData.cacheData[projectData.active.section.index].child;
 
-console.log(builder.sections);
-console.log(builder.questions);
-    let general =  generalValidation(ques);
+    console.log(builder.sections);
+    console.log(builder.questions);
+    let general = generalValidation(ques);
     return general;
-    
+
     // else if (type === 'text' || type === 'suggestion' || type === 'barcode') {
     //         return verifyTextQues(ques);
     // }
@@ -39,16 +39,16 @@ console.log(builder.questions);
 
 function generalValidation(ques) {
 
-    if(ques.name === "" || ques.caption === "") {
+    if (ques.name === "" || ques.caption === "") {
         return {
             status: false,
             msg: ' Question name or caption can not be empty'
         }
     }
     else {
-        for(let i=0; i<builder.questions.length ;i++) {
-            if((builder.questions[i].questionId !== ques.questionId) && builder.questions[i].name === ques.name){
-                return{ 
+        for (let i = 0; i < builder.questions.length; i++) {
+            if ((builder.questions[i].questionId !== ques.questionId) && builder.questions[i].name === ques.name) {
+                return {
                     status: false,
                     msg: 'Question name is not unique in this Section'
                 }
@@ -56,7 +56,7 @@ function generalValidation(ques) {
         }
         return {
             status: true,
-        }   
+        }
     }
 }
 
@@ -76,7 +76,7 @@ function verifyDropCheck(ques) {
 
 }
 
-function verifyDateTime(ques){
+function verifyDateTime(ques) {
 
 }
 

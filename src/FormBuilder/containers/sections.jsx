@@ -9,7 +9,7 @@ import Loader from '../../GeneralComponent/loader.container';
 import { showWarningModal } from '../actions/project.action';
 import * as SectionAction from '../actions/section.action';
 import { fetchQuestions, questionsChange, fetchQuesForExport } from '../actions/question.action';
-import { questionExist, getQuestionsBySectionId } from '../actions/common.action';
+import { questionExist, getQuestionsBySectionId, getSelectedFieldReducer } from '../actions/common.action';
 
 class Sections extends React.Component {
 
@@ -29,43 +29,12 @@ class Sections extends React.Component {
         }
     }
 
-    fieldConfigPanel = () => {
-        var panel = this.props.project.active.panel;
-
-        if (panel === 'text' || panel === 'suggestion' || panel === 'barcode') {
-            return this.props.text;
-        }
-
-        else if (panel === 'image' || panel === 'signature' || panel === 'gprs') {
-            return this.props.otherField;
-        }
-
-        else if (panel === 'number' || panel === 'float') {
-            return this.props.number;
-        }
-
-        else if (panel === 'dropdown' || panel === 'checkbox') {
-            return this.props.dropCheck;
-        }
-
-        else if (panel === 'time' || panel === 'date') {
-            return this.props.dateTime;
-        }
-        else if (panel === 'groupdrop') {
-            return this.props.groupDrop;
-        }
-        return null;
-    }
-
     // checking if the section has questions in cacheData if not then fetch from server`
     fetchQuestions = (section, index) => {
 
         // if any question is in edit mode and modified or question is in creation process app will avoid other operations. 
         if (!this.props.question.pendingQues || (this.props.question.edit.isRunning &&
-            (JSON.stringify(this.props.question.edit.quesOldState) === JSON.stringify(this.fieldConfigPanel().data)))) {
-
-            // prevent section change when child event is clicked on;
-            if (section.sectionId === this.state.editSection.sectionId) return;
+            (JSON.stringify(this.props.question.edit.quesOldState) === JSON.stringify(getSelectedFieldReducer(this.props).data)))) {
 
             this.props.sectionChange(section, index);
             var cachedSection = this.props.project.cacheData[index];
@@ -153,14 +122,16 @@ class Sections extends React.Component {
                 </li>
             );
         });
-
+        console.log(this.props.section.loader);
         return (
             <section className="builder_left">
                 <h3>Sections</h3>
                 <ul className="section_nav">
                     <Loader loader={this.props.section.loader}/>
-                    {sectionList}
-                
+                    {this.props.section.loader.loading}
+                    <section style={this.props.section.loader.loading ? {display: 'none'} : {display: 'block'}}>
+                        {sectionList}
+                    </section>
                 </ul>
             </section>
         );

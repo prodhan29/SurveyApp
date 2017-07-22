@@ -154,6 +154,11 @@ export default class NumberValidation extends React.Component {
         reader.readAsText(file);
     }
 
+    removeAll =()=>{
+        this.state.ob.target.value = [];
+        this.props.dataChange(this.state.ob);
+    }
+
     render() {
 
         var _this = this;
@@ -168,7 +173,7 @@ export default class NumberValidation extends React.Component {
                         <i className="material-icons" data-toggle="dropdown">more_vert</i>
                         <div className="dropdown_panel action_dropdown dropdown-menu">
                             <ul>
-                                <li>Remove All</li>
+                                <li onClick={this.removeAll}>Remove All</li>
                                 <li><input id='file-upload' type='file' onChange={this.uploadOption} /> Import </li>
                             </ul>
                         </div>

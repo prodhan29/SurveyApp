@@ -6,7 +6,6 @@ import shortParagraph from '../styles/img/short-paragraph.png';
 export default class LoaderComponent extends React.Component {
     paragraphs =()=>{
         let images = [];
-        console.log(this.props.loader.paragraphs);
         for(let i=0;i<this.props.loader.paragraphs;i++){
             images.push(<Image key ={i} src={shortParagraph} />);
         }
