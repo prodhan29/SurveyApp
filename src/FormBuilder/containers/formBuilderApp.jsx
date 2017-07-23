@@ -1,6 +1,8 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
+import Store from '../../store';
+import { push, replace } from 'react-router-redux';
 // Actions
 import { fetchSections, sectionLoader } from '../actions/section.action';
 import { createSection, importSection } from '../actions/section.action';
@@ -67,6 +69,10 @@ class FormBuilderApp extends React.Component {
         window.onerror = function (msg) {
             toastr.error('Error: ' + msg);
         };
+    }
+
+    backToProjects=()=>{
+        Store.dispatch(replace('/projects'));
     }
 
     quesSavingAction = () => {
@@ -214,8 +220,7 @@ class FormBuilderApp extends React.Component {
                     cancel={(e) => { this.setState({ showWarningModal: false }); this.props.cancelForm() }}
                     save={this.saveQuestion}
                 />
-                <Header name={this.props.project.ob.name}
-                />
+                <Header name={this.props.project.ob.name}> <i className="material-icons" onClick={this.backToProjects}>chevron_left</i> </Header>
                 <section className="content_body" >
 
                     <Sidebar />

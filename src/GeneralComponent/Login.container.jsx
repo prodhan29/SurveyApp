@@ -4,7 +4,7 @@ import { bindActionCreators } from 'redux';
 import { signin, signinSuccess } from '../GeneralActions/auth.action';
 import { push, replace } from 'react-router-redux';
 import Store from '../store';
-import Logo from '../styles/img/logo.png';
+import Logo from '../styles/img/logo-login.png';
 
 class Login extends React.Component {
 
@@ -51,6 +51,7 @@ class Login extends React.Component {
                                     className="form-control"
                                     name="username"
                                     onChange={this.handleChange}
+                                    onKeyPress={this.onEnter}
                                 />
                             </div>
                             <div className="input-group">
@@ -63,7 +64,7 @@ class Login extends React.Component {
                                 />
                             </div>
                             <button className="btn btn-primary btn-round" onClick={()=> signin(this.state, this.proceedSignin)}>Sign In</button>
-                            <p className="login-form-switcher"><a href="">Or Sign In with your Social ID</a></p>
+                            
                         </div>
                     </div>
                 </div>

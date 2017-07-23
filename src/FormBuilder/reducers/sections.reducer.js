@@ -37,7 +37,7 @@ export default function sections(state = sec, action) {
             console.log(state.loader.loadedSection + '  '+action.secLen);
             console.log(!(state.loader.loadedSection === action.secLen));
             state.loader.loading = !(state.loader.loadedSection === action.secLen);
-            state.loader.loadingText = `section loaded ${state.loader.loadedSection} of ${action.secLen}`;
+            state.loader.loadingText = `loading ${state.loader.loadedSection} of ${action.secLen}`;
             break;
 
         case 'FETCH_SECTIONS_FROM_SERVER':

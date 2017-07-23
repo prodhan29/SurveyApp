@@ -98,8 +98,10 @@ class CalculationRule extends React.Component {
     getCalcRule = () => {
         if (!this.state.addRule && !this.dataPresent()) {
             return (
-                <StartPanel operators={['+', '-', '/', 'X', '()']}
-                    toggleRule={()=>this.toggleRule('add')} />
+                <div className="rules_block pick_rule" >
+                    <div className="segment_title">Pick and suggest Rule<span className="add" onClick={this.toggleRule}>+ Add</span></div>
+                    <div className="segment_content no_content">No Rules Added yet</div>
+                </div>
             );
         }
         else {

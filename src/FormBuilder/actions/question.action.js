@@ -175,7 +175,7 @@ export function quesTypeElement(ques) {
             return (
                 <label key={index}>
                     &nbsp;
-                    <input type="checkbox" />
+                    <input type="checkbox" disabled={true}/>
                     {item.name} &nbsp;
                 </label>
             );
@@ -185,7 +185,7 @@ export function quesTypeElement(ques) {
     else if (ques.fieldType.fieldTypeName.toLowerCase() == 'dropdown') {
         return (
             <div className="dropdown">
-                <a href="#" className="dropdown-toggle" data-toggle="dropdown">select a value<i className="fa fa-chevron-down"></i></a>
+                <a href="#" className="dropdown-toggle" >select a value<i className="fa fa-chevron-down"></i></a>
                 <ul className="dropdown-menu">
                     {/*{
                         ques.optionValues.map(function (item, index) {
@@ -202,7 +202,7 @@ export function quesTypeElement(ques) {
     }
 
     else if (ques.fieldType.fieldTypeName.toLowerCase() == 'date' || ques.fieldType.fieldTypeName.toLowerCase() == 'time') {
-        return (<input type="date" disabled />);
+        return (<input type="text" placeholder={(ques.fieldType.fieldTypeName.toLowerCase() == 'date') ? 'mm-dd-yyy' : 'HH:MM'} disabled />);
     }
     return (<input type="text" disabled />);
 }
