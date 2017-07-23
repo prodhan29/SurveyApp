@@ -37,7 +37,9 @@ h3 {
     margin: 0;
 }
 .login-content-wrapper .input-group {
-    display: block;
+    display: inline-block;
+    margin: 0 0 32px;
+    width: 100%;
 }
 .login-content-wrapper .input-group label {
     display: block;
@@ -48,7 +50,7 @@ h3 {
 }
 .login-content-wrapper .input-group .form-group {
     display: block;
-    margin: 0 0 32px;
+    margin: 0;
     padding: 0;
 }
 .login-content-wrapper .input-group .form-group input {
@@ -977,6 +979,12 @@ ul.tab_nav.compact_nav {
 .segment_content {
     color: #a2a9ac;
     padding: 10px 0 30px;
+}
+.calc_rule .segment_content {
+    padding-bottom: 0;
+}
+.rules_content .rules_block.calc_rule {
+    padding-bottom: 20px;
 }
 .rules_condition_operations {
     display: -webkit-flex;
@@ -2283,14 +2291,14 @@ form.node_edit_form .field.action_node .fa.fa-close {
     width: 50px;
 }
 .action_col .dropdown {
-    padding: 0 10px;
-    cursor: pointer;
     display: inline-block;
 }
 .action_col .dropdown i {
+    cursor: pointer;
     color: #999;
     display: block;
     text-align: center;
+    padding: 0 10px;
 }
 .action_col .dropdown:hover i,
 .action_col .dropdown.open i {
