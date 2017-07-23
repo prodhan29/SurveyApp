@@ -117,7 +117,6 @@ function fetchQuesForAllSection(sections) {
         (function (sec, index, secLen) {
             const url = `${AppConfig.domain}/question?sectionId=${sec.sectionId}`;
             axios.get(url, AppConfig.ajaxConfig()).then((response) => {
-
                 Store.dispatch((() => {
                     return {
                         type: 'FETCH_QUESTIONS_FOR_ALL_SECTIONS_INITIALLY',

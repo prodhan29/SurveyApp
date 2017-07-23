@@ -99,9 +99,7 @@ export default class NumberValidation extends React.Component {
                             name='optionName'
                             value={_this.state.edit.optionName}
                             onChange={_this.editOption} />
-
                     </td>
-
                     <td>
                         <input type='text'
                             style={{ width: '100%' }}
@@ -154,7 +152,7 @@ export default class NumberValidation extends React.Component {
         reader.readAsText(file);
     }
 
-    removeAll =()=>{
+    removeAll = () => {
         this.state.ob.target.value = [];
         this.props.dataChange(this.state.ob);
     }
@@ -179,25 +177,6 @@ export default class NumberValidation extends React.Component {
                         </div>
                     </span>
                 </div>
-
-                <div className="form_row">
-                    <span className="form_label">Option name</span>
-                    <span className="form_field">
-                        <input type="text"
-                            name='optionName'
-                            value={this.state.optionName}
-                            onChange={this.handleChange} />
-                    </span>
-                </div>
-                <div className="form_row">
-                    <span className="form_label">Export Value</span>
-                    <span className="form_field">
-                        <input type="text" name='exportValue'
-                            value={this.state.exportValue}
-                            onChange={this.handleChange}
-                            onKeyPress={this.submitOption} />
-                    </span>
-                </div>
                 <div className="values_block">
                     <table className="value_table">
                         <thead>
@@ -208,6 +187,25 @@ export default class NumberValidation extends React.Component {
                             </tr>
                         </thead>
                         <tbody>
+                            <tr className="edit_row">
+                                <td>
+                                    <input type="text"
+                                        name='exportValue'
+                                        value={this.state.exportValue}
+                                        onChange={this.handleChange}
+                                        onKeyPress={this.submitOption} />
+                                </td>
+                                <td>
+                                    <input type="text"
+                                        name='optionName'
+                                        value={this.state.optionName}
+                                        onChange={this.handleChange}
+                                        onKeyPress={this.submitOption} />
+                                </td>
+                                <td className="value_action">
+
+                                </td>
+                            </tr>
                             {optionELements}
                         </tbody>
                     </table>
