@@ -9,7 +9,7 @@ const sec = {
     },
     loader: {
         loading: false,
-        paragraphs: 30,
+        paragraphs: 15,
         loadingText: '',
         loadedSection: 0
     }
