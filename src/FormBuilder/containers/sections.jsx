@@ -23,7 +23,7 @@ class Sections extends React.Component {
     componentDidUpdate() {
         let _this = this;
         if (this.props.section.toastr.msg != '') {
-            toastr[this.props.section.toastr.type](this.props.section.toastr.msg,'', {
+            toastr[this.props.section.toastr.type](this.props.section.toastr.msg, '', {
                 onHideComplete: _this.props.resetToastrMsg
             });
         }
@@ -84,8 +84,9 @@ class Sections extends React.Component {
         e.stopPropagation();
         fetchQuesForExport(section, SectionAction.exportSection);
     }
+
     sectionSequenceChange = (index, upDown) => {
-        if(parseInt(index + upDown) < 0) {
+        if (parseInt(index + upDown) < 0) {
             this.props.setToastrMsg('warning', 'not valid move');
             return;
         }
@@ -114,8 +115,8 @@ class Sections extends React.Component {
                                 <li onClick={(e) => { e.stopPropagation(); _this.copySection(val) }}>Copy</li>
                                 <li onClick={(e) => { e.stopPropagation(); SectionAction.deleteSection(val.sectionId, index) }}>Delete</li>
                                 <li onClick={(e) => { e.stopPropagation(); _this.exportSection(e, val) }} >Export</li>
-                                <li onClick={(e)=>{e.stopPropagation(); _this.sectionSequenceChange(index, -1)}}> Move Up </li>
-                                <li onClick={(e)=>{e.stopPropagation(); _this.sectionSequenceChange(index, 1)}}> Move Down </li>
+                                <li onClick={(e) => { e.stopPropagation(); _this.sectionSequenceChange(index, -1) }}> Move Up </li>
+                                <li onClick={(e) => { e.stopPropagation(); _this.sectionSequenceChange(index, 1) }}> Move Down </li>
                             </ul>
                         </div>
                     </span>
@@ -127,9 +128,9 @@ class Sections extends React.Component {
             <section className="builder_left">
                 <h3>Sections</h3>
                 <ul className="section_nav">
-                    <Loader loader={this.props.section.loader}/>
+                    <Loader loader={this.props.section.loader} />
                     {this.props.section.loader.loading}
-                    <section style={this.props.section.loader.loading ? {display: 'none'} : {display: 'block'}}>
+                    <section style={this.props.section.loader.loading ? { display: 'none' } : { display: 'block' }}>
                         {sectionList}
                     </section>
                 </ul>
@@ -162,7 +163,7 @@ function mapDispatchToProps(dispatch) {
         sectionChange: SectionAction.change,
         sectionSequenceChange: SectionAction.sectionSequenceChange,
         showWarningModal,
-        setToastrMsg : SectionAction.setToastrMsg,
+        setToastrMsg: SectionAction.setToastrMsg,
 
     }, dispatch);
 }

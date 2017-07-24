@@ -68,7 +68,8 @@ class GroupDropdown extends React.Component {
             default:
                 return (
                     <General data={this.props.groupDrop.data}
-                        dataChange={this.dataChange} />
+                        dataChange={this.dataChange}
+                        selectedSectionIndex={this.props.project.active.section.index}  />
                 );
         }
     }

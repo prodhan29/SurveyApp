@@ -53,7 +53,8 @@ class Number extends React.Component {
             default:
                 return (
                     <General data={this.props.number.data}
-                        dataChange={this.dataChange} />
+                        dataChange={this.dataChange}
+                        selectedSectionIndex={this.props.project.active.section.index} />
                 );
         }
     }
@@ -76,6 +77,7 @@ class Number extends React.Component {
 function mapStateToProps(state) {
 
     return {
+        project: state.Project,
         number: state.Number
     };
 }

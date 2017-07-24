@@ -60,19 +60,25 @@ export default class General extends React.Component {
                         </label>
                     </div>
                 </div>
-                <div className="separator"></div>
-                <div className="form_row checkbox_row">
-                    <div className="">
-                        <label>
-                            <input type="checkbox"
-                                checked={this.props.data.fieldType.indexField}
-                                name="indexField"
-                                data="fieldType"
-                                onChange={this.props.dataChange} />
-                            &nbsp; Index Field
-                        </label>
-                    </div>
-                </div>
+                {
+                    (this.props.selectedSectionIndex !== 0) ? null: (
+                        <div>
+                            <div className="separator"></div>
+                            <div className="form_row checkbox_row">
+                                <div className="">
+                                    <label>
+                                        <input type="checkbox"
+                                            checked={this.props.data.fieldType.indexField}
+                                            name="indexField"
+                                            data="fieldType"
+                                            onChange={this.props.dataChange} />
+                                        &nbsp; Index Field
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                    )
+                }
             </div>
         );
     }

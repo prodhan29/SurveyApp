@@ -59,7 +59,8 @@ class Text extends React.Component {
 
             default:
                 return <General data={this.props.txt.data}
-                    dataChange={this.dataChange} />
+                    dataChange={this.dataChange}
+                    selectedSectionIndex={this.props.project.active.section.index}  />
         }
     }
 

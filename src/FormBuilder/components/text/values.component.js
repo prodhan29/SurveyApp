@@ -1,4 +1,5 @@
 import React from 'react';
+import {downloadSample} from '../../actions/question.action.js';
 
 var resetEdit = {
     mode: false,
@@ -162,6 +163,7 @@ export default class AllowedValues extends React.Component {
                         <div className="dropdown_panel action_dropdown dropdown-menu">
                             <ul>
                                 <li onClick={this.removeAll}>Remove All</li>
+                                <li onClick={()=> downloadSample('suggestions')}>sample </li>
                                 <li><input id='file-upload' type='file' onChange={this.uploadOption} /> </li>
                             </ul>
                         </div>

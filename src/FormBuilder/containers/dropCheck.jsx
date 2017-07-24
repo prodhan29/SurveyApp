@@ -71,7 +71,8 @@ class DropCheck extends React.Component {
             default:
                 return (
                     <General data={this.props.dropCheck.data}
-                        dataChange={this.dataChange} />
+                        dataChange={this.dataChange}
+                        selectedSectionIndex={this.props.project.active.section.index}  />
                 );
         }
     }

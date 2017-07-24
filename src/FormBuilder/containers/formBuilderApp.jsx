@@ -4,10 +4,9 @@ import { bindActionCreators } from 'redux';
 import Store from '../../store';
 import { push, replace } from 'react-router-redux';
 // Actions
-import { fetchSections, sectionLoader } from '../actions/section.action';
-import { createSection, importSection } from '../actions/section.action';
+import { createSection, importSection, fetchSections, sectionLoader } from '../actions/section.action';
 import * as ProjectAction from '../actions/project.action';
-import { updateQuestion, preprocess, questionLoader, showValidationMsg } from '../actions/question.action';
+import { updateQuestion, preprocess, questionLoader, showValidationMsg, goToBottom } from '../actions/question.action';
 import { saveRule } from '../actions/common.action';
 import { questionValidation } from '../actions/questionValidation.action';
 // Containers
@@ -147,6 +146,7 @@ class FormBuilderApp extends React.Component {
 
             this.props.cancelForm();
             this.props.selectConfigPanel(e);
+            this.props.goToBottom();
         }
         else {
             this.props.showWarningModal();
@@ -294,6 +294,7 @@ function mapDispatchToProps(dispatch) {
         fetchSections,
         createSection,
         showValidationMsg,
+        goToBottom,
         getProjectById: ProjectAction.getProjectById,
         cancelForm: ProjectAction.cancelForm,
         saveRule: ProjectAction.saveRule,

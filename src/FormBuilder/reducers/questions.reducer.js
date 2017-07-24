@@ -6,6 +6,7 @@ const question = {
         msg: '',
         type: 'success',
     },  
+    goToBottom: false,
     pendingQues: false, // to trace if any question is in the middle of construction
     edit: {
         isRunning: false,
@@ -71,7 +72,7 @@ export default function questions(state = question, action) {
             state.pendingQues = false;
             state.list.pop();
             state.list.push(action.payload.data);
-            state.toastr.msg = 'question CREATED successfully';  // this same message is added in sortablecomponet to drag the question list to bottom
+            state.toastr.msg = 'question CREATED successfully';  
             break;
 
         case 'COPY_QUESTION':
@@ -132,8 +133,6 @@ export default function questions(state = question, action) {
 
         case 'FIELD_CONFIG_PANEL_SELECT':
             state = deepClone(state);
-            console.log('setting ----- question for liveUpdate');
-            console.log(state);
             state = setQuesForLiveUpdate(state, action);
             break;
 
@@ -147,6 +146,16 @@ export default function questions(state = question, action) {
             state.toastr.msg = action.payload;
             state.toastr.type = 'error';
             break;
+
+        case 'GO_TO_BOTTOM':
+            state = deepClone(state);
+            state.goToBottom = true;
+            break;    
+
+        case 'RESET_GO_TO_BOTTOM':
+            state = deepClone(state);
+            state.goToBottom = false;
+            break;    
 
         // Reset Actions
         case 'FETCH_SECTIONS_FROM_SERVER':

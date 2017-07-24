@@ -36,6 +36,14 @@ export function deleteProject(projectId, index) {
     }
 }
 
+export function copyProject(project) {
+    let payload = axios.post(`${AppConfig.domain}/project/${project.projectId}/copy`, project, AppConfig.ajaxConfig())
+    return {
+        type: 'COPY_PROJECT',
+        payload
+    }
+}
+
 export function fetchAllProjects() {
     let payload = axios.get(`${AppConfig.domain}/project`, AppConfig.ajaxConfig()).then((response) => {
         Store.dispatch((() => {

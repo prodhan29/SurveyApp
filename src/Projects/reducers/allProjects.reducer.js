@@ -42,7 +42,12 @@ export default function allProjects(state = initialState, action) {
         case 'SET_LOADER_FOR_PROJECT':
             state = deepClone(state);
             state.loader.loading = true;
-            break;    
+            break;
+
+        case 'COPY_PROJECT':
+            state = deepClone(state);
+            state.list.push(action.payload.data);
+            break;        
 
         default:
             return state;

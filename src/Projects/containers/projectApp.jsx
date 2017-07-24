@@ -46,6 +46,12 @@ class Projects extends React.Component {
         this.setState({ project, index });
     }
 
+    copyProject =(project)=> {
+        project = JSON.parse(JSON.stringify(project));
+        project.name = `${project.name}_${Date.now()}`;
+        this.props.copyProject(project);
+    }
+
     publish = (project, index) => {
         project.published = !project.published;
         ProjectAction.updateProject(project, index);
@@ -93,7 +99,7 @@ class Projects extends React.Component {
                             <div className="dropdown_panel action_dropdown dropdown-menu">
                                 <ul>
                                     <li>Edit</li>
-                                    <li>Copy</li>
+                                    <li onClick={()=> this.copyProject(project)}>Copy</li>
                                     <li onClick={() => this.setProject(project, index)} data-toggle="modal" data-target="#myModal"  >Delete</li>
                                 </ul>
                             </div>
@@ -178,6 +184,7 @@ function mapDispatchToProps(dispatch) {
         createProject: ProjectAction.createProject,
         deleteProject: ProjectAction.deleteProject,
         fetchAllProjects: ProjectAction.fetchAllProjects,
+        copyProject: ProjectAction.copyProject
     }, dispatch);
 }
 

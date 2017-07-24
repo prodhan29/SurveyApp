@@ -57,7 +57,8 @@ class DateTime extends React.Component {
             default:
                 return (
                     <General data={this.props.datetime.data}
-                        dataChange={this.dataChange} />
+                        dataChange={this.dataChange}
+                        selectedSectionIndex={this.props.project.active.section.index}  />
                 )
         }
     }

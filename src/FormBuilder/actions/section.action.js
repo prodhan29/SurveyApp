@@ -192,8 +192,6 @@ function getSectionNewSequence(sections, oldIndex, newIndex) {
 
 // method is called when exporting and copy section
 export function removeQuestionRules(questionList) {
-    console.log('before exporting');
-    console.log(questionList);
     for (let i = 0; i < questionList.length; i++) {
 
         questionList[i].jumpingRuleClient = null;
@@ -205,8 +203,7 @@ export function removeQuestionRules(questionList) {
         questionList[i].valueCheckRule = null;
         questionList[i].calculationRule = null;
     }
-    console.log('after exporting');
-    console.log(questionList);
+
     return questionList;
 }
 

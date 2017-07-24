@@ -14,7 +14,8 @@ import {
     quesSequenceChange,
     deleteQues,
     copyQues,
-    removeExtraQues
+    removeExtraQues,
+    resetGotoBottom,
 } from '../actions/question.action';
 
 import { selectConfigPanel, setActiveQuestion, resetToastrMsg, showWarningModal } from '../actions/project.action';
@@ -63,7 +64,8 @@ class Questions extends React.Component {
                         copyQues={this.props.copyQues}
                         showWarningModal={this.props.showWarningModal}
                         loader={this.props.question.loader}
-                        msg={this.props.question.toastr.msg}
+                        goToBottom={this.props.question.goToBottom}
+                        resetGotoBottom={this.props.resetGotoBottom}
                     />
                 </div>
             </div>
@@ -94,6 +96,7 @@ function mapDispatchToProps(dispatch) {
         copyQues,
         removeExtraQues,
         showWarningModal,
+        resetGotoBottom
     }, dispatch);
 }
 

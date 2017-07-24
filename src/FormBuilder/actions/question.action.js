@@ -126,6 +126,19 @@ export function showValidationMsg(payload) {
         payload
     }
 }
+
+export function resetGotoBottom(){
+    return {
+        type: 'RESET_GO_TO_BOTTOM',
+    }
+}
+
+export function goToBottom() {
+    return {
+        type: 'GO_TO_BOTTOM'
+    }
+}
+
 // ---------- this actions are not related to server -----------------
 // --------------------------------------------------------------------
 
@@ -238,7 +251,24 @@ export function hybridQues() {
             treatAsWarning: false
         }
     }
-
     return ob;
+}
+
+export function downloadSample(type){
+
+    let downloadText = '';
+    if(type === 'suggestions') {
+        downloadText = 'apple\nbanana\nPineapple';
+    }
+    else {
+        downloadText = 'apple,1\nbanana,2\nPineapple,3';
+    }
+    var element = document.createElement('a');
+    element.setAttribute('href', 'data:text/plain;charset=utf-8,' + encodeURIComponent(downloadText));
+    element.setAttribute('download', `${type} sample`);
+    element.style.display = 'none';
+    document.body.appendChild(element);
+    element.click();
+    document.body.removeChild(element);
 }
 
