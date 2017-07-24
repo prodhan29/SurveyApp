@@ -2,7 +2,7 @@ import React from 'react';
 import axios from 'axios';
 import AppConfig from '../../application.config';
 import Store from '../../store';
-
+import {Checkbox } from 'semantic-ui-react'
 
 export function questionLoader() {
     Store.dispatch((() => {
@@ -186,11 +186,7 @@ export function quesTypeElement(ques) {
 
         return ques.optionValues.map((item, index) => {
             return (
-                <label key={index}>
-                    &nbsp;
-                    <input type="checkbox" disabled={true}/>
-                    {item.name} &nbsp;
-                </label>
+                <Checkbox label={`${item.name}`} disabled />
             );
         })
     }
