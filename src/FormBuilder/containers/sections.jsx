@@ -123,7 +123,7 @@ class Sections extends React.Component {
                 </li>
             );
         });
-        console.log(this.props.section.loader);
+        
         return (
             <section className="builder_left">
                 <h3>Sections</h3>

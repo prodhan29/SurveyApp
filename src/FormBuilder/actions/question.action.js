@@ -186,7 +186,7 @@ export function quesTypeElement(ques) {
 
         return ques.optionValues.map((item, index) => {
             return (
-                <Checkbox label={`${item.name}`} disabled />
+                <Checkbox key={index} label={`${item.name}`} disabled />
             );
         })
     }

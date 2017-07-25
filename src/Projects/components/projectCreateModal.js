@@ -6,11 +6,21 @@ export default class ProjectCreateModal extends React.Component {
         super(props);
         this.state = {
             name: '',
-            published: false,
             sectionAllowed: true,
             version: '1.00'
         }
     }
+
+    componentWillMount() {
+        if(this.props.editAble){
+            this.setState({
+                name: this.props.project.name,
+                version: this.props.project.version,
+                sectionAllowed: this.props.project.sectionAllowed
+            })
+        }
+    }
+
     handleChange = (e) => {
         this.setState({
             [e.target.name]: e.target.value
@@ -28,12 +38,18 @@ export default class ProjectCreateModal extends React.Component {
         this.props.createProject(this.state);
         this.props.toggleModal();
     }
+
+    updateProject = () => {
+        this.props.updateProject(this.state);
+        this.props.toggleModal();
+    }
+
     render() {
         return (
             <div className="popup-mask">
                 <div className="popup open">
                     <div className="popup-header">
-                        <span className="title">Create Project</span>
+                        <span className="title">{this.props.editAble ? 'Update Project' : 'Create Project'}</span>
                         <span className="popup-close">
                             <button className="button close_btn" onClick={this.props.toggleModal}>Close</button></span>
                     </div>
@@ -75,7 +91,7 @@ export default class ProjectCreateModal extends React.Component {
                         <div className="popup-footer">
                             <div className="button-line">
                                 <button className="button cancel_btn" onClick={this.props.toggleModal}><span className="icon_cross"><i className="fa fa-times" aria-hidden="true"></i></span>Cancel</button>
-                                <button className="button create_btn" onClick={this.createProject}>Create</button>
+                                {this.props.editAble ? (<button className="button create_btn" onClick={this.updateProject}>Update</button>) : (<button className="button create_btn" onClick={this.createProject}>Create</button>)}
                             </div>
                         </div>
                     </div>

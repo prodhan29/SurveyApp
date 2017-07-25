@@ -1,4 +1,5 @@
 import React from 'react';
+import closeImg from '../../styles/img/close.png';
 
 export default class UserGroupModal extends React.Component {
 
@@ -41,7 +42,7 @@ export default class UserGroupModal extends React.Component {
             return (
                 <div className="user_data_list" key={index}>
                     <div> {item.name}</div>
-                    <div className="close_action" onClick={() => this.props.removeFromSelectedGroups(index)}><a href="#"><img src="styles/img/close.png" /></a></div>
+                    <div className="close_action" onClick={() => this.props.removeFromSelectedGroups(index)}><a href="#"><img src={closeImg} /></a></div>
                 </div>
             )
         })

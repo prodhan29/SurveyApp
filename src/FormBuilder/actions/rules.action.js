@@ -136,8 +136,17 @@ export function createValueChecklRule(project) {
     }
 
     let secIndex = getSectionIndexByID(sec.sectionId, project.project.cacheData);
+
+    if(secIndex === -1){
+        return "";
+    }
+
     let quesIndex = getQuestionIndexByID(ques.questionId, project.project.cacheData[secIndex].child);
     
+    if(quesIndex === -1) {
+        return "";
+    }
+
     return `this question ${project.valueCheck.operator} ${secIndex}_${quesIndex}`;
 }
 
@@ -148,10 +157,18 @@ export function createPickAndSuggestRule(project) {
     if(sec === null && ques === null) {
         return "";
     }
-    console.log("------- pick rules");
-    console.log(project.pickRule)
+    
     let secIndex = getSectionIndexByID(sec.sectionId, project.project.cacheData);
+
+    if(secIndex === -1){
+        return "";
+    }
+
     let quesIndex = getQuestionIndexByID(ques.questionId, project.project.cacheData[secIndex].child);
+
+    if(quesIndex === -1){
+        return "";
+    }
     return `${secIndex}_${quesIndex}`; 
 }
 

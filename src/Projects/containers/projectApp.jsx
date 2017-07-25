@@ -24,9 +24,10 @@ class Projects extends React.Component {
         super(props);
         this.state = {
             searchText: '',
-            showCreateModal: false,
+            showProjectModal: false,
             project: null,
-            index: -1
+            index: -1,
+            edit: false,
         }
     }
 
@@ -38,8 +39,28 @@ class Projects extends React.Component {
     toggleModal = () => {
         let _this = this;
         this.setState({
-            showCreateModal: !_this.state.showCreateModal
+            showProjectModal: !_this.state.showProjectModal
         })
+    }
+
+    editProject =(project, index)=>{
+        this.setState({
+            project, 
+            index, 
+            edit: true,
+            showProjectModal: true,
+        });
+    }
+
+    updateProject=(project)=>{
+        project.projectId = this.state.project.projectId;
+        ProjectAction.updateProject(project, this.state.index);
+        this.setState({
+            project: null,
+            edit: false,
+            index: -1,
+            showProjectModal: false,
+        });
     }
 
     setProject = (project, index) => {
@@ -98,7 +119,7 @@ class Projects extends React.Component {
                             <i className="fa fa-ellipsis-v " data-toggle="dropdown" aria-expanded="true"></i>
                             <div className="dropdown_panel action_dropdown dropdown-menu">
                                 <ul>
-                                    <li>Edit</li>
+                                    <li onClick={()=> this.editProject(project, index)}>Edit</li>
                                     <li onClick={()=> this.copyProject(project)}>Copy</li>
                                     <li onClick={() => this.setProject(project, index)} data-toggle="modal" data-target="#myModal"  >Delete</li>
                                 </ul>
@@ -158,11 +179,14 @@ class Projects extends React.Component {
 
                 </section>
                 {
-                    !this.state.showCreateModal ? null : <ProjectCreateModal toggleModal={this.toggleModal}
-                        createProject={ProjectAction.createProject} />
+                    !this.state.showProjectModal ? null : <ProjectCreateModal toggleModal={this.toggleModal}
+                        createProject={ProjectAction.createProject}
+                        updateProject={this.updateProject}
+                        project={this.state.project}
+                        editAble={this.state.edit} />
                 }
                 <ConfirmationModal project={this.state.project}
-                    deleteProject={() => this.props.deleteProject(this.state.project.projectId, this.state.index)}
+                    deleteProject={() => {this.props.deleteProject(this.state.project.projectId, this.state.index); this.setState({project: null})} }
                 />
 
             </div>

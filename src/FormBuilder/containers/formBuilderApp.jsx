@@ -4,7 +4,7 @@ import { bindActionCreators } from 'redux';
 import Store from '../../store';
 import { push, replace } from 'react-router-redux';
 // Actions
-import { createSection, importSection, fetchSections, sectionLoader } from '../actions/section.action';
+import { createSection, importSection, fetchSections, sectionLoader, setToastrMsg } from '../actions/section.action';
 import * as ProjectAction from '../actions/project.action';
 import { updateQuestion, preprocess, questionLoader, showValidationMsg, goToBottom } from '../actions/question.action';
 import { saveRule } from '../actions/common.action';
@@ -113,8 +113,13 @@ class FormBuilderApp extends React.Component {
 
     sectionSubmit = (data) => {
         data.projectId = this.props.projectId;
-        this.props.createSection(data);
-        this.toggleSectionAdd();
+        if(data.name !== ""){
+            this.props.createSection(data);
+            this.toggleSectionAdd();
+        }
+        else {
+            this.props.setToastrMsg('error', 'section name can not be empty');
+        }
     }
 
     firstSectionSubmit = (data) => {
@@ -295,6 +300,7 @@ function mapDispatchToProps(dispatch) {
         createSection,
         showValidationMsg,
         goToBottom,
+        setToastrMsg,
         getProjectById: ProjectAction.getProjectById,
         cancelForm: ProjectAction.cancelForm,
         saveRule: ProjectAction.saveRule,

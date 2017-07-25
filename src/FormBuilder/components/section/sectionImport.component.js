@@ -1,6 +1,6 @@
 import React from 'react';
 
-export default class AddSection extends React.Component {
+export default class ImportSection extends React.Component {
 
     detectOutside = (e) => {
         console.log(e.target);

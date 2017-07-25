@@ -189,14 +189,7 @@ export default class NumberValidation extends React.Component {
                             </tr>
                         </thead>
                         <tbody>
-                            <tr className="edit_row">
-                                <td>
-                                    <input type="text"
-                                        name='exportValue'
-                                        value={this.state.exportValue}
-                                        onChange={this.handleChange}
-                                        onKeyPress={this.submitOption} />
-                                </td>
+                            <tr className="edit_row" key={-1}>
                                 <td>
                                     <input type="text"
                                         name='optionName'
@@ -204,6 +197,14 @@ export default class NumberValidation extends React.Component {
                                         onChange={this.handleChange}
                                         onKeyPress={this.submitOption} />
                                 </td>
+                                <td>
+                                    <input type="text"
+                                        name='exportValue'
+                                        value={this.state.exportValue}
+                                        onChange={this.handleChange}
+                                        onKeyPress={this.submitOption} />
+                                </td>
+                                
                                 <td className="value_action">
 
                                 </td>
