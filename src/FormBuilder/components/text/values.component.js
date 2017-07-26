@@ -129,6 +129,7 @@ export default class AllowedValues extends React.Component {
         var file = e.target.files[0];
         let reader = new FileReader();
         let _this = this;
+        let newValues = []
 
         reader.onload = function (e) {
             var res = e.target.result;
@@ -136,9 +137,10 @@ export default class AllowedValues extends React.Component {
 
             words.forEach(function (value) {
                 console.log(value);
-                _this.state.ob.target.value.push(value);
+                newValues.push(value);
             }, this);
 
+            _this.state.ob.target.value = _this.props.data.concat(newValues);
             _this.props.dataChange(_this.state.ob);
             document.getElementById("file-upload").value = "";
         }

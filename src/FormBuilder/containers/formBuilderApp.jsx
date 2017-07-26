@@ -28,10 +28,11 @@ import SectionInitial from '../components/section/sectionInitial.component';
 import { toastr } from 'react-redux-toastr';
 import ModalBasic from '../components/common/warningModal.component';
 import Loader from '../../GeneralComponent/loader.container';
+import { Icon } from 'semantic-ui-react';
 
 const AddFieldRow = (props) => (
     <div className="add_field_row">
-        <button id="field-type" onClick={props.onClick} >Add Field</button>
+        <button id="field-type" onClick={props.onClick} > <Icon name='add' />  Add Field</button>
     </div>
 );
 
@@ -258,8 +259,8 @@ class FormBuilderApp extends React.Component {
                             <div className="b_c_action_right grand_action">
                                 {this.getAddFieldElement()}
                                 <div className="ques_saving_action" style={this.quesSavingAction()}>
-                                    <button className="button cancel_btn" onClick={this.props.cancelForm}>Cancel</button>
-                                    <button className="button black_btn" onClick={this.saveQuestion}>Save Question</button>
+                                    <button className="button cancel_btn" onClick={this.props.cancelForm}> <Icon name='delete' /> Cancel</button>
+                                    <button className="button black_btn" onClick={this.saveQuestion}> <Icon name='save' /> Save Question</button>
                                 </div>
                             </div>
 

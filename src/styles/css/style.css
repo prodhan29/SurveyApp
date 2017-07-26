@@ -107,10 +107,14 @@ p.login-form-switcher a {
 .header_title .material-icons {
     float: left;
     line-height: 70px;
-    color: #bbb;
-    padding-right: 5px;
+    color: #000;
+    padding-right: 0;
     font-size: 30px;
     cursor: pointer;
+    text-align: left;
+    position: relative;
+    left: -10px;
+    margin-right: -5px;
 }
 .header_title .material-icons:hover {
     color: #333;
@@ -211,11 +215,11 @@ p.login-form-switcher a {
 }
 
 .navigation .nav_item.setting .nav_icon {
-    background-position: -548px 0;
+    background-position: -200px 0;
 }
 .navigation .nav_item.setting:hover .nav_icon,
 .navigation .nav_item.setting.active .nav_icon {
-    background-position: -548px -50px;
+    background-position: -200px -50px;
 }
 .navigation .nav_item .nav_text {
     display: none;
@@ -1420,6 +1424,16 @@ table.value_table td  .material-icons {
 table.value_table tr.edit_row {
     background-color: #fff;
 }
+table.value_table tr.edit_row td {
+    padding: 7px;
+    width: 50%;
+}
+table.value_table tr.edit_row input[type=text] {
+    border: 1px solid #e1e1e1;
+    max-width: 123px;
+    padding: 0 8px;
+    border-radius: 3px;
+}
 .section_action .dropdown_panel {
     width: 310px;
     margin-bottom: 5px;
@@ -1712,23 +1726,25 @@ form.node_edit_form .field.action_node .fa.fa-close {
     margin-top: 30px;
 }
 .bordered_table {
-    border-top: 1px solid #e1e5e8;
-    border-right: 1px solid #e1e5e8;
     width: 100%;
 }
 .bordered_table th,
 .bordered_table td {
-    border-left: 1px solid #e1e5e8;
     border-bottom: 1px solid #e1e5e8;
-    background-color: #f0f3f5;
     color: #bfbfbf;
     font-size: 12px;
-    padding: 10px 20px;
+    padding: 10px 20px 10px 0;
 }
 .bordered_table td {
     background-color: #ffffff;
-    color: #8F959A;
+    color: #000;
     font-weight: 400;
+}
+.bordered_table th {
+    color: #999;
+    text-transform: uppercase;
+    font-weight: 500;
+    padding-bottom: 5px;
 }
 .bordered_table.project_user_groups td {
     color: #8F959A;
@@ -1738,9 +1754,6 @@ form.node_edit_form .field.action_node .fa.fa-close {
 }
 .bordered_table .text_left {
     text-align: left;
-}
-.bordered_table .text_center {
-    text-align: center;
 }
 .text_nowrap {
     white-space: nowrap;
@@ -1793,23 +1806,37 @@ form.node_edit_form .field.action_node .fa.fa-close {
     padding: 0;
 }
 .settings_content .data_container {
-    padding: 0 30px;
-    margin-top: 20px;
+    padding: 20px 30px 40px;
+    margin-top: 0;
+    height: calc(100vh - 118px);
+    overflow: auto;
+}
+.settings_content .data_container .list_view_control_bar {
+    margin: 10px 0 0;
+    padding-bottom: 10px;
+}
+.settings_content .data_container .list_view_control_bar .button_area {
+    position: relative;
+    top: -5px;
 }
 
 .setting_btm_tab .compact_nav {
-    background-color: #f2f4f6;
+    background-color: #fff;
     border-bottom: 1px solid #d6dce2;
     display: inline-block;
     padding: 0 30px;
     width: 100%;
+    z-index: 10;
+    position: relative;
+    box-shadow: 0 3px 3px rgba(0, 0, 0, 0.1);
 }
 .setting_btm_tab .tab_nav_item {
-    border-right: none;
     float: left;
-    line-height: 42px;
-    padding: 0 20px;
+    line-height: 48px;
     text-transform: capitalize;
+    border-right: none;
+    padding: 0px 20px;
+    font-weight: 400;
 }
 .setting_btm_tab .tab_nav_item.active {
     background-color: transparent;
@@ -1826,6 +1853,9 @@ form.node_edit_form .field.action_node .fa.fa-close {
     left: 0;
     position: absolute;
     background-color: #b92d2d;
+}
+.setting_btm_tab {
+    height: 48px;
 }
 
 .list_view_control_bar  {
@@ -2373,12 +2403,14 @@ form.node_edit_form .field.action_node .fa.fa-close {
     margin-bottom: -15px;
 }
 .question-container {
-    /*
-    max-height: calc(100vh - 157px);
-    overflow: auto;
-    */
     padding: 0 30px 30px;
-    width: calc(100vw - 710px);
+    height: calc(100vh - 181px);
+    overflow: auto;
+}
+.question-container > .question-row {
+    width: calc(100vw - 770px);
+    min-width: 300px;
+    min-height: 50px;
 }
 .import_section_dropdown {
     padding: 30px;

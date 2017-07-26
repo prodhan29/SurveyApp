@@ -150,6 +150,11 @@ export default function project(state = formBuilder, action) {
         case 'QUESTION_DELETE':
             state = deepClone(state);
             state.cacheData[state.active.section.index].child.splice(action.payload.index, 1);
+            state.active.panel = null;
+            state.active.question = {
+                data: {},
+                index: null
+            }
             break;
 
         // reset actions

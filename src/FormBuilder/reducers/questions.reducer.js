@@ -2,10 +2,10 @@ import { changeFieldState, deepClone } from '../actions/common.action';
 import { hybridQues } from '../actions/question.action';
 
 const question = {
-    toastr:{
+    toastr: {
         msg: '',
         type: 'success',
-    },  
+    },
     goToBottom: false,
     pendingQues: false, // to trace if any question is in the middle of construction
     edit: {
@@ -19,7 +19,7 @@ const question = {
         }
     },
     list: [],
-    loader:{
+    loader: {
         loading: false,
         paragraphs: 1,
         loadingText: 'loading questions',
@@ -33,19 +33,19 @@ export default function questions(state = question, action) {
 
         case 'START_LOADING_FOR_QUESTIONS':
             state = deepClone(state);
-            state.loader.loading =true;
+            state.loader.loading = true;
             break;
 
         case 'STOP_LOADING_FOR_QUESTIONS':
             state = deepClone(state);
-            state.loader.loading =false;
+            state.loader.loading = false;
             break;
 
         case 'SECTION_CHANGE':
             console.log('-------------cleaned section list');
             state = deepClone(question);
 
-            break;        
+            break;
 
         case 'DELETE_SECTION':
             state = deepClone(state);
@@ -55,7 +55,7 @@ export default function questions(state = question, action) {
         case 'FETCH_ALL_PROJECTS':
             state = deepClone(state);
             state.list = [];
-            break;    
+            break;
 
         case 'FETCH_QUESTIONS_FROM_SERVER':
             state = deepClone(state);
@@ -72,7 +72,7 @@ export default function questions(state = question, action) {
             state.pendingQues = false;
             state.list.pop();
             state.list.push(action.payload.data);
-            state.toastr.msg = 'question CREATED successfully';  
+            state.toastr.msg = 'question CREATED successfully';
             break;
 
         case 'COPY_QUESTION':
@@ -107,12 +107,17 @@ export default function questions(state = question, action) {
         case 'QUESTION_DELETE':
             state = deepClone(state);
             state.list.splice(action.payload.index, 1);
+            state.edit.isRunning = false;
+            state.active.question = {
+                data: {},
+                index: null
+            }
             state.toastr.msg = 'question delete successfully';
             break;
 
         case 'RESET_TOASTR_MSG':
             state = deepClone(state);
-            state.toastr.msg ='';
+            state.toastr.msg = '';
             state.toastr.type = 'success';
             break;
 
@@ -150,12 +155,12 @@ export default function questions(state = question, action) {
         case 'GO_TO_BOTTOM':
             state = deepClone(state);
             state.goToBottom = true;
-            break;    
+            break;
 
         case 'RESET_GO_TO_BOTTOM':
             state = deepClone(state);
             state.goToBottom = false;
-            break;    
+            break;
 
         // Reset Actions
         case 'FETCH_SECTIONS_FROM_SERVER':
