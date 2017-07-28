@@ -4,6 +4,7 @@ export default class Treeview extends React.Component {
 
     constructor(props) {
         super(props);
+        console.log(this.props.data);
         this.state = {
             data: this.props.data,
             editableNode: ''
@@ -202,7 +203,7 @@ export default class Treeview extends React.Component {
 
     getNodes = () => {
         console.log(this.state.data);
-        if (typeof this.state.data.name === 'undefined') return null;
+        if (typeof this.state.data.name === 'undefined' || this.state.data.name === null) return null;
         let _this = this;
         let children = this.makeChildren(this.state.data.children);
         let root = (
