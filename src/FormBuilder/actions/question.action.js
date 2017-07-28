@@ -167,7 +167,7 @@ export function preprocess(data) {
 export function precessQuesForCopy(ques) {
     let newQues = JSON.parse(JSON.stringify(ques));
     newQues.questionId = undefined;
-    newQues.name = `${ques.name}_(copy)`;
+    newQues.name = `${ques.name}_${Date.now()}`;
     newQues.caption = `${ques.caption}_(copy)`;
     newQues.jumpingRuleClient = null;
     newQues.pickAndSuggestRuleClient = null;
