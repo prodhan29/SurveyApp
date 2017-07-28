@@ -65,7 +65,7 @@ export default class SectionEdit extends React.Component {
                 </form>
                 <div className="btn_row flex_btn_row">
                     
-                    {this.props.editForCopy ? <button onClick={this.copyData}>Copy</button> : <button onClick={this.updateData}>Update</button>}
+                    {this.props.editOrCopy ? <button onClick={this.copyData}>Copy</button> : <button onClick={this.updateData}>Update</button>}
                     <button onClick={this.props.cancelEdit}>Cancel</button>
                 </div>
             </div>

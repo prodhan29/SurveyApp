@@ -17,7 +17,7 @@ class Sections extends React.Component {
         super();
         this.state = {
             editSection: {},
-            editForCopy: false,
+            editOrCopy: false,
         }
     }
     componentDidUpdate() {
@@ -70,13 +70,33 @@ class Sections extends React.Component {
         }
     }
 
+    update =(data, index)=>{
+        let validation = SectionAction.valid(data, this.props.section.list);
+        if(validation.status){
+            SectionAction.update(data, index)
+        }
+        else {
+            this.props.setToastrMsg('error',validation.msg)
+        }
+    }
+
+    copy=(data)=>{
+        let validation = SectionAction.valid(data, this.props.section.list);
+        if(validation.status){
+            SectionAction.copySection(data)
+        }
+        else {
+            this.props.setToastrMsg('error', validation.msg);
+        }
+    }
+
     getEditView = (data, index) => {
         return (
             <SectionEditView data={data}
                 cancelEdit={() => this.setState({ editSection: {}, editForCopy: false })}
-                updateData={(data) => SectionAction.update(data, index)}
-                copyData={(data) => SectionAction.copySection(data)}
-                editForCopy={this.state.editForCopy} />
+                updateData={(data) => this.update(data, index)}
+                copyData={(data) => this.copy(data)}
+                editOrCopy={this.state.editForCopy} />
         );
     }
 

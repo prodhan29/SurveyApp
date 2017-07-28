@@ -4,11 +4,12 @@ export default class Treeview extends React.Component {
 
     constructor(props) {
         super(props);
-        let _this = this;
         this.state = {
-            data: _this.props.data,
+            data: this.props.data,
             editableNode: ''
         }
+        console.log('groupDrop constructor');
+        console.log(this.props.data);
     }
 
     addRoot = () => {
@@ -24,6 +25,13 @@ export default class Treeview extends React.Component {
             data: root
         });
         this.props.treeChange(root);
+    }
+
+    removeAll = () => {
+        this.setState({
+            data: {}
+        });
+        this.props.treeChange({});
     }
 
     handleEditChange = (e, value) => {
@@ -193,6 +201,7 @@ export default class Treeview extends React.Component {
     }
 
     getNodes = () => {
+        console.log(this.state.data);
         if (typeof this.state.data.name === 'undefined') return null;
         let _this = this;
         let children = this.makeChildren(this.state.data.children);
@@ -222,7 +231,7 @@ export default class Treeview extends React.Component {
                         <div className="dropdown_panel action_dropdown dropdown-menu">
                             <ul>
                                 <li onClick={this.addRoot}> Add New </li>
-                                <li>Remove All</li>
+                                <li onClick={this.removeAll}>Remove All</li>
                                 <li><input id='file-upload' type='file' onChange={this.uploadOption} /> upload </li>
                             </ul>
                         </div>

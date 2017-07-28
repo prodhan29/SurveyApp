@@ -147,7 +147,7 @@ export function createValueChecklRule(project) {
         return "";
     }
 
-    return `this question ${project.valueCheck.operator} ${secIndex}_${quesIndex}`;
+    return `this question ${project.valueCheck.operator} ${sec.sectionId}_${ques.questionId}`;
 }
 
 export function createPickAndSuggestRule(project) {
@@ -169,13 +169,15 @@ export function createPickAndSuggestRule(project) {
     if(quesIndex === -1){
         return "";
     }
-    return `${secIndex}_${quesIndex}`; 
+    return `${sec.sectionId}_${ques.questionId}`; 
 }
 
 export function createCalculationRule() {
     return  " mobile er jonno akhono implement kora hoy nai ";
 }
 
+// this function was written to store indexes of sections and value. but later 
+// we decided to change the logic. still section and question index are here for future need
 export function createJumpRule(project) {
 
     console.log(project);
@@ -204,8 +206,8 @@ export function createJumpRule(project) {
                 let secIndex = getSectionIndexByID( jumpRule.nodes[i].questionList[j].section.sectionId, project.project.cacheData);
                 let quesIndex = getQuestionIndexByID(jumpRule.nodes[i].questionList[j].question.questionId, project.project.cacheData[secIndex].child);
                 ob.skip.ques.push({
-                    ques:  quesIndex,
-                    sec: secIndex, 
+                    ques:  jumpRule.nodes[i].questionList[j].section.sectionId,
+                    sec: jumpRule.nodes[i].questionList[j].question.questionId, 
                 });
             }
         }

@@ -39,37 +39,35 @@ export default function groupDropField(state = initialState, action) {
         case 'ON_QUESTION_CLICK':
             state = deepClone(state);
             setEditMode(state, action.payload);
-            break;    
+            break;
 
         case 'GROUP_DROP_DATA_CHANGE':
             state = deepClone(state);
             groupDropChange(state, action.payload);
             break;
-                
+
         case 'TREE_VIEW_CHANGE':
             state = deepClone(state);
-            state.data.groupOptionValues = action.payload;  
+            state.data.groupOptionValues = action.payload;
             break;
 
         case 'SAVE_RULE':
             state = deepClone(state);
             state.data.jumpingRule = action.payload.jumpRule;
-            break;       
-        
+            break;
+
         // Reset Actions
         case 'CREATE_QUESTION':
-            state = deepClone(state);
-            state = initialState;
+            state = deepClone(initialState);
             break;
 
         case 'UPDATE_QUESTION':
             state = deepClone(initialState);
-            break;    
+            break;
 
         case 'CANCEL_FORM':
-            state = deepClone(state);
-            state = initialState;
-            break;    
+            state = deepClone(initialState);
+            break;
 
     }
     return state;
@@ -81,6 +79,8 @@ var groupDropChange = function (state, e) {
 
 var setEditMode = function (state, data) {
     if (data.fieldType.fieldTypeName.toLowerCase() === 'groupdrop') {
+        console.log('set edit mode');
+        console.log(data);
         state.data = data;
         state.data.groupOptionValues = data.groupOptionValues[0]
         state.edit = true;

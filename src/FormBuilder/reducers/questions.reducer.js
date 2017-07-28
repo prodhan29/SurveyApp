@@ -198,7 +198,8 @@ function removeExtraQues(state, payload, index) {
 function refresh(state) {
     if (state.edit.isRunning) {
         state.pendingQues = false;
-        state.list[state.edit.quesIndex] = state.edit.quesOldState;
+        console.log(state.edit.quesOldState);
+        state.list[state.edit.quesIndex] = processOldState(state.edit.quesOldState);
         state.edit = {
             isRunning: false,
             quesOldState: null,
@@ -234,4 +235,12 @@ function setQuesForLiveUpdate(state, action) {
     }
     state.list.push(pendingQues);
     return state;
+}
+
+// checking for groupDropdown. to set groupOptionValues as array type. because server expect groupOption values as array type
+function processOldState(data) {
+    if (data.fieldType.fieldTypeName.toLowerCase() == "groupdrop") {
+        data.groupOptionValues = [data.groupOptionValues];
+    }
+    return data;
 }

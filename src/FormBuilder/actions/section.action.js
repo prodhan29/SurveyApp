@@ -207,7 +207,28 @@ export function removeQuestionRules(questionList) {
     return questionList;
 }
 
+export function valid(section, sectionList){
+    if(section.name == ""){
+        return {
+            status: false,
+            msg: 'section name can not be empty'
+        }
+    }
+    else {
+        for(let i=0;i<sectionList.length;i++) {
+            if(section.name === sectionList[i].name) {
+                return {
+                    status: false,
+                    msg: 'section name is already taken'
+                }
+            }
+        }
+        return { status: true, msg: ''}
+    }
+}
+
 function processSectionForCopy(data) {
     data.projectId = data.project.projectId;
     delete data.project;
 }
+

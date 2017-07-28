@@ -23,6 +23,7 @@ import { selectConfigPanel, setActiveQuestion, resetToastrMsg, showWarningModal 
 class Questions extends React.Component {
 
     onQuestionClick = (data, index) => {
+        console.log(data);
         if(data.questionId == this.props.question.active.question.data.questionId){
             return;
         }
@@ -48,6 +49,8 @@ class Questions extends React.Component {
     }
 
     render() {
+        console.log('questions list');
+        console.log(this.props.question);
         return (
             <div>
                 {/*<div style={this.props.question.list.length === 0 ? { display: 'block' } : { display: 'none' }}>
