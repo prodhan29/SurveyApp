@@ -237,7 +237,7 @@ class FormBuilderApp extends React.Component {
                     <section className="content_panel builder_panel" style={this.isFormbuilderVisible('builder')}>
                         <section className="builder_content_wrapper">
                             <Sections />
-                            <section id='questions' className="builder_middle">
+                            <section  className="builder_middle">
                                 <div className="builder_form_title"><h3>Fields</h3></div>
                                 <Questions />
                             </section>

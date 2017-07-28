@@ -108,6 +108,7 @@ export default function questions(state = question, action) {
             state = deepClone(state);
             state.list.splice(action.payload.index, 1);
             state.edit.isRunning = false;
+            state.pendingQues = false;
             state.active.question = {
                 data: {},
                 index: null

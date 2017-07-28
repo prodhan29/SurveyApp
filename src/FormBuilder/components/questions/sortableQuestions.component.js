@@ -33,7 +33,7 @@ const SortableItem = SortableElement((props) =>
 
 const SortableList = SortableContainer((props) => {
     return (
-        <div className="builder_form_wrapper question-container">
+        <div id="questions" className="builder_form_wrapper question-container">
             {props.items.map((value, index) => (
                 <SortableItem key={`item-${index}`}
                     indexNumber={index}
