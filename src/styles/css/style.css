@@ -1039,7 +1039,8 @@ ul.tab_nav.compact_nav {
     border: 1px solid #d5dbe6;
     border-radius: 3px;
 }
-.value_check_rule .rules_condition {
+.value_check_rule .rules_condition,
+.pick_rule .rules_condition {
     border: none;
 }
 .rules_condition .rule_cell .form_row {
@@ -2317,6 +2318,7 @@ form.node_edit_form .field.action_node .fa.fa-close {
     right: 0;
     z-index: 1;
     line-height: 44px;
+    font-size: 12px;
 }
 .list_view_table td .content_group {
     margin-left: 50px;
@@ -2328,6 +2330,10 @@ form.node_edit_form .field.action_node .fa.fa-close {
     margin: 3px 0 0;
     font-weight: 500;
     font-size: 15px;
+    font-family: 'Montserrat', sans-serif;
+}
+.list_view_table td .content_group p {
+    margin: 3px 0 0;
 }
 .list_view_table td .content_group h4 a {
     color: #000;
@@ -2353,6 +2359,7 @@ form.node_edit_form .field.action_node .fa.fa-close {
 .list_view_table td p.info_p {
     font-size: 12px;
     color: #9c9c9c;
+    margin: 0;
 }
 .action_col {
     width: 50px;
@@ -2372,35 +2379,57 @@ form.node_edit_form .field.action_node .fa.fa-close {
     color: #000;
 }
 .project_list .action_col .dropdown {
-    top: 8px;
+    top: 10px;
 }
 .list_view_table td .tag,
 .list_view_table td .label {
-    display: inline-block;
-    line-height: 22px;
+    background-color: #c6cfd5;
+    border-radius: 30px;
+    width: 60px;
+    height: 30px;
+    line-height: 30px;
+    font-size: 1px;
+    color: transparent;
     padding: 0;
-    background: #ef9945;
-    border-radius: 2px;
-    color: #fff;
-    font-size: 10px;
-    font-weight: 500;
-    text-transform: uppercase;
-    width: 80px;
-    text-align: center;
+    margin: 0;
+    display: inline-block;
+    position: relative;
+    cursor: pointer;
+}
+.list_view_table td .tag:after,
+.list_view_table td .label:after {
+    content: "";
+    display: inline-block;
+    width: 26px;
+    height: 26px;
+    border-radius: 26px;
+    background-color: #fff;
+    position: absolute;
+    left: 2px;
+    top: 2px;
+    box-shadow: 2px 2px 0 rgba(0, 0, 0, 0.2);
 }
 .list_view_table td .label.label-success {
     background-color: #4acd7e;
-    margin-top: 9px;
 }
-.project_list .list_view_table td .tag {
-    margin-top: 9px;
+.list_view_table td .label.label-success:after {
+    left: 32px;
 }
 .list_view_control_bar .button {
     background-color: #4acd7e;
-    padding: 0 20px;
+    padding: 0 15px;
     line-height: 36px;
-    font-weight: 300;
+    border: 1px solid #36ba6a;
+    font-family: 'Montserrat', sans-serif;
     margin-bottom: -15px;
+    box-shadow: 0 2px 5px rgba(50, 200, 100, 0.5);
+    text-transform: uppercase;
+    font-weight: 500;
+    font-size: 11px;
+}
+.list_view_control_bar .button:hover {
+    box-shadow: 0 2px 5px rgba(50, 200, 100, 0.8);
+    background-color: #36ba6a;
 }
 .question-container {
     padding: 0 30px 30px;
@@ -2471,6 +2500,8 @@ form.node_edit_form .field.action_node .fa.fa-close {
 }
 
 /*------------------------ !transition -----------------------------*/
+.list_view_table td .tag:after,
+.list_view_table td .label:after,
 .builder_content_wrapper .builder_right,
 .builder_content_wrapper .builder_right.field_selected {
     -webkit-transition: all 100ms linear;
