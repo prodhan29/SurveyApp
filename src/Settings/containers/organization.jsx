@@ -6,7 +6,7 @@ import OranizationModal from '../components/organizationModal.component';
 //actions
 import * as OrganizationAction from '../actions/organization.action';
 import { fetchAllLicense } from '../actions/license.action';
-import { deepClone } from '../../GeneralActions/action';
+import { deepClone } from '../../General/Actions/action';
 
 var initialState = {
     orgName: '',

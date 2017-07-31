@@ -4,8 +4,8 @@ import { bindActionCreators } from 'redux';
 import logo from '../../styles/img/logo.png'
 
 //components
-import Sidebar from '../../GeneralComponent/sidebar.component';
-import Header from '../../GeneralComponent/header.component';
+import Sidebar from '../../General/Component/sidebar.component';
+import Header from '../../General/Component/header.component';
 import Privilege from '../components/privilege.component';
 //actions
 import * as SettingsAction from '../actions/settings.action';

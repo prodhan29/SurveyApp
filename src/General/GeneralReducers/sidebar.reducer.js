@@ -1,5 +1,5 @@
 
-import {deepClone} from '../GeneralActions/action';
+import {deepClone} from '../Actions/action';
 
 var initialState = {
     active: 'Dashboard',

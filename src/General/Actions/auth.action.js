@@ -1,5 +1,5 @@
 import axios from 'axios'
-import AppConfig from '../application.config';
+import AppConfig from '../../application.config';
 
 export function signinSuccess(payload) {
     return {

@@ -5,7 +5,7 @@ import { bindActionCreators } from 'redux';
 import Modal from '../components/projectUserModal.component';
 //actions
 import * as ProjectUserAction from '../actions/projectUser.action';
-import { deepClone } from '../../GeneralActions/action';
+import { deepClone } from '../../General/Actions/action';
 
 var initialState = {
     firstName: '',

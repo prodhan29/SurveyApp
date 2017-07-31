@@ -1,10 +1,10 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import { signin, signinSuccess } from '../GeneralActions/auth.action';
+import { signin, signinSuccess } from '../Actions/auth.action';
 import { push, replace } from 'react-router-redux';
-import Store from '../store';
-import Logo from '../styles/img/logo-login.png';
+import Store from '../../store';
+import Logo from '../../styles/img/logo-login.png';
 
 class Login extends React.Component {
 

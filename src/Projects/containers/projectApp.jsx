@@ -9,11 +9,11 @@ import logo from '../../styles/img/logo.png';
 import userImg from '../../styles/img/user.png';
 import shortParagraph from '../../styles/img/short-paragraph.png'
 //components
-import Sidebar from '../../GeneralComponent/sidebar.component';
-import Header from '../../GeneralComponent/header.component';
+import Sidebar from '../../General/Component/sidebar.component';
+import Header from '../../General/Component/header.component';
 import ProjectCreateModal from '../components/projectCreateModal';
 import ConfirmationModal from '../components/confirmationModal';
-import Loader from '../../GeneralComponent/loader.container';
+import Loader from '../../General/Component/loader.container';
 //actions
 import * as ProjectAction from '../actions/allProjects.action';
 

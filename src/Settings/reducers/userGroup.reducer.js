@@ -1,4 +1,4 @@
-import { deepClone } from '../../GeneralActions/action';
+import { deepClone } from '../../General/Actions/action';
 
 var initialState = {
     list:[]

@@ -9,7 +9,7 @@ import ReduxToastr from 'react-redux-toastr';
 // Apps
 import FormBuilderApp from './FormBuilder/containers/formBuilderApp';
 import ProjectsApp from './Projects/containers/projectApp';
-import Login from './GeneralComponent/Login.container';
+import Login from './General/Component/Login.container';
 import Setting from './Settings/containers/settings';
 
 // Store

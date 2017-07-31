@@ -20,14 +20,14 @@ import OtherField from './otherField';
 import GroupDrop from './groupDropdown';
 // components
 import AddFieldPanel from '../components/common/add_field.component';
-import Sidebar from '../../GeneralComponent/sidebar.component';
-import Header from '../../GeneralComponent/header.component';
+import Sidebar from '../../General/Component/sidebar.component';
+import Header from '../../General/Component/header.component';
 import SectionAdd from '../components/section/sectionAdd.component';
 import SectionImport from '../components/section/sectionImport.component';
 import SectionInitial from '../components/section/sectionInitial.component';
 import { toastr } from 'react-redux-toastr';
 import ModalBasic from '../components/common/warningModal.component';
-import Loader from '../../GeneralComponent/loader.container';
+import Loader from '../../General/Component/loader.container';
 import { Icon } from 'semantic-ui-react';
 
 const AddFieldRow = (props) => (

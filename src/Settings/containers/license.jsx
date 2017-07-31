@@ -5,7 +5,7 @@ import { bindActionCreators } from 'redux';
 import Modal from '../components/licenseModal.component';
 //actions
 import * as LicenseAction from '../actions/license.action';
-import { deepClone } from '../../GeneralActions/action';
+import { deepClone } from '../../General/Actions/action';
 
 
 var initialState = {

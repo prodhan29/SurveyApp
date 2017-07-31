@@ -29,11 +29,11 @@ import ProjectUserGroup from './Settings/reducers/projectUserGroup.reducer';
 import { reducer as toastrReducer } from 'react-redux-toastr';
 
 // General
-import User from './GeneralReducers/user.reducer';
+import User from './General/GeneralReducers/user.reducer';
 
 // All Projects
 import AllProject from './Projects/reducers/allProjects.reducer';
-import Sidebar from './GeneralReducers/sidebar.reducer';
+import Sidebar from './General/GeneralReducers/sidebar.reducer';
 
 const rootReducer = combineReducers({
 
