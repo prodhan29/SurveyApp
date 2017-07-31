@@ -147,7 +147,7 @@ export function createValueChecklRule(project) {
         return "";
     }
 
-    return `this question ${project.valueCheck.operator} ${sec.sectionId}_${ques.questionId}`;
+    return `this question ${project.valueCheck.operator} ${secIndex}_${quesIndex}`;
 }
 
 export function createPickAndSuggestRule(project) {
@@ -169,7 +169,7 @@ export function createPickAndSuggestRule(project) {
     if(quesIndex === -1){
         return "";
     }
-    return `${sec.sectionId}_${ques.questionId}`; 
+    return `${secIndex}_${quesIndex}`; 
 }
 
 export function createCalculationRule() {
@@ -206,8 +206,8 @@ export function createJumpRule(project) {
                 let secIndex = getSectionIndexByID( jumpRule.nodes[i].questionList[j].section.sectionId, project.project.cacheData);
                 let quesIndex = getQuestionIndexByID(jumpRule.nodes[i].questionList[j].question.questionId, project.project.cacheData[secIndex].child);
                 ob.skip.ques.push({
-                    ques:  jumpRule.nodes[i].questionList[j].section.sectionId,
-                    sec: jumpRule.nodes[i].questionList[j].question.questionId, 
+                    ques: secIndex,
+                    sec: quesIndex, 
                 });
             }
         }
