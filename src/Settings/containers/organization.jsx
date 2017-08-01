@@ -76,6 +76,17 @@ class Organization extends React.Component {
         OrganizationAction.updateOrganization(this.state.data, this.state.edit.index);
     }
 
+    onCreateBtn =()=>{
+        this.setState({
+            data: deepClone(initialState),
+            edit: {
+                enable: false,
+                index: -1
+            }
+        });
+        this.toggleModal();
+    }
+
     showEditableOrganization = (data, index) => {
         this.setState({
             showModal: true,
@@ -124,7 +135,7 @@ class Organization extends React.Component {
                             <input type="text" className="search_bar" placeholder="Search Here" name="search" />
                         </span>
                         <span className="button_area">
-                            <button className="button create_btn" onClick={this.toggleModal} >Create Organization</button>
+                            <button className="button create_btn" onClick={this.onCreateBtn} >Create Organization</button>
                         </span>
                     </div>
                 

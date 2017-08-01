@@ -115,7 +115,11 @@ class License extends React.Component {
 
     onCreateBtn =()=>{
         this.setState({
-            data: deepClone(initialState)
+            data: deepClone(initialState),
+            edit: {
+                enable: false,
+                index: -1
+            }
         });
         this.toggleModal();
     }
