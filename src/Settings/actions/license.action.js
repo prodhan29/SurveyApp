@@ -19,6 +19,19 @@ export function submit(data) {
     }
 }
 
+export function setToastrMsg(msgType, msg) {
+    return {
+        type: 'SET_LICENSE_TOASTR_MSG',
+        msgType, msg
+    }
+}
+
+export function resetToastrMsg() {
+    return {
+        type: 'RESET_LICENSE_TOASTR_MSG',
+    }
+}
+
 export function deleteLicense(license, index) {
     axios.delete(`${AppConfig.domain}/license/${license.licenseId}`, AppConfig.ajaxConfig()).then((response) => {
         Store.dispatch((() => {
