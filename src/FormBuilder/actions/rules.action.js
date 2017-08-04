@@ -206,8 +206,8 @@ export function createJumpRule(project) {
                 let secIndex = getSectionIndexByID( jumpRule.nodes[i].questionList[j].section.sectionId, project.project.cacheData);
                 let quesIndex = getQuestionIndexByID(jumpRule.nodes[i].questionList[j].question.questionId, project.project.cacheData[secIndex].child);
                 ob.skip.ques.push({
-                    ques: secIndex,
-                    sec: quesIndex, 
+                    sec: secIndex,
+                    ques: quesIndex, 
                 });
             }
         }
