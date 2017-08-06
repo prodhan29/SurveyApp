@@ -1,7 +1,7 @@
 import React from 'react';
 import { SortableContainer, SortableElement, SortableHandle, arrayMove } from 'react-sortable-hoc';
 import { quesTypeElement } from '../../actions/question.action';
-import Loader from '../../../GeneralComponent/loader.container';
+import Loader from '../../../General/Component/loader.container';
 
 
 

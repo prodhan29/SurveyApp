@@ -1,8 +1,8 @@
 import React from 'react';
-import Logo from '../styles/img/logo.png';
-import userImg from '../styles/img/user.png';
+import Logo from '../../styles/img/logo.png';
+import userImg from '../../styles/img/user.png';
 import { push, replace } from 'react-router-redux';
-import Store from '../store';
+import Store from '../../store';
 
 export default class Header extends React.Component {
 

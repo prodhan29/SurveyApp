@@ -4,9 +4,11 @@ import { bindActionCreators } from 'redux';
 import logo from '../../styles/img/logo.png'
 
 //components
-import Sidebar from '../../GeneralComponent/sidebar.component';
-import Header from '../../GeneralComponent/header.component';
+import Sidebar from '../../General/Component/sidebar.component';
+import Header from '../../General/Component/header.component';
 import Privilege from '../components/privilege.component';
+import ReduxToastr from 'react-redux-toastr';
+import { toastr } from 'react-redux-toastr';
 //actions
 import * as SettingsAction from '../actions/settings.action';
 
@@ -26,6 +28,12 @@ class Settings extends React.Component {
             userType,
             selectedTab: (userType === 'Admin') ? 'User' : 'License'
         }
+    }
+
+    componentDidMount() {
+        window.onerror = function (msg) {
+            toastr.error('Error: ' + msg);
+        };
     }
 
     setActiveTab=(tabName)=>{
@@ -81,6 +89,7 @@ class Settings extends React.Component {
             <div className="main_container">
 
                 <Header name={this.props.sidebar.active}/>
+                <ReduxToastr preventDuplicates />
                 <section className="content_body">
                     <Sidebar />
                     <section className="content_panel settings_content">

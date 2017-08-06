@@ -1,7 +1,7 @@
 import React from 'react';
-import Store from '../store';
+import Store from '../../store';
 import { Dimmer, Loader, Image, Segment } from 'semantic-ui-react';
-import shortParagraph from '../styles/img/short-paragraph.png';
+import shortParagraph from '../../styles/img/short-paragraph.png';
 
 export default class LoaderComponent extends React.Component {
     paragraphs =()=>{

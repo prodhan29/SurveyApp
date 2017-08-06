@@ -1,9 +1,9 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import Store from '../store';
+import Store from '../../store';
 import { push, replace } from 'react-router-redux';
-import * as SidebarAction from '../GeneralActions/sidebar.action';
+import * as SidebarAction from '../Actions/sidebar.action';
 
 class Sidebar extends React.Component {
 

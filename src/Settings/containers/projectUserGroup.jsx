@@ -5,7 +5,7 @@ import { bindActionCreators } from 'redux';
 import Modal from '../components/projectUserGroupModal.component';
 //actions
 import { fetchAllProjects } from '../../Projects/actions/allProjects.action';
-import { deepClone } from '../../GeneralActions/action';
+import { deepClone } from '../../General/Actions/action';
 import * as UserGroupAction from '../actions/userGroup.action';
 import * as ProjectUserGroupAction from '../actions/projectUserGroup.action';
 

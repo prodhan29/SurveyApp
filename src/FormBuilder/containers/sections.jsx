@@ -4,7 +4,7 @@ import { bindActionCreators } from 'redux';
 //Component
 import SectionEditView from '../components/section/sectionEdit.component';
 import { toastr } from 'react-redux-toastr';
-import Loader from '../../GeneralComponent/loader.container';
+import Loader from '../../General/Component/loader.container';
 // Actions
 import { showWarningModal } from '../actions/project.action';
 import * as SectionAction from '../actions/section.action';
