@@ -1066,6 +1066,8 @@ ul.tab_nav.compact_nav {
 }
 .rule_cell .dropdown .dropdown-menu {
     width: 100%;
+    max-height: 200px;
+    overflow: auto;
 }
 .rule_cell .dropdown .dropdown-menu a:hover {
     color: #fff;
@@ -1257,6 +1259,11 @@ a.add_jumping_option {
     top: 5px;
     font-size: 15px;
     cursor: pointer;
+}
+.each_jumping_condition .form_row .rule_cell  .material-icons {
+    right: -12px;
+    font-size: 12px;
+    top: 0;
 }
 .each_jumping_condition:last-child {
     margin-bottom: 0px;
