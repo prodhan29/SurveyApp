@@ -172,8 +172,9 @@ export function createPickAndSuggestRule(project) {
     return `${secIndex}_${quesIndex}`; 
 }
 
-export function createCalculationRule() {
-    return  " mobile er jonno akhono implement kora hoy nai ";
+export function createCalculationRule(project) {
+    console.log(project.calcRule);
+    return prepareForMobileFormat(project.calcRule.nodes, project);
 }
 
 // this function was written to store indexes of sections and value. but later 
@@ -214,4 +215,30 @@ export function createJumpRule(project) {
         ans.push(ob);
     }
     return JSON.stringify(ans);
+}
+
+function prepareForMobileFormat(nodes, project){
+
+    var ans = '';
+    for (var i = 0; i < nodes.length; i++) {
+        var str = '';
+        var child = '';
+        if (nodes[i].info.section === null || nodes[i].info.question === null) {
+            return ans;
+        }
+
+        var sec = getSectionIndexByID(nodes[i].info.section.sectionId, project.project.cacheData);
+        var ques = getQuestionIndexByID(nodes[i].info.question.questionId, project.project.cacheData[sec].child);
+        var rel = (nodes[i].relation === '...') ? '' : nodes[i].relation;
+        rel = (nodes[i].child.length > 0) ? '' : rel;
+        str = sec + '_' + ques + ' ' + rel + ' ';
+
+        if (nodes[i].child.length > 0) {
+            var nextNodeRel = (nodes[i].relation === '...') ? '' : nodes[i].relation;
+            child = nodes[i].childRelation + ' (' + prepareForMobileFormat(nodes[i].child, project) + ') ' + nextNodeRel;
+        }
+        str += child;
+        ans += str
+    }
+    return ans;
 }

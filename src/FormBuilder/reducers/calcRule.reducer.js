@@ -58,12 +58,16 @@ function getRuleFromQuestion(rule) {
     return (rule === null) ? initialState : JSON.parse(rule);
 }
 
+
+
 var makeExpression = function (nodes) {
     var ans = '';
     for (var i = 0; i < nodes.length; i++) {
         var str = '';
         var child = '';
-        if (nodes[i].info.section === null || nodes[i].info.question === null) return ans;
+        if (nodes[i].info.section === null || nodes[i].info.question === null) {
+            return ans;
+        }
 
         var sec = nodes[i].info.section.name;
         var ques = nodes[i].info.question.caption;
@@ -80,3 +84,4 @@ var makeExpression = function (nodes) {
     }
     return ans;
 }
+

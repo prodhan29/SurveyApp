@@ -76,6 +76,7 @@ export function changeFieldState(fieldState, e) {
 export function saveRule(project, fieldData) {
 
     fieldData['calculationRuleClient'] = JSON.stringify(project.calcRule);
+    fieldData['calculationRule'] = RulesAction.createCalculationRule(project);
 
     fieldData['jumpingRuleClient'] = JSON.stringify(project.jumpRule);
     fieldData['jumpingRule'] = RulesAction.createJumpRule(project);
