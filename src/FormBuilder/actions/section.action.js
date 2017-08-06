@@ -216,7 +216,7 @@ export function valid(section, sectionList){
     }
     else {
         for(let i=0;i<sectionList.length;i++) {
-            if(section.name === sectionList[i].name) {
+            if(section.sectionId != sectionList[i].sectionId && section.name === sectionList[i].name) {
                 return {
                     status: false,
                     msg: 'section name is already taken'
